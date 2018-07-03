@@ -1,38 +1,52 @@
 # Meeting 1
+Date: 03/06/2018
+People: OASIS, SmartFlanders, both coaches & Flemish goverment
+
+## Coach Brecht proposal
 
 1. Search engine for URI for every building
-2. Convince cities to generate a catalog for their data with tutorial
-3. Make a combined overview of all the data for the 13 cities
-4. Map everything from Aalst to LD
-5. Demostrator of the data, see wednesday (people from ToeVla will come by)
+2. Convince cities to generate a catalog for their data with a tutorial
+3. Make a combined overview of all the data for the 13 centre cities. Which data is common, which is not?
+4. Map everything from Aalst to Linked Data (nice-to-have, OASIS is MVP)
+5. Demostrator of the data, see Wednesday (4th of July): people from ToeVla will explain some problems they have (OASIS).
 
-WHICH INFORMATION/DATA IS THE MOST USED?? SCOPE: which type of buildings?
+## Flemish goverment people
 
-ToeVla + OnWheels data
-OnWheels give an overview based on your given profile if building are accessible (voluntary)
-No data atm gathered from cities theirself.
+### Data providers
 
-Find the gap between ToeVla, OnWheels, ...  for the cities with Linked Data
-Everyone stays decentralized but connected with LD
+- ToeVla: Toerisme Vlaanderen, several data resources about tourism in Flanders and their accessibility
+- OnWheels: Accessibility data for building measured by voluteers
+- Aalst: Public domain data
+- Antwerp & Turnhout: unknown data dumps at the moment
 
-Recommendations for cities how to publish it better
+If we want more data, we should ask the organisations as quickly as possible (holiday season will be here soon).
 
-ToeVla: how to present all the measurements of a building? How can we map a whole traject for a user? 
+### SmartFlanders
 
-EXPECTATIONS:
+They want to encourage cities to publish their data in a structured and organized way.
+That means:
 
-1. Support LD open data for cities with visualization (to convince them)
-2. Use building data
-3. Where do I need to go for my new ID? Is the building accessible?
+- Linked Data, every city stays decentralized for providing data in an effcient way
+- Open Data, accessible for anyone
+- No XLS, CSV, databases, Rest API, ... but one structured manner to publish the data
 
-SmartFlanders: Show the power of LD, metadata adding to the building
-OASIS: Do something with our LD: map with accessible buildings
+So much data is available, we should focus on the data that's most used by people on ToeVla, OnWheels, ...
 
-This public service has these kind of opening hours for example
-AALST = nice to have
-Tutorial for other cities to get the same level as Aalst
+### OASIS
 
-THURSDAY: Plan what we will do for each team (expectations + kanban)
+The goal of OASIS is to use the Linked Data and do something usefull with it.
+This should convince the cities what is possible when they publish their data as Linked Data.
 
-ANTWERP will bring up data on accessibility as well
-ASK NOW for more data while they aren't on holiday
+
+## Expectations
+
+### SmartFlanders
+
+Focus on the data needed by OASIS and start by creating a list of building URI's.
+If that's working, we can add more meta data to every building.
+
+### OASIS
+
+As soon as the list of buildings is available, we can start building an OpenStreetMap map with every building.
+Adding more data later is possible and depends on which data is mostly used from ToeVla and other providers.
+
