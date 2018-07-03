@@ -4,7 +4,8 @@
   "description": "Making Flanders Smart Again",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "start" : "node index.js",
+    "test"  : "mocha"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
   "homepage": "https://github.com/oSoc18/SmartFlanders#readme",
   "dependencies": {
     "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
   }
 }
