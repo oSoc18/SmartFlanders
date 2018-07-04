@@ -1,8 +1,8 @@
 # Meeting 1
 
-Date: 03/06/2018
+*Date*: 03/06/2018
 
-People: OASIS, SmartFlanders, both coaches & Flemish goverment
+*People*: OASIS, SmartFlanders, both coaches & Flemish goverment
 
 ## Coach Brecht proposal
 
