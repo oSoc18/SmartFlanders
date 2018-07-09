@@ -1,7 +1,7 @@
 # Meeting #2 
 
 ## SmartFlanders
-First of SmartFlanders that want to help citizens to access public buildings. They will be doing this by publishing the data as open linked data. In order
+First of SmartFlanders wants to help citizens to access public buildings. They will be doing this by publishing the data as open linked data. In order
 to help the citizins they figurerd that a tutorial would be the most helpful solution. Existing tutorials are too big, boring and complex. SF will build it's own 
 tutorial that is easy to follow and contains quizes.
 SF will also focus on accessibility data. That data is already published but in the wrong formats and without a clear structure. In order to be able to really 
@@ -24,7 +24,7 @@ They both have their own problems and therefor it could be usefull to combine th
 ## Partner comments
 
 - OASIS: (What data will be used, and will it use data at all?): Yes, OASIS plans to use the data provided by SmartFlanders.
-- SmartFlanders: (not really a tutorial is needed but maybe a guide): Both can be combined but the purpose should still be make it usefull for the Flamish government itself. 
+- SmartFlanders: (not really a tutorial is needed but maybe a guide): Both can be combined but the purpose should still be make it usefull for the Flemish government itself. 
 - SmartFlanders: (What is your audience): Very general, because most governement agencies do use consultants who already are up to date with linked data.
 - OASIS: (How will you do chain of accessibility): There is no solution.
 - General: (Will city data be used): No not planned .
