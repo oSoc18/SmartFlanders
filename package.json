@@ -1,0 +1,33 @@
+{
+  "name": "smartflanders",
+  "version": "1.0.0",
+  "description": "Making Flanders Smart Again",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node index.js",
+    "test"  : "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oSoc18/SmartFlanders.git"
+  },
+  "keywords": [
+    "Flanders",
+    "Smart",
+    "Open",
+    "Linked",
+    "Data"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/oSoc18/SmartFlanders/issues"
+  },
+  "homepage": "https://github.com/oSoc18/SmartFlanders#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  }
+}
