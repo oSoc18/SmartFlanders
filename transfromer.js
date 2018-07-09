@@ -9,10 +9,18 @@ exports.transformer = async (params) => {
         let gebouwEenheidId = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouweenheden?AdresObjectId=' + JSON.parse(adresId).adressen[0].identificator.objectId);
         let gebouwId = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/' + JSON.parse(gebouwEenheidId).gebouweenheden[0].identificator.objectId);
         let gebouwInfo = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouwen/' + JSON.parse(gebouwId).gebouw.objectId);
+<<<<<<< HEAD
         return await jsonLD(JSON.parse(gebouwId), JSON.parse(adresId));
     } catch (err) {
         console.log(err);
     }
+=======
+        return await JSON.parse(gebouwInfo);
+    } catch (err) {
+        console.log(err);
+    }
+    
+>>>>>>> chore(): :bug:
 }
 
 function fetch(url) {
@@ -31,6 +39,7 @@ function fetch(url) {
             })
         })
     })
+<<<<<<< HEAD
 }
 
 function jsonLD(gebouwId, adresId){
@@ -43,4 +52,6 @@ function jsonLD(gebouwId, adresId){
         "@id" : gebouwId.gebouw.detail,
         "https://data.vlaanderen.be/doc/adres" : adresId.adressen[0].identificator.id
     }
+=======
+>>>>>>> chore(): :bug:
 }
