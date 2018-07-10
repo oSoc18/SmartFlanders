@@ -19,21 +19,18 @@ module.exports = function (params) {
 }
 
 function matchingAddress(row, params) {
-	if (row.AccomodatieStraat) {
-		if (row.AccomodatieStraat.toLowerCase() == params.straat.toLowerCase()) {
-			switch (entranceAccesible) {
+	if (params.straat && row.AccommodatieStraat) {
+		if (row.AccommodatieStraat.toLowerCase() == params.straat.toLowerCase()) {
+			switch (row.O_INKD_Inkomdeur_) {
 				case "PLUS":
 					console.log("It's a match! +");
 					break;
-
 				case "PLMN":
 					console.log("It's a match! +/-");
 					break;
-
 				case "MIN":
 					console.log("It's a match! -");
 					break;
-
 				default:
 					console.log("It's a match! UNKNOWN");
 					break;
