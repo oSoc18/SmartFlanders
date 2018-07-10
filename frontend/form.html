@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles.css">
+  <title>Gebouwenregister</title>
+</head>
+<script src="script.js" charset="utf-8"></script>
+<body>
+  <section class="content">
+    <div class="search">
+      <img src="https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png">
+      <h1>Smart Flanders</h1>
+      <h1>Gebouwenregister</h1>
+      <p class="lead">Zoek een gebouw om informatie aan toe te voegen:</p>
+      <div class="col-2">
+        <p>Gebouw zoeken via adres:</p>
+        <form class="form">
+          <label class="label" for="postcode">Postcode:</label>
+          <input class="input-text" type="text" name="postcode" id="postcode">
+          <label class="label" for="street">Straat:</label>
+          <input class="input-text" type="text" name="street" id="street">
+          <label class="label" for="number">Huisnummer:</label>
+          <input class="input-text" type="text" name="number" id="number">
+          <button class="button" onclick="checkBuildingAddress">Zoek gebouw!</button>
+        </form>
+      </div>
+      <div class="col-2">
+        <p>Gebouw zoeken via URI:</p>
+        <form class="form">
+          <label class="label" for="uri">URI van gebouw:</label>
+          <input class="input-text" type="text" name="uri" id="uri">
+          <button class="button" onclick="checkBuildingUri()">Zoek gebouw!</button>
+        </form>
+      </div>
+    </div>
+    <div class="info">
+      <div class="col-1">
+        <p>Gebouw: </p>
+        <p id="building"></p>
+        <form class="form">
+          <div class="input-group">
+            <p class="label-group">Publieke dienstverlening:</p>
+            <input class="input-checkbox" name="public-yes" type="checkbox" value="yes"/>
+            <label class="label-checkbox" for="public-yes">Ja</label>
+          </div>
+          <label class="label" for="type">Type/dienst:</label>
+          <input class="input-text" type="text" name="type">
+          <label class="label" for="category">Categorie:</label>
+          <input class="input-text" type="text" name="category">
+          <label class="label" for="category">Openingsuren:</label>
+          <input class="input-text" type="text" name="category">
+          <button class="button" onclick="addInfo()">Genereer snippet</button>
+        </form>
+      </div>
+    </div>
+    <!-- <div class="results">
+      <h2>Form Data</h2>
+      <pre class="results__display-wrapper"><code class="results__display"></code></pre>
+    </div> -->
+  </section>
+</body>
+</html>
