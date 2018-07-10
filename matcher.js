@@ -1,23 +1,23 @@
 const csv = require("fast-csv");
 require('enum').register();
-let data = [];
 
 module.exports = function (params) {
-	let accessiblityData = [];
-	csv
-	.fromPath("./toevla.csv", {
-		headers: true
+	return new Promise((resolve, reject) => {
+		let accessiblityData = [];
+		csv
+			.fromPath("./toevla.csv", {
+				headers: true
+			})
+			.on("data", function (d) {
+				accessiblityData.push(matchingAddress(d, params));
+			})
+			.on("end", function () {
+				resolve(accessibilityData);
+			})
+			.on("error", function (error) {
+				reject(error);
+			});
 	})
-	.on("data", function (d) {
-		accessiblityData.push(matchingAddress(d, params));
-	})
-	.on("end", function () {
-		console.log("done");
-		return accessibilityData;
-	})
-	.on("error", function (error) {
-		console.log(error);
-	});
 }
 
 function matchingAddress(row, params) {
@@ -36,8 +36,7 @@ function matchingAddress(row, params) {
 			}
 		}
 		return accessibilityState.Unknown;
-	}
-	else {
+	} else {
 		return accessibilityState.Unknown;
 	}
 }
