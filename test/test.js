@@ -1,5 +1,5 @@
 var assert = require("assert");
-var transformer = require("../transformer");
+var transformer = require("../helpers/transformer");
 
 
 /**
