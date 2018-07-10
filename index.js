@@ -16,8 +16,13 @@ app.use(cors())
 app.post('/transform', (req, res) => {
         transformer.transformer(req.body).then((result) => {
             res.send(result);
-        }).catch((err) => { })      
-})
+        }).catch((err) => { 
+            err.message = "Transformer failed"
+        })      
+});
+app.use(function(err, req, res, next) {
+    res.status(500).send({status:500, message: err.message, type:'internal'}); 
+  })
 
 /**
  * 
