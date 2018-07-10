@@ -26,12 +26,16 @@
   "homepage": "https://github.com/oSoc18/SmartFlanders#readme",
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> feauture/ISSUE-47
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "fast-csv": "^2.4.1",
     "morgan": "^1.9.0",
     "n3": "^1.0.0-beta.1",
+<<<<<<< HEAD
     "node-csv": "^0.1.2",
     "package.json": "^2.0.1"
 =======
@@ -39,6 +43,9 @@
     "n3": "^1.0.0-beta.1",
     "node-csv": "^0.1.2"
 >>>>>>> feat(): poc
+=======
+    "node-csv": "^0.1.2"
+>>>>>>> feauture/ISSUE-47
   },
   "devDependencies": {
     "mocha": "^5.2.0",
