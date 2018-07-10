@@ -20,6 +20,6 @@ describe("Transformer", function() {
 	it("Run transformer and search for matches in ToeVla CSV file", function() {
 		//?gemeente=aalst&postcode=9300&straat=grote%20markt&huisnummer=1
 		var params = { gemeente:"aalst", postcode: 9300, straat: "grote markt", huisnummer: 1 };
-		transformer.transformer(params);
+		transformer(params);
 	});
 });
