@@ -3,23 +3,19 @@ const app = express();
 const body = require('body-parser');
 const morgan = require('morgan')
 const cors = require('cors');
-const transformer = require('./transformer')
+const routes = require('./routes')
 
-app.use(body.urlencoded());
+// --- Middlewere
+app.use(body.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(cors())
-/**
- * @param {string} - Route path
- * 
- */
-app.post('/transform', (req, res) => {
-        transformer.transformer(req.body).then((result) => {
-            res.send(result);
-        }).catch((err) => { 
-            err.message = "Transformer failed"
-        })      
-});
+
+// --- Routes
+app.use('/transform', routes)
+
+//
 app.use(function(err, req, res, next) {
+    if(!err.message) err.message = "General error"
     res.status(500).send({status:500, message: err.message, type:'internal'}); 
   })
 
@@ -28,4 +24,4 @@ app.use(function(err, req, res, next) {
  * Server listener
  * @param {number} - Port number
  */
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(3000, () => console.log('SmartFlanders is running on port 3000'))
