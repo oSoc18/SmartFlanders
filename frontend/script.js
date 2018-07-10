@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-  console.log( "ready!" );
+  // Get building by address
   $("#form-address").submit((event) => {
     event.preventDefault();
     var postcode = document.getElementById("postcode").value;
@@ -32,7 +32,92 @@ $( document ).ready(function() {
     // Code to run if the request fails; the raw request and
     // status codes are passed to the function
     .fail(function( xhr, status, errorThrown ) {
-      alert( "Sorry, there was a problem!" );
+      alert( "Geen gebouwen gevonden" );
+      console.log( "Error: " + errorThrown );
+      console.log( "Status: " + status );
+      console.dir( xhr );
+    })
+    // Code to run regardless of success or failure;
+    .always(function( xhr, status ) {
+      alert( "The request is complete!" );
+      $("#buildings").text("building");
+    });
+  })
+
+  // Get building by uri
+  $("#form-uri").submit((event) => {
+    event.preventDefault();
+    var uri = document.getElementById("uri").value;
+
+    $.ajax({
+      // The URL for the request
+      url: "http://localhost/transform",
+
+      // The data to send (will be converted to a query string)
+      data: {
+        "uri": uri
+      },
+
+      // Whether this is a POST or GET request
+      type: "POST",
+
+      // The type of data we expect back
+      dataType : "json",
+    })
+    // Code to run if the request succeeds (is done);
+    // The response is passed to the function
+    .done(function( json ) {
+       $( "<h1>" ).text( json.title ).appendTo( "body" );
+       $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
+    })
+    // Code to run if the request fails; the raw request and
+    // status codes are passed to the function
+    .fail(function( xhr, status, errorThrown ) {
+      alert( "Geen gebouw gevonden" );
+      console.log( "Error: " + errorThrown );
+      console.log( "Status: " + status );
+      console.dir( xhr );
+    })
+    // Code to run regardless of success or failure;
+    .always(function( xhr, status ) {
+      alert( "The request is complete!" );
+      $("#buildings").text("building");
+    });
+  })
+
+  // Add info to building
+  $("#form-info").submit((event) => {
+    event.preventDefault();
+
+    var type = $("#type").val();
+    var category = $("select#category option:checked").val();
+    var times = 
+
+    $.ajax({
+      // The URL for the request
+      url: "http://localhost/transform",
+
+      // The data to send (will be converted to a query string)
+      data: {
+        "uri": uri
+      },
+
+      // Whether this is a POST or GET request
+      type: "POST",
+
+      // The type of data we expect back
+      dataType : "json",
+    })
+    // Code to run if the request succeeds (is done);
+    // The response is passed to the function
+    .done(function( json ) {
+       $( "<h1>" ).text( json.title ).appendTo( "body" );
+       $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
+    })
+    // Code to run if the request fails; the raw request and
+    // status codes are passed to the function
+    .fail(function( xhr, status, errorThrown ) {
+      alert( "Geen gebouw gevonden" );
       console.log( "Error: " + errorThrown );
       console.log( "Status: " + status );
       console.dir( xhr );
@@ -41,23 +126,5 @@ $( document ).ready(function() {
     .always(function( xhr, status ) {
       alert( "The request is complete!" );
     });
-
   })
-  var checkBuildingAddress = function() {
-
-    // get building
-  }
-
-  // var checkBuildingUri = function() {
-  //   var uri = document.getElementById("uri").value;
-  //
-  //   // check values
-  //
-  //   // get building
-  //   document.getElementById("building").innerHTML = uri;
-  // }
-  //
-  // var addInfo = function() {
-  //
-  // }
 });
