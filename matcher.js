@@ -12,7 +12,7 @@ module.exports = function (params) {
 				accessiblityData.push(matchingAddress(d, params));
 			})
 			.on("end", function () {
-				resolve(accessibilityData);
+				resolve(accessiblityData);
 			})
 			.on("error", function (error) {
 				reject(error);
