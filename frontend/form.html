@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="styles.css">
   <title>Gebouwenregister</title>
 </head>
-<script src="script.js" charset="utf-8"></script>
 <body>
   <section class="content">
     <div class="search">
@@ -17,21 +16,23 @@
       <p class="lead">Zoek een gebouw om informatie aan toe te voegen:</p>
       <div class="col-2">
         <p>Gebouw zoeken via adres:</p>
-        <form class="form">
+        <form class="form" id=form-address>
           <label class="label" for="postcode">Postcode:</label>
-          <input class="input-text" type="text" name="postcode" id="postcode">
+          <input class="input-text" type="number" name="postcode" id="postcode" required min="1000" max="9992" >
           <label class="label" for="street">Straat:</label>
-          <input class="input-text" type="text" name="street" id="street">
+          <input class="input-text" type="text" name="street" id="street" required>
           <label class="label" for="number">Huisnummer:</label>
-          <input class="input-text" type="text" name="number" id="number">
-          <button class="button" onclick="checkBuildingAddress">Zoek gebouw!</button>
+          <input class="input-text" type="number" name="number" id="number" required>
+          <p id="addressError"></p>
+          <button class="button" >Zoek gebouw!</button>
         </form>
       </div>
       <div class="col-2">
         <p>Gebouw zoeken via URI:</p>
-        <form class="form">
+        <form class="form" id="form-uri">
           <label class="label" for="uri">URI van gebouw:</label>
           <input class="input-text" type="text" name="uri" id="uri">
+          <p id="uriError"></p>
           <button class="button" onclick="checkBuildingUri()">Zoek gebouw!</button>
         </form>
       </div>
@@ -61,5 +62,7 @@
       <pre class="results__display-wrapper"><code class="results__display"></code></pre>
     </div> -->
   </section>
+<script src="jquery.js"></script>
+<script src="script.js" charset="utf-8"></script>
 </body>
 </html>
