@@ -130,8 +130,16 @@ p.lead {
   width: 90%;
 }
 
-.label-checkbox {
-  display: inline;
+.info > label {
+  margin-top: 10px;
+}
+
+.day > p {
+  display: inline-block;
+}
+
+.day > input {
+  margin: 0px 10px;
 }
 /*===========================
   Code
