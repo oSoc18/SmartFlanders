@@ -1,36 +1,27 @@
 const express = require('express');
 const app = express();
-const N3 = require('n3');
-const csv = require('node-csv').createParser();
-const { DataFactory } = N3;
-const { namedNode, literal, defaultGraph, quad } = DataFactory;
-const store = N3.Store();
+const body = require('body-parser');
+const morgan = require('morgan')
+const cors = require('cors');
+const routes = require('./routes')
 
-/**
- * Parsing the csv file and filling the data object
- * @param {string} - Path of CSV file
- * 
- */
-csv.mapFile('./ToevlaExport_20180531.csv', function(err, data) {
-    
-  console.log(data[0].AccommodatieNaam);
-  store.addQuad(
-    namedNode('http://example.org/public-buildings#' + data[0].AccommodatieNaam),
-    namedNode('http://dbpedia.org/ontology/elevatorCount'),
-    literal(0))
-});
-/**
- * @param {string} - Route path
- * 
- */
-app.get('/', (req, res) => {
-    
-    res.send(store.getQuads());
-})
+// --- Middlewere
+app.use(body.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+app.use(cors())
+
+// --- Routes
+app.use('/transform', routes)
+
+//
+app.use(function(err, req, res, next) {
+    if(!err.message) err.message = "General error"
+    res.status(500).send({status:500, message: err.message, type:'internal'}); 
+  })
 
 /**
  * 
  * Server listener
  * @param {number} - Port number
  */
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(3000, () => console.log('SmartFlanders is running on port 3000'))
