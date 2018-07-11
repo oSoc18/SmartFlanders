@@ -35,17 +35,6 @@ function fetch(url) {
     })
 }
 
-<<<<<<< HEAD
-function jsonLD(gebouwId, adresId) {
-    console.log(gebouwId)
-    return {
-        "@context": {
-            "gebouw": "https://basisregisters.vlaanderen.be/api/v1/gebouwen/",
-            "schema": "http://schema.org/"
-        },
-        "@id": gebouwId.gebouw.detail,
-        "https://data.vlaanderen.be/doc/adres": adresId.adressen[0].identificator.id
-=======
 function jsonLD(gebouwId, adresId){
     return {
         "@context": {
@@ -61,6 +50,5 @@ function jsonLD(gebouwId, adresId){
           },
         "@id" : "gebouw:" + gebouwId.gebouw.id,
         "https://data.vlaanderen.be/doc/adres" : "adressenRegister:" + adresId.adressen[0].identificator.objectId
->>>>>>> develop
     }
 }
