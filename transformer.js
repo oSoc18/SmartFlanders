@@ -1,7 +1,8 @@
 const https = require('https');
 const fs = require('fs');
 const matcher = require('./matcher');
-exports.transformer = async (params) => {
+
+module.exports = async (params) => {
     try {
         let straat = encodeURI(params.straat);
         let match = await matcher(params);
@@ -34,6 +35,7 @@ function fetch(url) {
     })
 }
 
+<<<<<<< HEAD
 function jsonLD(gebouwId, adresId) {
     console.log(gebouwId)
     return {
@@ -43,5 +45,22 @@ function jsonLD(gebouwId, adresId) {
         },
         "@id": gebouwId.gebouw.detail,
         "https://data.vlaanderen.be/doc/adres": adresId.adressen[0].identificator.id
+=======
+function jsonLD(gebouwId, adresId){
+    return {
+        "@context": {
+            "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
+            "adressenRegister": "https://data.vlaanderen.be/doc/adres/",
+            "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
+            "schema": "http://schema.org/",
+            "dcterms": "http://purl.org/dc/terms/",
+            "toevla": "http://semweb.mmlab.be/ns/wa#",
+            "locn": "http://www.w3.org/ns/locn#",
+            "geo": "http://www.opengis.net/ont/geosparql#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#"
+          },
+        "@id" : "gebouw:" + gebouwId.gebouw.id,
+        "https://data.vlaanderen.be/doc/adres" : "adressenRegister:" + adresId.adressen[0].identificator.objectId
+>>>>>>> develop
     }
 }
