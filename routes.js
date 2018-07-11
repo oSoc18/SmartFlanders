@@ -11,7 +11,6 @@ router.post('/', async (req, res, next) => {
 
     } catch (err) {
         console.error("TransformerController returned an error");
-        err.message = "Failed to transform the data in JSON-LD"
         next(err)
     }
 
