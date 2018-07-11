@@ -1,15 +1,15 @@
-const https = require('https');
-const fs = require('fs');
-const matcher = require('./matcher');
+const https = require("https');
+const fs = require("fs');
+const matcher = require("./matcher');
 
 module.exports = async (params) => {
     try {
         let straat = encodeURI(params.straat);
         let match = await matcher(params);
         let adresId = await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Gemeentenaam=${params.gemeente}&Postcode=${params.postcode}&Straatnaam=${straat}&Huisnummer=${params.huisnummer}`);
-        let gebouwEenheidId = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouweenheden?AdresObjectId=' + JSON.parse(adresId).adressen[0].identificator.objectId);
-        let gebouwId = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/' + JSON.parse(gebouwEenheidId).gebouweenheden[0].identificator.objectId);
-        let gebouwInfo = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouwen/' + JSON.parse(gebouwId).gebouw.objectId);
+        let gebouwEenheidId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden?AdresObjectId=' + JSON.parse(adresId).adressen[0].identificator.objectId);
+        let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/' + JSON.parse(gebouwEenheidId).gebouweenheden[0].identificator.objectId);
+        let gebouwInfo = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/' + JSON.parse(gebouwId).gebouw.objectId);
         return await jsonLD(JSON.parse(gebouwId), JSON.parse(adresId));
     } catch (err) {
         console.log(err);
@@ -21,13 +21,13 @@ function fetch(url) {
         https.get(url, (res) => {
             console.log(url);
             let data = "";
-            res.on('data', (d) => {
+            res.on("data', (d) => {
                 data += d;
             });
-            res.on('end', () => {
+            res.on("end', () => {
                 resolve(data);
             });
-            res.on('err', (err) => {
+            res.on("err', (err) => {
                 reject(err);
             })
         })
