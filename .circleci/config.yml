@@ -40,11 +40,21 @@ jobs:
     machine:
       enabled: true
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "06:49:3d:ef:15:a3:ef:1f:1a:9b:fe:cb:8c:6f:56:89"
       - run:
           name: Deploy using SSH
           command: |
             ssh $SSH_USER@$SSH_HOST "ls"
 
-
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
 
 
