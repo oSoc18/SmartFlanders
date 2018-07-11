@@ -33,7 +33,7 @@ jobs:
     machine:
       enabled: true
     steps:
-      - ssh-deploy:
+      - deploy:
           name: Deploy using SSH
           command: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build; git pull; npm install; forever start index.js"
 
