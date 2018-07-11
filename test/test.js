@@ -17,19 +17,19 @@ describe("Array", function() {
  * Building fetcher and ToeVla matcher - Checks if our transformer and matcher are working correctly
  */
 describe("Transformer", function() {
-	/*it("Transforming data without ToeVla data available", function() {
+	it("Transforming data without ToeVla data available", function() {
 		//?gemeente=aalst&postcode=9300&straat=grote%20markt&huisnummer=1
 		var params = { gemeente:"aalst", postcode: 9300, straat: "grote markt", huisnummer: 1 };
-		transformer.transformer(params);
-	});*/
+		transformer(params);
+	});
 	it("Transforming data with ToeVla data available", function() {
 		//?gemeente=roeselare&postcode=9300&straat=grote%20markt&huisnummer=1
 		var params = { gemeente:"roeselare", postcode: 8800, straat: "botermarkt", huisnummer: 2 };
                 transformer(params);
 	});
-	/*it("Transforming wrong data", function() {
+	it("Transforming wrong data", function() {
                 //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
                 var params = { gemeente:"blabla", postcode: 0157, straat: "earth", huisnummer: -1 };
-                transformer.transformer(params);
-        });*/
+                transformer(params);
+        });
 });
