@@ -1,8 +1,12 @@
 # Meeting #3
+# Meeting with Bart Rosseau
 
-## Partner comments
+*Date*: 10/07/2018
+*People*: OASIS, SmartFlanders, both coaches & Bart Rosseau
+
+## Comments
 ### OASIS
-- public transport
+- including pulic transport would be a nice feature too
 - link idcard or parkingcard to buildings
 - use user feedback to avoid that buildings give false information about accessibility
 - use wikipedia as identifiers
