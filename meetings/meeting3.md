@@ -1,28 +1,21 @@
 # Meeting #3
 
-## SmartFlanders
+## Partner comments
+### OASIS
+- public transport
+- link idcard or parkingcard to buildings
+- use user feedback to avoid that buildings give false information about accessibility
+- use wikipedia as identifiers
+- zoom in as much as possible
+
+### SmartFlanders
 - watch out for difficult buildings with multiple addresses
 - vocabulary:
   buildingunits =/= buildings
   data: building has address
-  info: entrance
-
+  info: where is entrance of building
 - find public toilets attached to public buildings, with accessibility label
 - start with cityhalls
-- snippet woehoe
+- idea to give snippet is great
 - check wikipedia/dbpedia for extra metadata
-- toeristinfo, historicinfo, ...
-
-
-
-
-
-## OASIS
-- public transport
-- link idcard or parkingcard to buildings
-- user feedback to avoid that buildings give false information about accessibility
-- use wikipedia as identifiers
-- zoom in as much as possible
-
-
-## Partner comments
+- maybe add toeristinfo, historic info, ...

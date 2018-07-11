@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+
   // Get building by address
   $("#form-address").submit((event) => {
     event.preventDefault();
@@ -91,7 +92,15 @@ $( document ).ready(function() {
 
     var type = $("#type").val();
     var category = $("select#category option:checked").val();
-    var times = 
+    var openinghours = {
+      "monday": [$("#mo-start").val(), $("#mo-start").val()],
+      "tuesday": [$("#tu-start").val(), $("#tu-start").val()],
+      "wednesday": [$("#we-start").val(), $("#we-start").val()],
+      "thursday": [$("#th-start").val(), $("#th-start").val()],
+      "friday": [$("#fr-start").val(), $("#fr-start").val()],
+      "saturday": [$("#sa-start").val(), $("#sa-start").val()],
+      "sunday": [$("#su-start").val(), $("#su-start").val()]
+    }
 
     $.ajax({
       // The URL for the request
@@ -99,7 +108,9 @@ $( document ).ready(function() {
 
       // The data to send (will be converted to a query string)
       data: {
-        "uri": uri
+        "type": type,
+        "category": category,
+        "openinghours": openinghours
       },
 
       // Whether this is a POST or GET request
