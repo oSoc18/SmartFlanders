@@ -36,5 +36,15 @@ jobs:
       # run tests!
       - run: npm test
 
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy using SSH
+          command: |
+            ssh $SSH_USER@$SSH_HOST "ls"
+
+
 
 
