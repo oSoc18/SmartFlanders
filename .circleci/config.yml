@@ -35,7 +35,7 @@ jobs:
     steps:
       - deploy:
           name: Deploy using SSH keys
-          command: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git pull; npm install; forever stopall; forever start index.js"
+          command: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git pull; git checkout master; npm install; forever stopall; forever start index.js"
 
 workflows:
   version: 2
