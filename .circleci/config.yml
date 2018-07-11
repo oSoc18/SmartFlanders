@@ -8,13 +8,6 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:8.11-stretch
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
 
     steps:
       - checkout
@@ -40,13 +33,9 @@ jobs:
     machine:
       enabled: true
     steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "06:49:3d:ef:15:a3:ef:1f:1a:9b:fe:cb:8c:6f:56:89"
-      - run:
+      - ssh-deploy:
           name: Deploy using SSH
-          command: |
-            ssh $SSH_USER@$SSH_HOST "ls"
+          command: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build; git pull; npm install; forever start index.js"
 
 workflows:
   version: 2
