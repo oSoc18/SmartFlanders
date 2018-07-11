@@ -1,0 +1,138 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "@context": {
+      "$id": "/properties/@context",
+      "type": "object",
+      "properties": {
+        "gebouwenRegister": {
+          "$id": "/properties/@context/properties/gebouwenRegister",
+          "type": "string",
+          "title": "The Gebouwenregister Schema ",
+          "default": "",
+          "examples": [
+            "http://data.vlaanderen.be/id/gebouw/"
+          ]
+        },
+        "adressenRegister": {
+          "$id": "/properties/@context/properties/adressenRegister",
+          "type": "string",
+          "title": "The Adressenregister Schema ",
+          "default": "",
+          "examples": [
+            "https://data.vlaanderen.be/doc/adres/"
+          ]
+        },
+        "gebouw": {
+          "$id": "/properties/@context/properties/gebouw",
+          "type": "string",
+          "title": "The Gebouw Schema ",
+          "default": "",
+          "examples": [
+            "http://data.vlaanderen.be/ns/gebouw#"
+          ]
+        },
+        "schema": {
+          "$id": "/properties/@context/properties/schema",
+          "type": "string",
+          "title": "The Schema Schema ",
+          "default": "",
+          "examples": [
+            "http://schema.org/"
+          ]
+        },
+        "dcterms": {
+          "$id": "/properties/@context/properties/dcterms",
+          "type": "string",
+          "title": "The Dcterms Schema ",
+          "default": "",
+          "examples": [
+            "http://purl.org/dc/terms/"
+          ]
+        },
+        "toevla": {
+          "$id": "/properties/@context/properties/toevla",
+          "type": "string",
+          "title": "The Toevla Schema ",
+          "default": "",
+          "examples": [
+            "http://semweb.mmlab.be/ns/wa#"
+          ]
+        },
+        "locn": {
+          "$id": "/properties/@context/properties/locn",
+          "type": "string",
+          "title": "The Locn Schema ",
+          "default": "",
+          "examples": [
+            "http://www.w3.org/ns/locn#"
+          ]
+        },
+        "geo": {
+          "$id": "/properties/@context/properties/geo",
+          "type": "string",
+          "title": "The Geo Schema ",
+          "default": "",
+          "examples": [
+            "http://www.opengis.net/ont/geosparql#"
+          ]
+        },
+        "xsd": {
+          "$id": "/properties/@context/properties/xsd",
+          "type": "string",
+          "title": "The Xsd Schema ",
+          "default": "",
+          "examples": [
+            "http://www.w3.org/2001/XMLSchema#"
+          ]
+        }
+      }
+    },
+    "@id": {
+      "$id": "/properties/@id",
+      "type": "string",
+      "title": "The @id Schema ",
+      "default": "",
+      "examples": [
+        "gebouw:16268696"
+      ]
+    },
+    "http://www.w3.org/2003/01/geo/wgs84_pos#": {
+      "$id": "/properties/http://www.w3.org/2003/01/geo/wgs84_pos#",
+      "type": "object",
+      "properties": {
+        "http://www.w3.org/2003/01/geo/wgs84_pos#point": {
+          "$id": "/properties/http://www.w3.org/2003/01/geo/wgs84_pos#/properties/http://www.w3.org/2003/01/geo/wgs84_pos#point",
+          "type": "array",
+          "items": {
+            "$id": "/properties/http://www.w3.org/2003/01/geo/wgs84_pos#/properties/http://www.w3.org/2003/01/geo/wgs84_pos#point/items",
+            "type": "object",
+            "properties": {
+              "http://www.w3.org/2003/01/geo/wgs84_pos#lat": {
+                "$id": "/properties/http://www.w3.org/2003/01/geo/wgs84_pos#/properties/http://www.w3.org/2003/01/geo/wgs84_pos#point/items/properties/http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+                "type": "number",
+                "title": "The Http://www.w3.org/2003/01/geo/wgs84_pos#lat Schema ",
+                "default": 0,
+                "examples": [
+                  -0.6256088018417358
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "https://data.vlaanderen.be/doc/adres": {
+      "$id": "/properties/https://data.vlaanderen.be/doc/adres",
+      "type": "string",
+      "title": "The Https://data.vlaanderen.be/doc/adres Schema ",
+      "default": "",
+      "examples": [
+        "adressenRegister:610239"
+      ]
+    }
+  }
+}
