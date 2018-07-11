@@ -5,7 +5,8 @@ const matcher = require('./matcher');
 module.exports = async (params) => {
     try {
         let straat = encodeURI(params.straat);
-        matcher(params);
+        let match = await matcher(params);
+        console.log(match);
         let adresId = await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Gemeentenaam=${params.gemeente}&Postcode=${params.postcode}&Straatnaam=${straat}&Huisnummer=${params.huisnummer}`);
         let gebouwEenheidId = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouweenheden?AdresObjectId=' + JSON.parse(adresId).adressen[0].identificator.objectId);
         let gebouwId = await fetch('https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/' + JSON.parse(gebouwEenheidId).gebouweenheden[0].identificator.objectId);
