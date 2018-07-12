@@ -30,6 +30,8 @@ jobs:
       - run: npm test
 
   deploy:
+    machine:
+      enabled: true
     steps: 
       - ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git reset --hard; rm package-lock.json; git pull; git checkout develop; npm install; forever stopall; forever start index.js"
 
