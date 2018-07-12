@@ -32,10 +32,8 @@ jobs:
   deploy:
     machine:
       enabled: true
-    steps:
-      - deploy:
-          name: Deploy using SSH keys
-          command: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git reset --hard; rm package-lock.json; git pull; git checkout develop; npm install; forever stopall; forever start index.js"
+    steps: 
+      - run: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git reset --hard; rm package-lock.json; git pull; git checkout master; npm install; forever stopall; forever start index.js"
 
 workflows:
   version: 2
@@ -45,8 +43,4 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: master 
-            tags:
-              only: /^V.*/
+
