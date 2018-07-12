@@ -29,10 +29,8 @@ jobs:
       # run tests!
       - run: npm test
 
-deployment:
-  production:
-    branch: master
-    commands: 
+  deploy:
+    steps: 
       - ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git reset --hard; rm package-lock.json; git pull; git checkout develop; npm install; forever stopall; forever start index.js"
 
 workflows:
@@ -40,6 +38,6 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      - deployment:
+      - deploy:
           requires:
             - build
