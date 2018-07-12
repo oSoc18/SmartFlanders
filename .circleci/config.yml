@@ -33,7 +33,7 @@ jobs:
     machine:
       enabled: true
     steps: 
-      - run: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git reset --hard; rm package-lock.json; git pull; git checkout develop; npm install; forever stopall; forever start index.js"
+      - run: ssh -o "StrictHostKeyChecking no" $SSH_USER@$SSH_HOST "cd ~/build/SmartFlanders; git reset --hard; rm package-lock.json; git pull; git checkout master; npm install; forever stopall; forever start index.js"
 
 workflows:
   version: 2
