@@ -1,8 +1,8 @@
-#Smart Flanders userstory
+# Smart Flanders userstory
 
 ## Problem
 * Willem is in a weelchair and wants to pick up his new ID-card at the cityhall
-* only 15% of the centercities published their accessibility data on ToeVla
+* only 62% of the centercities published their accessibility data on ToeVla
 
 ## How does it go right now
 Willem has to check several differnt sites to get his information

@@ -1,0 +1,26 @@
+{
+    "@context": {
+        "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
+        "adressenRegister": "https://data.vlaanderen.be/doc/adres",
+        "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
+        "schema": "http://schema.org/",
+        "dcterms": "http://purl.org/dc/terms/",
+        "toevla": "http://semweb.mmlab.be/ns/wa#",
+        "locn": "http://www.w3.org/ns/locn#",
+        "geo": "http://www.opengis.net/ont/geosparql#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#"
+    },
+    "@id": "http://data.vlaanderen.be/id/gebouw/123",
+    "@type": "gebouw:Gebouw",
+    "http://purl.org/dc/terms/description": "The entrance of the public library of Mechelen",
+    "toevla:accessibilityMeasurement": {
+        "toevla:accessibilityMeasurement_for": {
+            "dcterms:description": "The entrance",
+            "toevla:entranceDoorWidth": {
+                "@value": "70",
+                "@type": "xsd:Integer"
+            },
+            "toevla:entranceDoorWidthScore": "+"
+        }
+    }
+}

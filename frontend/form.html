@@ -8,14 +8,23 @@
   <title>Gebouwenregister</title>
 </head>
 <body>
-  <section class="content">
-    <div class="search">
+  <header>
+    <div class="header">
       <img src="https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png">
       <h1>Smart Flanders</h1>
-      <h1>Gebouwenregister</h1>
-      <p class="lead">Zoek een gebouw om informatie aan toe te voegen:</p>
-      <div class="col-2">
-        <p>Gebouw zoeken via adres:</p>
+      <h2>Gebouwenregister Smart Flanders<br>mooie slogan</h2>
+    </div>
+  </header>
+  <div class="content">
+    <div class="intro">
+      <p>Zoek een gebouw in uw stad en voeg de informatie over dit gebouw toe aan de datacatalogus.</p>
+      <p>U kunt het gebouw opzoeken via zijn adres of via de gekende URI van het gebouw.</p>
+      <button class="button"><a href="#search-address">Zoek gebouw via adres</a></button>
+      <button class="button"><a href="#search-uri">Zoek gebouw via URI</a></button>
+    </div>
+    <div class="search">
+      <div id="search-address">
+        <h3>Gebouw zoeken via adres</h3>
         <form class="form" id=form-address>
           <label class="label" for="postcode">Postcode:</label>
           <input class="input-text" type="number" name="postcode" id="postcode" required min="1000" max="9992" >
@@ -24,89 +33,127 @@
           <label class="label" for="number">Huisnummer:</label>
           <input class="input-text" type="number" name="number" id="number" required>
           <p id="addressError"></p>
-          <button class="button">Zoek gebouw!</button>
+          <button class="button">Zoeken</button>
         </form>
       </div>
-      <div class="col-2">
-        <p>Gebouw zoeken via URI:</p>
+      <div id="search-uri">
+        <h3>Gebouw zoeken via URI</h3>
         <form class="form" id="form-uri">
           <label class="label" for="uri">URI van gebouw:</label>
           <input class="input-text" type="text" name="uri" id="uri" required>
           <p id="uriError"></p>
-          <button class="button">Zoek gebouw!</button>
+          <button class="button">Zoeken</button>
         </form>
       </div>
     </div>
     <div class="info">
-      <div class="col-1">
-        <p>Gebouw: </p>
-        <p id="buildings"></p>
-        <form class="form" id="form-info">
-          <label class="label" for="type">Type/dienst:</label>
-          <input class="input-text" type="text" name="type" required id="type">
-          <label class="label" for="category">Categorie:</label>
-          <select name="category" id="category">
-            <option value="cityhall">Gemeentehuis</option>
-            <option value="gym">Sporthal</option>
-            <option value="pool">Zwembad</option>
-            <option value="library">Bibliotheek</option>
-            <option value="cultural">Cultureel centrum</option>
-          </select>
-          <label class="label" for="openinghours">Openingsuren:</label>
-          <div class="openinghours">
-            <div class="day">
-              <p>Maandag van: </p>
-              <input type="time" id="mo-start" name="mo-start"/>
-              <p> tot </p>
-              <input type="time" id="mo-end" name="mo-end"/>
-            </div>
-            <div class="day">
-              <p>Dinsdag van: </p>
-              <input type="time" id="tu-start" name="tu-start"/>
-              <p> tot </p>
-              <input type="time" id="tu-end" name="tu-end"/>
-            </div>
-            <div class="day">
-              <p>Woensdag van: </p>
-              <input type="time" id="we-start" name="we-start"/>
-              <p> tot </p>
-              <input type="time" id="we-end" name="we-end"/>
-            </div>
-            <div class="day">
-              <p>Donderdag van: </p>
-              <input type="time" id="th-start" name="th-start"/>
-              <p> tot </p>
-              <input type="time" id="th-end" name="th-end"/>
-            </div>
-            <div class="day">
-              <p>Vrijdag van: </p>
-              <input type="time" id="fr-start" name="fr-start"/>
-              <p> tot </p>
-              <input type="time" id="fr-end" name="fr-end"/>
-            </div>
-            <div class="day">
-              <p>Zaterdag van: </p>
-              <input type="time" id="sa-start" name="sa-start"/>
-              <p> tot </p>
-              <input type="time" id="sa-end" name="sa-end"/>
-            </div>
-            <div class="day">
-              <p>Zondag van: </p>
-              <input type="time" id="su-start" name="su-start"/>
-              <p> tot </p>
-              <input type="time" id="su-end" name="su-end"/>
-            </div>
+      <h3>Voeg informatie toe aan gebouw</h3>
+      <p>Gevonden gebouw(en): </p>
+      <select name="building" id="building">
+      </select>
+      <form class="form" id="form-info">
+        <h4>Algemene informatie</h4>
+        <label class="label" for="type">Type/dienst:</label>
+        <input class="input-text" type="text" name="type" required id="type">
+        <label class="label" for="category">Categorie:</label>
+        <select name="category" id="category">
+          <option value="sight">Bezienswaardigheid</option>
+          <option value="library">Bibliotheek</option>
+          <option value="cinema">Cinema</option>
+          <option value="culturalcentrum">Cultureel centrum</option>
+          <option value="cityhall">Gemeentehuis</option>
+          <option value="playground">Speeltuin</option>
+          <option value="sportshall">Sporthal</option>
+          <option value="pool">Zwembad</option>
+        </select>
+        <label class="label" for="openinghours">Openingsuren:</label>
+        <div class="openinghours">
+          <div class="day">
+            <p>Maandag van: </p>
+            <input type="time" id="mo-start-am" name="mo-start-am"/>
+            <p> tot </p>
+            <input type="time" id="mo-end-am" name="mo-end-am"/>
+            <p>en van </p>
+            <input type="time" id="mo-start-pm" name="mo-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="mo-end-pm" name="mo-end-pm"/>
           </div>
-          <button class="button">Genereer snippet</button>
-        </form>
+          <div class="day">
+            <p>Dinsdag van: </p>
+            <input type="time" id="tu-start-am" name="tu-start-am"/>
+            <p> tot </p>
+            <input type="time" id="tu-end-am" name="tu-end-am"/>
+            <p>en van </p>
+            <input type="time" id="tu-start-pm" name="tu-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="tu-end-pm" name="tu-end-pm"/>
+          </div>
+          <div class="day">
+            <p>Woensdag van: </p>
+            <input type="time" id="we-start-am" name="we-start-am"/>
+            <p> tot </p>
+            <input type="time" id="we-end-am" name="we-end-am"/>
+            <p>en van </p>
+            <input type="time" id="we-start-pm" name="we-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="we-end-pm" name="we-end-pm"/>
+          </div>
+          <div class="day">
+            <p>Donderdag van: </p>
+            <input type="time" id="th-start-am" name="th-start-am"/>
+            <p> tot </p>
+            <input type="time" id="th-end-am" name="th-end-am"/>
+            <p>en van </p>
+            <input type="time" id="th-start-pm" name="th-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="th-end-pm" name="th-end-pm"/>
+          </div>
+          <div class="day">
+            <p>Vrijdag van: </p>
+            <input type="time" id="fr-start-am" name="fr-start-am"/>
+            <p> tot </p>
+            <input type="time" id="fr-end-am" name="fr-end-am"/>
+            <p>en van </p>
+            <input type="time" id="fr-start-pm" name="fr-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="fr-end-pm" name="fr-end-pm"/>
+          </div>
+          <div class="day">
+            <p>Zaterdag van: </p>
+            <input type="time" id="sa-start-am" name="sa-start-am"/>
+            <p> tot </p>
+            <input type="time" id="sa-end-am" name="sa-end-am"/>
+            <p>en van </p>
+            <input type="time" id="sa-start-pm" name="sa-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="sa-end-pm" name="sa-end-pm"/>
+          </div>
+          <div class="day">
+            <p>Zondag van: </p>
+            <input type="time" id="su-start-am" name="su-start-am"/>
+            <p> tot </p>
+            <input type="time" id="su-end-am" name="su-end-am"/>
+            <p>en van </p>
+            <input type="time" id="su-start-pm" name="su-start-pm"/>
+            <p> tot </p>
+            <input type="time" id="su-end-pm" name="su-end-pm"/>
+          </div>
+        </div>
+        <h4>Toegankelijkheids informatie</h4>
+
+        <button class="button">Genereer snippet</button>
+      </form>
+    </div>
+    <div class="results" id="results">
+      <h3>JSON-LD snippet</h3>
+      <p>Voeg deze snippet toe aan de HTML-pagina van uw gemeente.</p>
+      <div id="snippet">
+
       </div>
     </div>
-    <!-- <div class="results">
-      <h2>Form Data</h2>
-      <pre class="results__display-wrapper"><code class="results__display"></code></pre>
-    </div> -->
-  </section>
-<script src="jquery.js"></script>
-<script src="script.js" charset="utf-8"></script>
+  </div>
+  <script src="jquery.js"></script>
+  <script src="script.js"></script>
+  <script src="../node_modules/moment/moment.js"></script>
 </body>
 </html>
