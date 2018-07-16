@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const body = require('body-parser');
-const morgan = require('morgan')
+const morgan = require('morgan');
 const cors = require('cors');
-const routes = require('./routes')
+const routes = require('./routes');
 
 // --- Middlewere
 app.use(body.urlencoded({ extended: false }));
