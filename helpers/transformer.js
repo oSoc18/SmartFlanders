@@ -6,7 +6,7 @@ const lambertToWGS = require("./lambertToWGS");
  * @param {number} params 
  */
 exports.adresFetcher = async (params) => {
-    return JSON.parse(await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Gemeentenaam=${params.gemeente}&Postcode=${params.postcode}&Straatnaam=${encodeURI(params.street)}&Huisnummer=${params.number}`));
+    return JSON.parse(await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=${params.postcode}&Straatnaam=${encodeURI(params.street)}&Huisnummer=${params.number}`));
 }
 
 /**

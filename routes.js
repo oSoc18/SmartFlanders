@@ -6,7 +6,7 @@ const transformerController = require('./controllers/transformerController')
 router.post('/', async (req, res, next) => {
     try {
         res.status(200)
-        let response = await transformerController(req.body)
+        let response = await transformerController.getAdres(req.body)
         res.send(response)
 
     } catch (err) {
