@@ -4,7 +4,7 @@
   "description": "Making Flanders Smart Again",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "node-sass my-sass-folder/ -o my-css-folder/ && nodemon index.js",
     "test": "mocha"
   },
   "repository": {
