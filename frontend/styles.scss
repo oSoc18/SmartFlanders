@@ -165,15 +165,20 @@ header {
     background-color: $white;
     float: left;
     margin-top: 20%;
+    margin-bottom: 35px;
     width: 100%;
 
     #search-address, #search-uri {
-      background-color: $grey;
-      border-radius: 15px;
-      box-shadow: 9px 9px 9px 0 rgba(38,36,79,.07);
+      // background-color: $grey;
+      // border-radius: 15px;
+      // box-shadow: 9px 9px 9px 0 rgba(38,36,79,.07);
       margin: 5% auto;
       width: 75%;
     }
+
+    // #search-address {
+    //   border-bottom: 2px solid $purple;
+    // }
   }
 
   /*===========================

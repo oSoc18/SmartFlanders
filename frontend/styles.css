@@ -156,12 +156,10 @@ header .header img {
   background-color: white;
   float: left;
   margin-top: 20%;
+  margin-bottom: 35px;
   width: 100%;
 }
 .content .search #search-address, .content .search #search-uri {
-  background-color: #f3f1f3;
-  border-radius: 15px;
-  box-shadow: 9px 9px 9px 0 rgba(38, 36, 79, 0.07);
   margin: 5% auto;
   width: 75%;
 }
