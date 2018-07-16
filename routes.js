@@ -3,11 +3,11 @@ const router = express.Router()
 const transformerController = require('./controllers/transformerController')
 
 
-router.post('/', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         res.status(200)
-        let response = await transformerController.getAdres(req.body)
-        res.send(response)
+       // let response = await transformerController.getAdres(req.body)
+        res.render('index');
 
     } catch (err) {
         console.error("TransformerController returned an error");
