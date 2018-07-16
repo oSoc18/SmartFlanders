@@ -1,0 +1,17 @@
+{
+    "@context": {
+        "dcat": "https://www.w3.org/ns/dcat#",
+        "dcterms": "http://purl.org/dc/terms/",
+        "foaf": "http://xmlns.com/foaf/0.1/"
+    },
+    "@type": "dcterms:Collection",
+    "dcterms:hasPart": [{
+            "foaf:page": "http://smartflanders.ilabt.imec.be/catalog-example.json",
+            "@type": "dcat:Catalog"
+        },
+        {
+            "foaf:page": "http://www.oostende.be/",
+            "@type": "dcat:Catalog"
+        }
+    ]
+}

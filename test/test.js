@@ -1,6 +1,6 @@
 var assert = require("assert");
 var transformer = require("../helpers/transformer");
-
+var openinghoursController = require('../controllers/openingHoursController');
 
 /**
  * Dummy test - Should always pass unless something is wrong with Mocha
@@ -33,3 +33,20 @@ describe("Transformer", function() {
                 transformer.adresFetcher(params);
         });
 });
+
+describe("Openinghours", function(){
+	it("Should return openinghours in JSON-LD format", function() {
+		let params = {
+			openinghours : {
+				"monday": ["09:00", "12:00" , "13:00", "17:00"],
+				"tuesday": ["09:00", "12:00" , "13:00", "17:00"],
+				"wednesday":  ["09:00", "12:00" , "13:00", "17:00"],
+				"thursday": ["09:00", "12:00" , "13:00", "17:00"],
+				"friday":  ["09:00", "12:00" , "13:00", "17:00"],
+				"saturday":  ["09:00", "12:00" , "13:00", "17:00"],
+				"sunday":  ["09:00", "12:00" , "13:00", "17:00"]
+			}
+		};
+		console.log(openinghoursController.getOpeningHours(params));
+	})
+})
