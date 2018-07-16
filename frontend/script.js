@@ -1,5 +1,4 @@
-$( document ).ready(function() {
-
+$(document).ready(function() {
   // Get building by address
   $("#form-address").submit((event) => {
     event.preventDefault();
@@ -26,21 +25,21 @@ $( document ).ready(function() {
     })
     // Code to run if the request succeeds (is done);
     // The response is passed to the function
-    .done(function( json ) {
+    .done(function(json) {
        $( "<h1>" ).text( json.title ).appendTo( "body" );
        $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
     })
     // Code to run if the request fails; the raw request and
     // status codes are passed to the function
-    .fail(function( xhr, status, errorThrown ) {
-      alert( "Geen gebouwen gevonden" );
+    .fail(function(xhr, status, errorThrown) {
+      alert("Geen gebouwen gevonden");
       console.log( "Error: " + errorThrown );
       console.log( "Status: " + status );
       console.dir( xhr );
     })
     // Code to run regardless of success or failure;
-    .always(function( xhr, status ) {
-      alert( "The request is complete!" );
+    .always(function(xhr, status) {
+      alert("The request is complete!");
       $("#buildings").text("building");
     });
   })
@@ -67,20 +66,20 @@ $( document ).ready(function() {
     })
     // Code to run if the request succeeds (is done);
     // The response is passed to the function
-    .done(function( json ) {
+    .done(function(json) {
        $( "<h1>" ).text( json.title ).appendTo( "body" );
        $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
     })
     // Code to run if the request fails; the raw request and
     // status codes are passed to the function
-    .fail(function( xhr, status, errorThrown ) {
+    .fail(function(xhr, status, errorThrown) {
       alert( "Geen gebouw gevonden" );
       console.log( "Error: " + errorThrown );
       console.log( "Status: " + status );
       console.dir( xhr );
     })
     // Code to run regardless of success or failure;
-    .always(function( xhr, status ) {
+    .always(function(xhr, status) {
       alert( "The request is complete!" );
       $("#buildings").text("building");
     });
@@ -89,17 +88,19 @@ $( document ).ready(function() {
   // Add info to building
   $("#form-info").submit((event) => {
     event.preventDefault();
-
+    var test = moment().minute($("#mo-start-am").val());
+    console.log(test);
+    
     var type = $("#type").val();
     var category = $("select#category option:checked").val();
     var openinghours = {
-      "monday": [$("#mo-start").val(), $("#mo-start").val()],
-      "tuesday": [$("#tu-start").val(), $("#tu-start").val()],
-      "wednesday": [$("#we-start").val(), $("#we-start").val()],
-      "thursday": [$("#th-start").val(), $("#th-start").val()],
-      "friday": [$("#fr-start").val(), $("#fr-start").val()],
-      "saturday": [$("#sa-start").val(), $("#sa-start").val()],
-      "sunday": [$("#su-start").val(), $("#su-start").val()]
+      "monday": [$("#mo-start-am").val(), $("#mo-start-am").val(), $("#mo-start-pm").val(), $("#mo-start-pm").val()],
+      "tuesday": [$("#tu-start-am").val(), $("#tu-start-am").val(), $("#tu-start-pm").val(), $("#tu-start-pm").val()],
+      "wednesday": [$("#we-start-am").val(), $("#we-start-am").val(), $("#we-start-pm").val(), $("#we-start-pm").val()],
+      "thursday": [$("#th-start-am").val(), $("#th-start-am").val(), $("#th-start-pm").val(), $("#th-start-pm").val()],
+      "friday": [$("#fr-start-am").val(), $("#fr-start-am").val(), $("#fr-start-pm").val(), $("#fr-start-pm").val()],
+      "saturday": [$("#sa-start-am").val(), $("#sa-start-am").val(), $("#sa-start-pm").val(), $("#sa-start-pm").val()],
+      "sunday": [$("#su-start-am").val(), $("#su-start-am").val(), $("#su-start-pm").val(), $("#su-start-pm").val()]
     }
 
     $.ajax({
@@ -121,20 +122,20 @@ $( document ).ready(function() {
     })
     // Code to run if the request succeeds (is done);
     // The response is passed to the function
-    .done(function( json ) {
+    .done(function(json) {
        $( "<h1>" ).text( json.title ).appendTo( "body" );
        $( "<div class=\"content\">").html( json.html ).appendTo( "body" );
     })
     // Code to run if the request fails; the raw request and
     // status codes are passed to the function
-    .fail(function( xhr, status, errorThrown ) {
+    .fail(function(xhr, status, errorThrown) {
       alert( "Geen gebouw gevonden" );
       console.log( "Error: " + errorThrown );
       console.log( "Status: " + status );
       console.dir( xhr );
     })
     // Code to run regardless of success or failure;
-    .always(function( xhr, status ) {
+    .always(function(xhr, status) {
       alert( "The request is complete!" );
     });
   })
