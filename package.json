@@ -29,7 +29,6 @@
     "cors": "^2.8.4",
     "enum": "^2.5.0",
     "express": "^4.16.3",
-<<<<<<< HEAD
     "fast-csv": "^2.4.1",
     "morgan": "^1.9.0",
     "n3": "^1.0.0-beta.1",
@@ -37,12 +36,6 @@
     "npm": "^6.1.0",
     "package.json": "^2.0.1",
     "validator": "^10.4.0"
-=======
-    "moment": "^2.22.2",
-    "n3": "^1.0.0-beta.1",
-    "node-csv": "^0.1.2",
-    "npm": "^6.1.0"
->>>>>>> feature/ISSUE-94
   },
   "devDependencies": {
     "chai": "^4.1.2",
