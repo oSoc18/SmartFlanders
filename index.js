@@ -13,6 +13,7 @@ app.use(morgan('dev'));
 app.use(cors())
 
 app.use(express.static('public'));
+app.use('/graph', express.static('files'));
 app.get('/', (req, res) => {
   res.render('index');
 })

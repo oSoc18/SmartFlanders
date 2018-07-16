@@ -4,7 +4,7 @@
   "description": "Making Flanders Smart Again",
   "main": "index.js",
   "scripts": {
-    "start": "node-sass my-sass-folder/ -o my-css-folder/ && nodemon index.js",
+    "start": "node-sass frontend/ -o public/ && nodemon index.js",
     "test": "mocha"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "morgan": "^1.9.0",
     "n3": "^1.0.0-beta.1",
     "node-csv": "^0.1.2",
+    "node-sass": "^4.9.2",
     "npm": "^6.1.0",
     "package.json": "^2.0.1",
     "pug": "^2.0.3",

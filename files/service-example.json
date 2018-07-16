@@ -1,0 +1,69 @@
+[{
+    "@context": "http://schema.org/",
+    "@id": "https://stad.gent/id/products/123",
+    "@type": "Service",
+    "name": "Public toilet library",
+    "description": "The public toilet of the public library of Mechelen",
+    "http://purl.org/oslo/ns/localgov#productType": "http://productencatalogus.vlaanderen.be/fiche/158",
+    "telephone": "+32",
+    "email": "test@gmail.com",
+    "https://schema.org/hoursAvailable": 
+    [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "schema:Monday",
+        "opens": "09:00",
+        "closes": "11:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "schema:Tuesday",
+        "opens": "09:00",
+        "closes": "16:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "validFrom": "2013-12-24",
+        "validThrough": "2014-01-02"
+      }
+      ]
+  },{
+    "@id": "https://stad.gent/id/products/123",
+    "@type": "http://purl.org/vocab/cpsv#PublicService",
+    "http://data.europa.eu/m8g/hasChannel": {
+      "https://schema.org/hoursAvailable": 
+    [
+      {
+        "@type": "OpeningHoursSpecification",
+        "validFrom": "2013-12-24",
+        "validThrough": "2013-12-25",
+        "opens": "09:00",
+        "closes": "11:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "validFrom": "2013-05-24",
+        "validThrough": "2013-10-25",
+        "opens": "09:00",
+        "closes": "16:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "validFrom": "2013-12-24",
+        "validThrough": "2014-01-02"
+      }
+      ]
+  },
+    "http://purl.org/dc/terms/description": "The public toilet of the public library of Mechelen",
+    "http://www.w3.org/ns/locn#location": "http://data.vlaanderen.be/id/gebouw/123",
+    "toevla:accessibilityMeasurement": {
+      "toevla:accessibilityMeasurement_for": {
+        "dcterms:description": "The elevator",
+        "toevla:elevatorDoorWidth": {
+          "@value": "70",
+          "@type": "xsd:Integer"
+        },
+        "toevla:elevatorDoorScore": "+"
+      }
+    }
+  }]
