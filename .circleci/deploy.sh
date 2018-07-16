@@ -12,7 +12,7 @@ npm install
 forever stopall
 forever start index.js
 
-# Install frond end
+# Install front end
 cd /var/www/smartflanders.ilabt.imec.be
 rm *.html *.css *.js *.scss
 cp ~/build/SmartFlanders/frontend /var/www/smartflanders.ilabt.imec.be
