@@ -4,7 +4,7 @@ const body = require('body-parser');
 const morgan = require('morgan');
 const cors = require('cors');
 const routes = require('./routes');
-const path = require('path')
+const path = require('path');
 const pug = require('pug');
 
 // --- Middlewere
@@ -12,6 +12,11 @@ app.use(body.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 app.use(cors())
 
+app.use(express.static('public'));
+app.use('/graph', express.static('files'));
+app.get('/', (req, res) => {
+  res.render('index');
+})
 // --- Routes
 app.use('/transform', routes)
 
