@@ -27,7 +27,7 @@ app.set('view engine', 'pug');
 //
 app.use(function(err, req, res, next) {
     if(!err.message) err.message = "General error"
-    res.status(500).send({status:500, message: err.message, type:'internal'}); 
+    res.status(500).send({status:500, message: err.message, type:'internal'});
   })
 
   /**

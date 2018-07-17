@@ -1,34 +1,56 @@
 const express = require('express')
 const router = express.Router()
-const transformerController = require('./controllers/transformerController');
-const openingHoursController = require('./controllers/openingHoursController');
+const transformerController = require('./controllers/transformerController')
 
 router.get('/', async (req, res, next) => {
     try {
-        res.status(200)
-        let response = await transformerController.getAdres(req.body)
-        res.render('index', response);
-    } catch (err) {
-        console.error("TransformerController returned an error");
-        next(err)
-    }
-});
-router.post('/adres' ,async (req, res, next) => {
-    try {
-        res.status(200)
-        let response = await transformerController.getGebouwEenheden(req.body)
-        res.send(response)
+        res.status(200);
+        res.render('index');
     } catch (error) {
         console.error("TransformerController returned an error");
-        next(err)
+        next(error);
     }
 });
+
+// get search with address
+router.get('/zoeken', async (req, res, next) => {
+    res.render('search');
+});
+
+// post search building with address
+router.post('/zoeken', async (req, res, next) => {
+    try {
+        res.status(200);
+        let response = await transformerController.getAdres(req.body);
+        res.render('buildings', response);
+    } catch (error) {
+        console.error("TransformerController returned an error");
+        next(error);
+    }
+});
+
+// post search buildingunit
+router.post('/gebouwunits', async (req, res, next) => {
+    try {
+        res.status(200);
+        let response = await transformerController.getGebouwEenheden(req.body)
+        res.render('building-units', response)
+
+    } catch (error) {
+        console.error("TransformerController returned an error");
+        next(error);
+    }
+});
+
 router.post('/gebouw', async (req, res, next) => {
     try {
         res.status(200)
+        let response = await transformerController.getGebouwId(req.body)
+        res.render('building', {
+            building : JSON.stringify(response, null, 4)
+        })
     } catch (error) {
-        console.error("TransformerController returned an error");
-        next(err)
+
     }
 })
 // Openinghours page is still to be made 
@@ -40,6 +62,13 @@ router.post('/openingHours', (req, res, next) => {
         console.error("OpeningHoursController")
     }
 })
+
+// get add info
+router.get('/toevoegen', async (req, res, next) => {
+    res.render('info');
+});
+
+
 
 
 module.exports = router
