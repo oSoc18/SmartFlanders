@@ -22,16 +22,7 @@ router.post('/zoeken', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getAdres(req.body);
-        // console.log(JSON.stringify(response.adressen[0].volledigAdres.spelling, null, 4));
-        let buildings = [];
-        response.adressen.forEach( (result, i) => {
-            let id = response.adressen[i].identificator.objectId;
-            let address = response.adressen[i].volledigAdres.geografischeNaam.spelling;
-            buildings.push({id: id, value: address});
-        })
-        res.render('buildings', {
-            buildings: buildings
-        });
+        res.render('buildings', response);
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
@@ -42,14 +33,26 @@ router.post('/zoeken', async (req, res, next) => {
 router.post('/gebouwunits', async (req, res, next) => {
     try {
         res.status(200);
-        console.log('werkt');
         let response = await transformerController.getGebouwEenheden(req.body)
+        res.render('building-units', response)
 
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
     }
 });
+
+router.post('/gebouw', async (req, res, next) => {
+    try {
+        res.status(200)
+        let response = await transformerController.getGebouwId(req.body)
+        res.render('building', {
+            building : JSON.stringify(response)
+        })
+    } catch (error) {
+
+    }
+})
 
 // get add info
 router.get('/toevoegen', async (req, res, next) => {

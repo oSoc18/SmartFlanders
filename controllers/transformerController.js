@@ -38,7 +38,8 @@ exports.getGebouwEenheden = async (params) => {
 
 exports.getGebouwId = async (params) => {
       try {
-            if(!validator.isDataURI(params.gebouwEenheidId)) throw new Error ("gebouwEenheidId is geen URI"); 
+            if(!validator.isInt(params.gebouwEenheidId)) throw new Error ("gebouwEenheidId is geen nummer");
+            return await transformer.gebouwFetcher(params) 
       } catch (error) {
             console.log(error.name + ': ' + error.message);
             throw new Error(error.message)
