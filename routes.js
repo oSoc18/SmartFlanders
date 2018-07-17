@@ -47,7 +47,7 @@ router.post('/gebouw', async (req, res, next) => {
         res.status(200)
         let response = await transformerController.getGebouwId(req.body)
         res.render('building', {
-            building : JSON.stringify(response)
+            building : JSON.stringify(response, null, 4)
         })
     } catch (error) {
 
