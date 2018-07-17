@@ -1,22 +1,40 @@
 const https = require("https");
-const fs = require("fs");
 const matcher = require("./matcher");
-
-module.exports = async (params) => {
-    try {
-        let straat = encodeURI(params.street);
-        let match = await matcher(params);
-        let adresId = await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Gemeentenaam=${params.gemeente}&Postcode=${params.postcode}&Straatnaam=${straat}&Huisnummer=${params.huisnummer}`);
-        let gebouwEenheidId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden?AdresObjectId=" + JSON.parse(adresId).adressen[0].identificator.objectId);
-        let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + JSON.parse(gebouwEenheidId).gebouweenheden[0].identificator.objectId);
-        let gebouwInfo = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId);
-        return await jsonLD(JSON.parse(gebouwId), JSON.parse(adresId));
-    } catch (err) {
-        console.error(err.stack);
-        throw new Error(err.message = "helpers/Transformer: Something went were wrong while fetching buildings")
-    }
+const lambertToWGS = require("./lambertToWGS");
+/**
+ * Get all possible addresses based on adress
+ * @param {number} params 
+ */
+exports.adresFetcher = async (params) => {
+    return JSON.parse(await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=${params.postcode}&Straatnaam=${encodeURI(params.street)}&Huisnummer=${params.number}`));
 }
 
+/**
+ * Fetches a gebouwEenheid based on a adresId, can return multiple gebouweenheden!
+ * @param {number} adresObjectId 
+ */
+exports.gebouwEenheidFetcher = async (params) => {
+    try {
+        return JSON.parse(await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden?AdresObjectId=" + params.adresObjectId));
+
+    }catch(err){
+        console.error(err)
+    }
+}
+/**
+ * Fetches a gebouwId based on gebouwEenheidId
+ * @param {number} gebouwEenheidID 
+ */
+exports.gebouwFetcher =  async (params) => {
+    let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
+    let gebouwDetails = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId)
+    return jsonLD(JSON.parse(gebouwId).gebouw.objectId, params.adresId, lambertToWGS(JSON.parse(gebouwDetails).geometriePunt.point.coordinates[0], JSON.parse(gebouwDetails).geometriePunt.point.coordinates[1]))
+};
+    
+/**
+ * Helper function to get the data based on the url
+ * @param {string} url 
+ */
 function fetch(url) {
     return new Promise((resolve, reject) => {
         https.get(url, (res) => {
@@ -34,8 +52,13 @@ function fetch(url) {
         })
     })
 }
-
-function jsonLD(gebouwId, adresId, location){
+/**
+ *  Generates a JSON-LD file based on the given URIs
+ * @param {number} gebouwId 
+ * @param {number} adresId 
+ * @param {number} location 
+ */
+function jsonLD(gebouwId, adresId, location) {
     return {
         "@context": {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
@@ -47,19 +70,18 @@ function jsonLD(gebouwId, adresId, location){
             "locn": "http://www.w3.org/ns/locn#",
             "geo": "http://www.opengis.net/ont/geosparql#",
             "xsd": "http://www.w3.org/2001/XMLSchema#"
-          },
-        "@id" : "gebouw:" + gebouwId.gebouw.objectId,
+        },
+        "@id": "gebouw:" + gebouwId,
         "http://www.w3.org/2003/01/geo/wgs84_pos#": {
-            "http://www.w3.org/2003/01/geo/wgs84_pos#point": [
-                {
-                "http://www.w3.org/2003/01/geo/wgs84_pos#lat": location[0]
+            "http://www.w3.org/2003/01/geo/wgs84_pos#point": [{
+                    "http://www.w3.org/2003/01/geo/wgs84_pos#lat": location[0]
                 },
                 {
-                "http://www.w3.org/2003/01/geo/wgs84_pos#long": location[1]
+                    "http://www.w3.org/2003/01/geo/wgs84_pos#long": location[1]
                 }
 
             ]
         },
-        "https://data.vlaanderen.be/doc/adres" : "adressenRegister:" + adresId.adressen[0].identificator.objectId
+        "https://data.vlaanderen.be/doc/adres": "adressenRegister:" + adresId.adressen[0].identificator.objectId
     }
 }
