@@ -13,7 +13,7 @@
             "dcat:keyword": "http://schema.org/Service",
             "dcat:distribution": [{
               "@type": "dcat:Distribution",
-              "dcat:accessUrl": "https://www.mechelen.be/huis-van-de-mechelaar",
+              "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/service-example.json",
               "dcat:mediaType": "text/html"
             }]
         },
@@ -22,7 +22,7 @@
             "dcat:keyword": "http://purl.org/vocab/cpsv#PublicService",
             "dcat:distribution": [{
               "@type": "dcat:Distribution",
-              "dcat:accessUrl": "http://www.academiemechelen.be/",
+              "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/service-example.json",
               "dcat:mediaType": "text/html"
             }]
         },

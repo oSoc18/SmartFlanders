@@ -1,10 +1,11 @@
 const https = require('https');
+const fs = require('fs');
 let adressen = [];
 startMapping();
 async function startMapping(){
     console.log('started')
-    await fetchAddresses("https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=9300");
-    console.log(addressen)
+    await fetchAddresses("https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=9300&limit=300");
+    fs.writeFile('./', JSON.parse(adressen));
 }
 
 async function fetchAddresses(url){
@@ -12,8 +13,8 @@ async function fetchAddresses(url){
     _adressen.adressen.forEach(element => {
         adressen.push(element.identificator.objectId)
     })
-    if(_addressen.volgende){
-        await fetchAddresses(_addressen.volgende);
+    if(_adressen.volgende){
+        await fetchAddresses(_adressen.volgende);
     } 
 }
 
