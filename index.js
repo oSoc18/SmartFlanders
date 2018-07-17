@@ -6,6 +6,7 @@ const cors = require('cors');
 const routes = require('./routes');
 const path = require('path')
 const pug = require('pug');
+
 // --- Middlewere
 app.use(body.urlencoded({ extended: false }));
 app.use(morgan('dev'));
@@ -21,7 +22,7 @@ app.set('view engine', 'pug');
 //
 app.use(function(err, req, res, next) {
     if(!err.message) err.message = "General error"
-    res.status(500).send({status:500, message: err.message, type:'internal'}); 
+    res.status(500).send({status:500, message: err.message, type:'internal'});
   })
 
   /**

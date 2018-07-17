@@ -1,0 +1,99 @@
+doctype html
+html
+  head
+    include partials/head
+
+  body
+    header
+      include partials/header
+    .content
+      .search-address
+        h3 Voeg informatie toe aan gebouw
+        form
+          label.label Categorie:
+          select#category(form='addProperty', name='category')
+            option(value='bezienswaardigheid') Bezienswaardigheid
+            option(value='bibliotheek') Bibliotheek
+            option(value='cinema') Cinema
+            option(value='cultureelcentrum') Cultureel centrum
+            option(value='gemeentehuis') Gemeentehuis
+            option(value='speeltuin') Speeltuin
+            option(value='sporthal') Sporthal
+            option(value='zwembad') Zwembad
+            
+          label.label Type dienst:
+          select#type(form='addProperty', name='type')
+            option(value='bezienswaardigheid') Bezienswaardigheid
+            option(value='bibliotheek') Bibliotheek
+          
+          label.label Algemene openingsuren:
+          .openinghours
+            .day
+              p Maandag van:
+              input(id='mo-start-am' name='mo-start-am' type='time') 
+              p tot 
+              input(type='time' id='mo-end-am' name='mo-end-am')
+              pen van 
+              input(type='time' id='mo-start-pm' name='mo-start-pm')
+              p tot 
+              input(type='time' id='mo-end-pm' name='mo-end-pm')
+            .day
+              p Dinsdag van: 
+              input(type='time' id='tu-start-am' name='tu-start-am')
+              p tot 
+              input(type='time' id='tu-end-am' name='tu-end-am')
+              p en van 
+              input(type='time' id='tu-start-pm' name='tu-start-pm')
+              p tot 
+              input(type='time' id='tu-end-pm' name='tu-end-pm')
+            .day
+              p Woensdag van: 
+              input(type='time' id='we-start-am' name='we-start-am')
+              p tot 
+              input(type='time' id='we-end-am' name='we-end-am')
+              p en van 
+              input(type='time' id='we-start-pm' name='we-start-pm')
+              p tot 
+              input(type='time' id='we-end-pm' name='we-end-pm')
+            .day
+              p Donderdag van: 
+              input(type='time' id='th-start-am' name='th-start-am')
+              p tot 
+              input(type='time' id='th-end-am' name='th-end-am')
+              p en van 
+              input(type='time' id='th-start-pm' name='th-start-pm')
+              p tot 
+              input(type='time' id='th-end-pm' name='th-end-pm')
+            .day
+              p Vrijdag van: 
+              input(type='time' id='fr-start-am' name='fr-start-am')
+              p tot 
+              input(type='time' id='fr-end-am' name='fr-end-am')
+              p en van 
+              input(type='time' id='fr-start-pm' name='fr-start-pm')
+              p tot 
+              input(type='time' id='fr-end-pm' name='fr-end-pm')
+            .day
+              p Zaterdag van: 
+              input(type='time' id='sa-start-am' name='sa-start-am')
+              p tot 
+              input(type='time' id='sa-end-am' name='sa-end-am')
+              p en van 
+              input(type='time' id='sa-start-pm' name='sa-start-pm')
+              p tot 
+              input(type='time' id='sa-end-pm' name='sa-end-pm')
+            .day
+              p Zondag van: 
+              input(type='time' id='su-start-am' name='su-start-am')
+              p tot 
+              input(type='time' id='su-end-am' name='su-end-am')
+              p en van 
+              input(type='time' id='su-start-pm' name='su-start-pm')
+              p tot 
+              input(type='time' id='su-end-pm' name='su-end-pm')
+                
+        h3 Toegankelijkheids informatie
+        form
+                  
+        button.button Voeg informatie toe en genereer snippet
+script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')

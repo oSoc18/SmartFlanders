@@ -2,36 +2,61 @@ const express = require('express')
 const router = express.Router()
 const transformerController = require('./controllers/transformerController')
 
-
 router.get('/', async (req, res, next) => {
     try {
-        res.status(200)
-       // let response = await transformerController.getAdres(req.body)
+        res.status(200);
         res.render('index');
+    } catch (error) {
+        console.error("TransformerController returned an error");
+        next(error);
+    }
+});
 
-    } catch (err) {
+// get search with address
+router.get('/zoeken', async (req, res, next) => {
+    res.render('search');
+});
+
+// post search building with address
+router.post('/zoeken', async (req, res, next) => {
+    try {
+        res.status(200);
+        let response = await transformerController.getAdres(req.body);
+        // console.log(JSON.stringify(response.adressen[0].volledigAdres.spelling, null, 4));
+        let buildings = [];
+        response.adressen.forEach( (result, i) => {
+            let id = response.adressen[i].identificator.objectId;
+            let address = response.adressen[i].volledigAdres.geografischeNaam.spelling;
+            buildings.push({id: id, value: address});
+        })
+        res.render('buildings', {
+            buildings: buildings
+        });
+    } catch (error) {
         console.error("TransformerController returned an error");
-        next(err)
+        next(error);
     }
 });
-router.post('/adres' ,async (req, res, next) => {
+
+// post search buildingunit
+router.post('/gebouwunits', async (req, res, next) => {
     try {
-        res.status(200)
+        res.status(200);
+        console.log('werkt');
         let response = await transformerController.getGebouwEenheden(req.body)
-        res.send(response)
+
     } catch (error) {
         console.error("TransformerController returned an error");
-        next(err)
+        next(error);
     }
 });
-router.post('/gebouw', async (req, res, next) => {
-    try {
-        res.status(200)
-    } catch (error) {
-        console.error("TransformerController returned an error");
-        next(err)
-    }
-})
+
+// get add info
+router.get('/toevoegen', async (req, res, next) => {
+    res.render('info');
+});
+
+
 
 
 module.exports = router
