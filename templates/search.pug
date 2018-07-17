@@ -7,8 +7,7 @@ html
     header
       include partials/header
     .content
-      .search-address
-        h3 Gebouw zoeken via adres
+      .container
         form(action='/transform/zoeken', method="POST")
           label.label(for='postcode') Postcode:
           input.input-text(id='postcode'  name='postcode' type='number' required min='1000' max='9992') 

@@ -1,0 +1,198 @@
+/*===========================
+  Variables
+============================ */
+/*===========================
+  General
+============================ */
+body {
+  background-color: #f3f1f3;
+  color: #29264c;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  line-height: 1.75;
+  margin: 0;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2 {
+  color: white;
+}
+
+h3 {
+  font-size: 25px;
+  padding-bottom: 15px;
+  text-align: center;
+}
+
+.button {
+  background-color: #ffd400;
+  border: 0;
+  border-radius: 25px;
+  color: white;
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 1.5;
+  margin: 20px auto;
+  padding: 6px 30px;
+}
+
+.button:hover {
+  background-color: #fee513;
+}
+
+.form {
+  font-size: 20px;
+  display: block;
+  margin: 0 15%;
+  overflow: hidden;
+  padding: 16px 0 32px;
+  position: relative;
+}
+
+.label {
+  display: block;
+  line-height: 1.125;
+}
+
+.input-text {
+  border: 1px solid #29264c;
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  margin: 10px 0px 20px;
+  padding: 7px;
+  transition: 150ms border-color linear;
+  width: 100%;
+}
+
+select {
+  border: 1px solid #29264c;
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 18px;
+  margin: 10px 0px 20px;
+  padding: 7px;
+  width: 100%;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+/*===========================
+  Header
+============================ */
+header {
+  background-color: #4844A3;
+  height: 350px;
+  margin: 0;
+  width: 100%;
+}
+header .header {
+  color: white;
+  margin: 0px 12.5%;
+  padding-top: 30px;
+  width: 75%;
+}
+header .header h1 {
+  font-size: 25px;
+  margin: 7px 80px;
+}
+header .header h2 {
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-top: 75px;
+}
+header .header img {
+  float: left;
+  max-width: 5%;
+}
+header .header a {
+  float: right;
+}
+
+/*===========================
+  Content
+============================ */
+.content {
+  background-color: #f3f1f3;
+  float: left;
+  width: 100%;
+  /*===========================
+    Info
+  ============================ */
+  /*===========================
+    Snippet
+  ============================ */
+}
+.content .intro {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 9px 9px 9px 0 rgba(38, 36, 79, 0.07);
+  height: 250px;
+  margin: -100px 20%;
+  text-align: center;
+  width: 60%;
+}
+.content .intro p {
+  font-size: 20px;
+  margin: 0px auto;
+  padding: 50px 0px;
+  text-align: center;
+  width: 75%;
+}
+.content .container {
+  float: left;
+  margin: 5% 25%;
+  width: 50%;
+}
+.content .info {
+  margin: 5% 25%;
+  width: 50%;
+}
+.content .info p {
+  display: inline;
+  margin-left: 15%;
+}
+.content .info #building {
+  display: inline;
+  margin-left: 7%;
+}
+.content .info form {
+  padding-top: 0px;
+}
+.content .info form h3 {
+  margin-top: 50px;
+}
+.content .info form h4 {
+  margin-top: 50px;
+}
+.content .info form p {
+  margin: 0px;
+}
+.content .info form label {
+  padding: 10px 0px;
+}
+.content .info form .openinghours {
+  margin-top: 5px;
+}
+.content .info form input[type=time] {
+  border: 1px solid #29264c;
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  margin: 0px 10px 5px;
+  padding: 4px 10px;
+}
+.content pre.snippet {
+  background-color: white;
+  margin: 0px auto 30px;
+  padding: 20px;
+  width: 100%;
+}
+
+/*# sourceMappingURL=styles.css.map */
