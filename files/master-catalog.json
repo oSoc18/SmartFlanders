@@ -6,7 +6,7 @@
     },
     "@type": "dcterms:Collection",
     "dcterms:hasPart": [{
-            "foaf:page": "http://smartflanders.ilabt.imec.be/catalog-example.json",
+            "foaf:page": "http://smartflanders.ilabt.imec.be/graph/catalog-example.json",
             "@type": "dcat:Catalog"
         },
         {
