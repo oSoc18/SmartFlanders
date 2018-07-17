@@ -1,7 +1,6 @@
 # Meeting 1
 
-*Date*: 03/06/2018
-
+*Date*: 03/07/2018
 *People*: OASIS, SmartFlanders, both coaches & Flemish goverment
 
 ## Coach Brecht proposal
@@ -51,4 +50,3 @@ If that's working, we can add more meta data to every building.
 
 As soon as the list of buildings is available, we can start building an OpenStreetMap map with every building.
 Adding more data later is possible and depends on which data is mostly used from ToeVla and other providers.
-
