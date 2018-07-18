@@ -13,7 +13,7 @@ app.use(morgan('dev'));
 app.use(cors())
 
 // --- Routes
-app.use('/transform', routes)
+app.use('/', routes)
 
 // --- Enable PUG template
 app.set('views', path.join(__dirname, 'templates'));
