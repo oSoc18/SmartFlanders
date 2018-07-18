@@ -10,7 +10,7 @@ html
       .container
         h3 Voeg informatie toe aan gebouw
         label.label Gevonden gebouweenheden binnen:
-        form(action='/transform/gebouw', method="POST", id="gebouweenheden")
+        form(action='/gebouw', method="POST", id="gebouweenheden")
           select(name="gebouwEenheidId" form="gebouweenheden")
             each unit in gebouweenheden 
               option(value=(unit.identificator.objectId)) #{unit.detail} 

@@ -9,7 +9,7 @@ html
     .content
       .container
         h3 Gebouw zoeken via adres
-        form(action='/transform/zoeken', method="POST")
+        form(action='zoeken', method="POST")
           label.label(for='postcode') Postcode:
           input.input-text(id='postcode'  name='postcode' type='number' required min='1000' max='9992') 
           label.label(for='street') Straat:
