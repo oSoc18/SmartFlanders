@@ -1,0 +1,93 @@
+doctype html
+html
+  head
+    include partials/head
+  body
+    header
+      include partials/header
+    .content
+      .container
+        h3 Voeg informatie toe aan deze service
+        form(action='services', method="POST")
+            label.label(for='name') Naam:
+            input.input-text(id='name'  name='name' type='text' required) 
+            label.label(for='description') Beschrijving:
+            input.input-text(id='description'  name='description' type='text' required) 
+            label.label(for='producttype') Producttype:
+            input.input-text(id='producttype'  name='producttype' type='text' required) 
+            label.label(for='email') Emailadres:
+            input.input-text(id='email'  name='email' type='text' required)
+            label.label(for='phone') Telefoonnummer:
+            input.input-text(id='phone'  name='phone' type='number' required)          
+            label.label Openingsuren:
+            .openinghours
+                .weekdays
+                    p Maandag van:
+                    p Dindsdag van:
+                    p Woensdag van:
+                .hours
+                     .day
+                        p Maandag van:
+                        input(type='time' id='mo-start-am' name='mo-start-am') 
+                        p tot 
+                        input(type='time' id='mo-end-am' name='mo-end-am')
+                        pen van 
+                        input(type='time' id='mo-start-pm' name='mo-start-pm')
+                        p tot 
+                        input(type='time' id='mo-end-pm' name='mo-end-pm')
+                    .day
+                        p Dinsdag van: 
+                        input(type='time' id='tu-start-am' name='tu-start-am')
+                        p tot 
+                        input(type='time' id='tu-end-am' name='tu-end-am')
+                        p en van 
+                        input(type='time' id='tu-start-pm' name='tu-start-pm')
+                        p tot 
+                        input(type='time' id='tu-end-pm' name='tu-end-pm')
+                    .day
+                        p Woensdag van: 
+                        input(type='time' id='we-start-am' name='we-start-am')
+                        p tot 
+                        input(type='time' id='we-end-am' name='we-end-am')
+                        p en van 
+                        input(type='time' id='we-start-pm' name='we-start-pm')
+                        p tot 
+                        input(type='time' id='we-end-pm' name='we-end-pm')
+                    .day
+                        p Donderdag van: 
+                        input(type='time' id='th-start-am' name='th-start-am')
+                        p tot 
+                        input(type='time' id='th-end-am' name='th-end-am')
+                        p en van 
+                        input(type='time' id='th-start-pm' name='th-start-pm')
+                        p tot 
+                        input(type='time' id='th-end-pm' name='th-end-pm')
+                    .day
+                        p Vrijdag van: 
+                        input(type='time' id='fr-start-am' name='fr-start-am')
+                        p tot 
+                        input(type='time' id='fr-end-am' name='fr-end-am')
+                        p en van 
+                        input(type='time' id='fr-start-pm' name='fr-start-pm')
+                        p tot 
+                        input(type='time' id='fr-end-pm' name='fr-end-pm')
+                    .day
+                        p Zaterdag van: 
+                        input(type='time' id='sa-start-am' name='sa-start-am')
+                        p tot 
+                        input(type='time' id='sa-end-am' name='sa-end-am')
+                        p en van 
+                        input(type='time' id='sa-start-pm' name='sa-start-pm')
+                        p tot 
+                        input(type='time' id='sa-end-pm' name='sa-end-pm')
+                    .day
+                        p Zondag van: 
+                        input(type='time' id='su-start-am' name='su-start-am')
+                        p tot 
+                        input(type='time' id='su-end-am' name='su-end-am')
+                        p en van 
+                        input(type='time' id='su-start-pm' name='su-start-pm')
+                        p tot 
+                    input(type='time' id='su-end-pm' name='su-end-pm')  
+            button.button(type='submit') Voeg informatie toe
+script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js', integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN', crossorigin='anonymous')

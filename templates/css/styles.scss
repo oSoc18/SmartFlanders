@@ -29,8 +29,14 @@ h1, h2 {
 
 h3 {
   font-size: 25px;
-  padding-bottom: 15px;
+  margin-top: 25px;
+  margin-bottom: 15px;
   text-align: center;
+}
+
+h4 {
+  text-align: center;
+  margin: 0px 0px 45px;
 }
 
 .button {
@@ -121,8 +127,17 @@ header {
       max-width: 5%;
     }
 
-    a {
+    .nav {
       float: right;
+      
+      a {
+        float: left;
+        padding: 15px;
+      }
+
+      a:hover {
+        color: $yellow;
+      }
     }
   }
 }
@@ -155,7 +170,7 @@ header {
 
   .container {
     float: left;
-    margin: 5% 25%;
+    margin: 0px 25% 5%;
     width: 50%;
   }
 
@@ -171,21 +186,8 @@ header {
       margin-left: 15%;
     }
 
-    #building {
-      display: inline;
-      margin-left: 7%;
-    }
-
     form {
       padding-top: 0px;
-
-      h3 {
-        margin-top: 50px;
-      }
-
-      h4 {
-        margin-top: 50px;
-      }
 
       p {
         margin: 0px;
@@ -195,24 +197,41 @@ header {
         padding: 10px 0px;
       }
 
-      .openinghours {
-        margin-top: 5px;
-      }
-
-      input[type="time"] {
-        border: 1px solid #29264c;
-        border-radius: 5px;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
-        margin: 0px 10px 5px;
-        padding: 4px 10px;
-      }
+      
     }
   }
 
   /*===========================
-    Snippet
+    Openinghours
   ============================ */
+  .openinghours {
+    margin-top: 5px;
+
+    .weekdays {
+      float: left;
+    }
+
+    .hours {
+      float: left;
+
+      .day {
+        input[type="time"] {
+          border: 1px solid #29264c;
+          border-radius: 5px;
+          display: inline;
+          font-family: "Open Sans", sans-serif;
+          font-size: 14px;
+          margin: 0px 10px 5px;
+          padding: 4px 10px;
+        }
+
+        p {
+          display: inline;
+        }
+      }
+    }
+  }
+
   pre.snippet {
     background-color: white;
     margin: 0px auto 30px;
