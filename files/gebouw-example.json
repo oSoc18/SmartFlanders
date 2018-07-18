@@ -22,5 +22,14 @@
             },
             "toevla:entranceDoorWidthScore": "+"
         }
+    },
+    "gebouw:Gebouw.adres": {
+        "@id": "http://data.vlaanderen.be/id/adres/123",
+        "@type": "http://www.w3.org/ns/locn#Address",
+        "http://www.w3.org/2003/01/geo/wgs84_pos#location": {
+            "@type": "http://www.w3.org/2003/01/geo/wgs84_pos#Point",
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat": 50.8650315,
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long": 4.3472645
+        }
     }
 }
