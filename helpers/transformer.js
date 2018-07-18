@@ -1,6 +1,8 @@
 const https = require("https");
 const matcher = require("./matcher");
 const lambertToWGS = require("./lambertToWGS");
+const openingHoursController = require("../controllers/openingHoursController");
+
 /**
  * Get all possible addresses based on adress
  * @param {number} params 
@@ -28,7 +30,24 @@ exports.gebouwEenheidFetcher = async (params) => {
 exports.gebouwFetcher =  async (params) => {
     let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
     let gebouwDetails = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId)
-    return jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
+};
+
+/**
+ * Adds a service
+ * @param {number} gebouwEenheidID 
+ */
+exports.makeService =  async (params) => {
+	let openingHours = {
+				"monday": [params["mo-start-am"], params["mo-end-am"], params["mo-start-pm"], params["mo-end-pm"]],
+				"tuesday": [params["tu-start-am"], params["tu-end-am"], params["tu-start-pm"], params["tu-end-pm"]],
+				"wednesday": [params["we-start-am"], params["we-end-am"], params["we-start-pm"], params["we-end-pm"]],
+				"thursday": [params["th-start-am"], params["th-end-am"], params["th-start-pm"], params["th-end-pm"]],
+				"friday": [params["fr-start-am"], params["fr-end-am"], params["fr-start-pm"], params["fr-end-pm"]],
+				"saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
+				"sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
+			}
+	return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours);
 };
     
 /**
@@ -53,12 +72,12 @@ function fetch(url) {
     })
 }
 /**
- *  Generates a JSON-LD file based on the given URIs
+ *  Generates a JSON-LD building file based on the given URIs
  * @param {number} gebouwId 
  * @param {number} adresId 
  * @param {number} location 
  */
-function jsonLD(gebouwId, adresId, location) {
+function jsonLDBuilding(gebouwId, adresId, location) {
     return {
         "@context": {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
@@ -82,4 +101,39 @@ function jsonLD(gebouwId, adresId, location) {
              }
            }
         }
+}
+/**
+ *  Generates a JSON-LD service file based on the given URIs
+ * @param {number} gebouwId 
+ * @param {number} adresId 
+ * @param {number} location 
+ */
+function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
+	let jsonLD = [
+	    {
+		"@context": "http://schema.org/",
+		"@type": "Service",
+		"name": name,
+		"description": description,
+		"http://purl.org/oslo/ns/localgov#productType": productType,
+		"telephone": telephone,
+		"email": email,
+		"https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+	    },
+	    {
+		"@type": "http://purl.org/vocab/cpsv#PublicService",
+		"http://data.europa.eu/m8g/hasChannel": {
+		    "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+		},
+		"http://purl.org/dc/terms/description": description
+	    }
+        ];
+
+	// Only add ID if available
+	if(id.length > 0) {
+		jsonLD[0]["@id"] = id;
+		jsonLD[1]["@id"] = id;
+	}
+
+	return jsonLD;
 }

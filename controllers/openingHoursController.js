@@ -1,21 +1,21 @@
-const validator = require('validator')
-const transformer = require('../helpers/transformer')
+const validator = require("validator")
+const transformer = require("../helpers/transformer")
 
 let json = []
 
-exports.getOpeningHours = (params) => {
+exports.getOpeningHours = (openingHours) => {
 
-  Object.keys(params.openinghours).forEach((element, index) => {
+  Object.keys(openingHours).forEach((element, index) => {
     json.push({
       "@type": "OpeningHoursSpecification",
-      "closes": Object.values(params.openinghours)[index][1],
+      "closes": Object.values(openingHours)[index][1],
       "dayOfWeek": "http://schema.org/" + capitalizeFirstLetter(element),
-      "opens": Object.values(params.openinghours)[index][0]
+      "opens": Object.values(openingHours)[index][0]
     }, {
       "@type": "OpeningHoursSpecification",
-      "closes": Object.values(params.openinghours)[index][3],
+      "closes": Object.values(openingHours)[index][3],
       "dayOfWeek": "http://schema.org/" + capitalizeFirstLetter(element),
-      "opens": Object.values(params.openinghours)[index][2]
+      "opens": Object.values(openingHours)[index][2]
     })
   });
   return `
