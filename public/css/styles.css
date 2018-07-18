@@ -1,8 +1,8 @@
 /*===========================
-  Variables
+ Variables
 ============================ */
 /*===========================
-  General
+ General
 ============================ */
 body {
   background-color: #f3f1f3;
@@ -89,7 +89,7 @@ a {
 }
 
 /*===========================
-  Header
+ Header
 ============================ */
 header {
   background-color: #4844A3;
@@ -129,7 +129,7 @@ header .header .nav a:hover {
 }
 
 /*===========================
-  Content
+ Content
 ============================ */
 .content {
   background-color: #f3f1f3;
