@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
   res.render('index');
 })
 // --- Routes
-app.use('/transform', routes)
+app.use('/', routes)
 
 // --- Enable PUG template
 app.set('views', path.join(__dirname, 'templates'));
