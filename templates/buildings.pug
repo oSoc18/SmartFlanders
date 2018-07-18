@@ -9,7 +9,7 @@ html
     .content
       .container
         h3 Voeg informatie toe aan gebouw
-        form(action='/transform/gebouwunits', method="POST", id="adres")
+        form(action='/gebouwunits', method="POST", id="adres")
           label.label Gevonden gebouw(en):
           select(name="adresObjectId" form="adres")
             each adres in adressen 

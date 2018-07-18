@@ -5,7 +5,9 @@ startMapping();
 async function startMapping(){
     console.log('started')
     await fetchAddresses("https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=9300&limit=300");
-    fs.writeFile('./', JSON.parse(adressen));
+    fs.writeFile('./aalst.json', JSON.parse(adressen), err => {
+        console.error(err);
+    });
 }
 
 async function fetchAddresses(url){
