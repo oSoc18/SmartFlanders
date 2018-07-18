@@ -28,7 +28,7 @@ exports.getAdres = async (params) => {
 
 exports.getGebouwEenheden = async (params) => {
       try {
-            if(!validator.isInt(params.adresObjectId)) throw new Error ("Adres is geen nummer");
+            if(!validator.isInt(params.adresObjectId)) throw new Error ("AdresObjectId is geen nummer");
             return await transformer.gebouwEenheidFetcher(params)
       } catch (error) {
             console.log(error.name + ': ' + error.message);
@@ -38,7 +38,7 @@ exports.getGebouwEenheden = async (params) => {
 
 exports.getGebouwId = async (params) => {
       try {
-            if(!validator.isInt(params.gebouwEenheidId)) throw new Error ("gebouwEenheidId is geen nummer");
+            if(!validator.isInt(params.gebouwEenheidId)) throw new Error ("GebouwEenheidId is geen nummer");
             return await transformer.gebouwFetcher(params) 
       } catch (error) {
             console.log(error.name + ': ' + error.message);

@@ -1,6 +1,19 @@
 var assert = require("assert");
 var transformer = require("../helpers/transformer");
-var openinghoursController = require('../controllers/openingHoursController');
+var transformerController = require("../controllers/transformerController");
+var openinghoursController = require("../controllers/openingHoursController");
+
+
+async function assertThrowsAsync(fn, regExp) {
+	let f = () => {};
+	try {
+    		await fn();
+  	} catch(e) {
+	f = () => {throw e};
+	} finally {
+		assert.throws(f, regExp);
+	}
+}
 
 /**
  * Dummy test - Should always pass unless something is wrong with Mocha
@@ -19,7 +32,7 @@ describe("Array", function() {
 describe("Transformer", function() {
 	it("Transforming data without ToeVla data available", function() {
 		//?gemeente=aalst&postcode=9300&straat=grote%20markt&huisnummer=1
-		var params = { gemeente:"aalst", postcode: 9300, straat: "grote markt", huisnummer: 1 };
+		var params = { gemeente: "aalst", postcode: 9300, straat: "grote markt", huisnummer: 1 };
 		transformer.adresFetcher(params);
 	});
 	it("Transforming data with ToeVla data available", function() {
@@ -29,15 +42,18 @@ describe("Transformer", function() {
 	});
 	it("Transforming wrong data", function() {
                 //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
-                var params = { gemeente:"blabla", postcode: 0157, straat: "earth", huisnummer: -1 };
+                var params = { gemeente: "blabla", postcode: 0157, straat: "earth", huisnummer: -1 };
                 transformer.adresFetcher(params);
         });
 });
 
+/*
+ * Parsing opening hours to JSON-LD
+ */
 describe("Openinghours", function(){
-	it("Should return openinghours in JSON-LD format", function() {
+	it("Should return opening hours in JSON-LD format", function() {
 		let params = {
-			openinghours : {
+			openinghours: {
 				"monday": ["09:00", "12:00" , "13:00", "17:00"],
 				"tuesday": ["09:00", "12:00" , "13:00", "17:00"],
 				"wednesday":  ["09:00", "12:00" , "13:00", "17:00"],
@@ -49,4 +65,101 @@ describe("Openinghours", function(){
 		};
 		console.log(openinghoursController.getOpeningHours(params));
 	})
+})
+
+/*
+ * Validating the user input from the form
+ */
+describe("Validation", function() {
+	// Validation getAdres input
+	describe("getAdres", function() {
+		it("getAdres valid params", async function() {
+			let params = {
+				postcode: "9300",
+				street: "Botermarkt",
+				number: "1",
+				gemeente: "aalst"
+			};
+			await transformerController.getAdres(params)
+		});
+
+		it("getAdres should throw Postcode incorrect", async function () {
+		    await assertThrowsAsync(async () => {
+				let params = {
+					postcode: "64414",
+					street: "Botermarkt",
+					number: "1",
+					gemeente: "aalst"
+				};
+				await transformerController.getAdres(params)
+			}, 
+			/Error/);
+		});
+		it("getAdres should throw Number incorrect", async function () {
+		    await assertThrowsAsync(async () => {
+				let params = {
+					postcode: "1800",
+					street: "Botermarkt",
+					number: "-1",
+					gemeente: "aalst"
+				};
+				await transformerController.getAdres(params)
+			}, 
+			/Error/);
+		});
+		it("getAdres should throw Street incorrect", async function () {
+		    await assertThrowsAsync(async () => {
+				let params = {
+					postcode: "9300",
+					street: "flsdjfkldjflqjflqjfldjfsklqhflqmdjfdhflsdhbfsldfksdhflsdfh",
+					number: "1",
+					gemeente: "aalst"
+				};
+				await transformerController.getAdres(params)
+			}, 
+			/Error/);
+		});
+	});
+
+	// Validation getGebouwEenheden input
+	describe("getGebouwEenheden", function() {
+		it("getGebouwEenheden valid number", async function() {
+			let params = {
+				adresObjectId: "3201926"
+			};
+			await transformerController.getGebouwEenheden(params)
+		});
+
+		it("getGebouwEenheden should throw AdresObjectId is geen nummer", async function () {
+		    await assertThrowsAsync(async () => {
+				let params = {
+					// Public library Mechelen
+					adresObjectId: "abc"
+				};
+				await transformerController.getGebouwEenheden(params)
+			}, 
+			/Error/);
+		});
+	});
+
+	// Validation getGebouwEenheden input
+	describe("getGebouwId", function() {
+		it("getGebouwId valid number", async function() {
+			let params = {
+				// Public library Mechelen
+				gebouwEenheidId: "6923391"
+			};
+			await transformerController.getGebouwId(params)
+		});
+
+		it("getGebouwId should throw GebouwEenheidId is geen nummer", async function () {
+		    await assertThrowsAsync(async () => {
+				let params = {
+					gebouwEenheidId: "abc"
+				};
+				await transformerController.getGebouwId(params)
+			}, 
+			/Error/);
+		});
+	});
 })
