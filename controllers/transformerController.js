@@ -45,7 +45,3 @@ exports.getGebouwId = async (params) => {
             throw new Error(error.message)
       }
 }
-
-exports.getOpeningHours = async (params) => {
-      
-}

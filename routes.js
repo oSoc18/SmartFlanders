@@ -53,6 +53,15 @@ router.post('/gebouw', async (req, res, next) => {
 
     }
 })
+// Openinghours page is still to be made 
+router.post('/openingHours', (req, res, next) => {
+    try {
+          let response = openingHoursController.getOpeningHours(params)
+          //res.render('')
+    } catch (error) {
+        console.error("OpeningHoursController")
+    }
+})
 
 // get add info
 router.get('/toevoegen', async (req, res, next) => {
