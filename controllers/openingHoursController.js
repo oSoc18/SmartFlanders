@@ -18,10 +18,13 @@ exports.getOpeningHours = (openingHours) => {
       "opens": Object.values(openingHours)[index][2]
     })
   });
-  return `
-      "openingHoursSpecification": ${JSON.stringify(json)}
-    `
+  return {
+    "openingHoursSpecification": json
+  }
+
+
 }
+
 
 function capitalizeFirstLetter(chars) {
   return chars[0].toUpperCase() + chars.slice(1);

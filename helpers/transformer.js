@@ -110,7 +110,7 @@ exports.makeService =  async (params) => {
 				"saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
 				"sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
 			}
-	return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours);
+	return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours)
 };
 
 /**
