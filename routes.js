@@ -73,6 +73,9 @@ router.get('/postcode', async (req, res, next) => {
     res.render('services');
 });
 
+router.post('/service/postcode', async (req, res, next) => {
+    await serviceController
+})
 router.post('/services', async (req, res, next) => {
     try {
         res.status(200);
