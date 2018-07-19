@@ -1,5 +1,5 @@
 [{
-    "@context": "http://schema.org/",
+    "@context": "https://schema.org/",
     "@id": "https://stad.gent/id/products/123",
     "@type": "Service",
     "name": "Public toilet library",
