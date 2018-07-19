@@ -1,5 +1,5 @@
 /*===========================
-  Variables
+ Variables
 ============================ */
 $purple: #4844A3;
 $yellow: #ffd400;
@@ -9,214 +9,236 @@ $grey: #f3f1f3;
 $text: #29264c;
 
 /*===========================
-  General
+ General
 ============================ */
 body {
-  background-color: $grey;
-  color: $text;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  line-height: 1.75;
-  margin: 0;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+ background-color: $grey;
+ color: $text;
+ font-family: 'Open Sans', sans-serif;
+ font-size: 18px;
+ line-height: 1.75;
+ margin: 0;
+ text-rendering: optimizeLegibility;
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2 {
-  color: $white;
+ color: $white;
 }
 
 h3 {
-  font-size: 25px;
-  padding-bottom: 15px;
-  text-align: center;
+ font-size: 25px;
+ margin-top: 25px;
+ margin-bottom: 15px;
+ text-align: center;
+}
+
+h4 {
+ text-align: center;
+ margin: 0px 0px 45px;
 }
 
 .button {
-  background-color: $yellow;
-  border: 0;
-  border-radius: 25px;
-  color: white;
-  font-size: 20px;
-  letter-spacing: 1px;
-  line-height: 1.5;
-  margin: 20px auto;
-  padding: 6px 30px;
+ background-color: $yellow;
+ border: 0;
+ border-radius: 25px;
+ color: white;
+ font-size: 20px;
+ letter-spacing: 1px;
+ line-height: 1.5;
+ margin: 20px auto;
+ padding: 6px 30px;
 }
 
 .button:hover {
-  background-color: $light-yellow;
+ background-color: $light-yellow;
 }
 
 .form {
-  font-size: 20px;
-  display: block;
-  margin: 0 15%;
-  overflow: hidden;
-  padding: 16px 0 32px;
-  position: relative;
+ font-size: 20px;
+ display: block;
+ margin: 0 15%;
+ overflow: hidden;
+ padding: 16px 0 32px;
+ position: relative;
 }
 
 .label {
-  display: block;
-  line-height: 1.125;
+ display: block;
+ line-height: 1.125;
 }
 
 .input-text {
-  border: 1px solid $text;
-  border-radius: 5px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  margin: 10px 0px 20px;
-  padding: 7px;
-  transition: 150ms border-color linear;
-  width: 100%;
+ border: 1px solid $text;
+ border-radius: 5px;
+ font-family: 'Open Sans', sans-serif;
+ font-size: 18px;
+ margin: 10px 0px 20px;
+ padding: 7px;
+ transition: 150ms border-color linear;
+ width: 100%;
 }
 
 select {
-  border: 1px solid $text;
-  border-radius: 5px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
-  margin: 10px 0px 20px;
-  padding: 7px;
-  width: 100%;
+ border: 1px solid $text;
+ border-radius: 5px;
+ font-family: 'Open Sans', sans-serif;
+ font-size: 18px;
+ margin: 10px 0px 20px;
+ padding: 7px;
+ width: 100%;
 }
 
 a {
-  color: $white;
-  text-decoration: none;
+ color: $white;
+ text-decoration: none;
 }
 
 /*===========================
-  Header
+ Header
 ============================ */
 header {
-  background-color: $purple;
-  height: 350px;
-  margin: 0;
-  width: 100%;
+ background-color: $purple;
+ height: 350px;
+ margin: 0;
+ width: 100%;
 
-  .header {
-    color: white;
-    margin: 0px 12.5%;
-    padding-top: 30px;
-    width: 75%;
+ .header {
+   color: white;
+   margin: 0px 12.5%;
+   padding-top: 30px;
+   width: 75%;
 
-    h1 {
-      font-size: 25px;
-      margin: 7px 80px;
-    }
+   h1 {
+     font-size: 25px;
+     margin: 7px 80px;
+   }
 
-    h2 {
-      font-size: 35px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      margin-top: 75px;
-    }
+   h2 {
+     font-size: 35px;
+     font-weight: bold;
+     letter-spacing: 2px;
+     margin-top: 75px;
+   }
 
-    img {
-      float: left;
-      max-width: 5%;
-    }
+   img {
+     float: left;
+     max-width: 5%;
+   }
 
-    a {
-      float: right;
-    }
-  }
+   .nav {
+     float: right;
+     
+     a {
+       float: left;
+       padding: 15px;
+     }
+
+     a:hover {
+       color: $yellow;
+     }
+   }
+ }
 }
 
 /*===========================
-  Content
+ Content
 ============================ */
 .content {
-  background-color: $grey;
-  float: left;
-  width: 100%;
+ background-color: $grey;
+ float: left;
+ width: 100%;
 
-  .intro {
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 9px 9px 9px 0 rgba(38,36,79,.07);
-    height: 250px;
-    margin: -100px 20%;
-    text-align: center;
-    width: 60%;
+ .intro {
+   background-color: white;
+   border-radius: 15px;
+   box-shadow: 9px 9px 9px 0 rgba(38,36,79,.07);
+   height: 250px;
+   margin: -100px 20%;
+   text-align: center;
+   width: 60%;
 
-    p {
-      font-size: 20px;
-      margin: 0px auto;
-      padding: 50px 0px;
-      text-align: center;
-      width: 75%;
-    }
-  }  
+   p {
+     font-size: 20px;
+     margin: 0px auto;
+     padding: 50px 0px;
+     text-align: center;
+     width: 75%;
+   }
+ }  
 
-  .container {
-    float: left;
-    margin: 5% 25%;
-    width: 50%;
-  }
+ .container {
+   float: left;
+   margin: 0px 25% 5%;
+   width: 50%;
+ }
 
-  /*===========================
-    Info
-  ============================ */
-  .info {
-    margin: 5% 25%;
-    width: 50%;
+ /*===========================
+   Info
+ ============================ */
+ .info {
+   margin: 5% 25%;
+   width: 50%;
 
-    p {
-      display: inline;
-      margin-left: 15%;
-    }
+   p {
+     display: inline;
+     margin-left: 15%;
+   }
 
-    #building {
-      display: inline;
-      margin-left: 7%;
-    }
+   form {
+     padding-top: 0px;
 
-    form {
-      padding-top: 0px;
+     p {
+       margin: 0px;
+     }
 
-      h3 {
-        margin-top: 50px;
-      }
+     label {
+       padding: 10px 0px;
+     }
 
-      h4 {
-        margin-top: 50px;
-      }
+     
+   }
+ }
 
-      p {
-        margin: 0px;
-      }
+ /*===========================
+   Openinghours
+ ============================ */
+ .openinghours {
+   margin-top: 5px;
 
-      label {
-        padding: 10px 0px;
-      }
+   .weekdays {
+     float: left;
+     p {
+       margin: 0px 5px;
+     }
+   }
 
-      .openinghours {
-        margin-top: 5px;
-      }
+   .hours {
+     float: left;
 
-      input[type="time"] {
-        border: 1px solid #29264c;
-        border-radius: 5px;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
-        margin: 0px 10px 5px;
-        padding: 4px 10px;
-      }
-    }
-  }
+     .day {
+       input[type="time"] {
+         border: 1px solid #29264c;
+         border-radius: 5px;
+         display: inline;
+         font-family: "Open Sans", sans-serif;
+         font-size: 14px;
+         margin: 0px 15px;
+         padding: 4px 10px;
+       }
 
-  /*===========================
-    Snippet
-  ============================ */
-  pre.snippet {
-    background-color: white;
-    margin: 0px auto 30px;
-    padding: 20px;
-    width: 100%; 
-  }   
-}
+       p {
+         display: inline;
+       }
+     }
+   }
+ }
+
+ pre.snippet {
+   background-color: white;
+   margin: 0px auto 30px;
+   padding: 20px;
+   width: 100%; 
+ }   
+} 
