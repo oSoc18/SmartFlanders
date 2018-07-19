@@ -78,9 +78,7 @@ router.post('/services', async (req, res, next) => {
         res.status(200);
         console.log(req.body)
         // let response = await serviceController.addService(req.body);
-        // res.render('snippet', {
-        //     building : JSON.stringify(response, null, 4)
-        // })
+        //
         } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
