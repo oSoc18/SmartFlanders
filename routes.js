@@ -74,7 +74,14 @@ router.get('/postcode', async (req, res, next) => {
 });
 
 router.post('/service/postcode', async (req, res, next) => {
-    await serviceController
+    try {
+        res.status(200)
+        var response = await serviceController.postCodeSearch(req.body);
+    } catch (error) {
+        res.status(304)
+        var response = error.message; 
+    }
+    res.send(response);
 })
 router.post('/services', async (req, res, next) => {
     try {
