@@ -45,7 +45,7 @@ describe("Transformer", function() {
                 var params = { gemeente: "blabla", postcode: 0157, straat: "earth", huisnummer: -1 };
                 transformer.adresFetcher(params);
         });
-	it("Transforming Service data", function() {
+	it("Transforming Service data", async function() {
                 //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
                 var params = { 
 			id: "URI:/123",

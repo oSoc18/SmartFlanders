@@ -1,4 +1,4 @@
-const transformer = require("../helpers/transformator")
+const transformer = require("../helpers/transformer")
 
 exports.addService = async (params) => {
 	return await transformer.makeService(params);
