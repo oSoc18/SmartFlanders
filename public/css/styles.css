@@ -114,13 +114,8 @@ header {
 ============================ */
 .content {
   background-color: #f3f1f3;
-  width: 100%;
-  /*===========================
-   Info
- ============================ */
-  /*===========================
-   Openinghours
- ============================ */ }
+  float: left;
+  width: 100%; }
   .content .intro {
     background-color: white;
     border-radius: 15px;
