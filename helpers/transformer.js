@@ -1,16 +1,13 @@
 const https = require("https");
 const matcher = require("./matcher");
 const lambertToWGS = require("./lambertToWGS");
-<<<<<<< HEAD
 const fs = require('fs');
 const path = require('path')
-=======
 const openingHoursController = require("../controllers/openingHoursController");
 
->>>>>>> b9d9a55e6952ed48cddd5efb8923324e8ffc7a19
 /**
  * Get all possible addresses based on adress
- * @param {number} params 
+ * @param {number} params
  */
 exports.adresFetcher = async (params) => {
     return JSON.parse(await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=${params.postcode}&Straatnaam=${encodeURI(params.street)}&Huisnummer=${params.number}`));
@@ -18,7 +15,7 @@ exports.adresFetcher = async (params) => {
 
 /**
  * Fetches a gebouwEenheid based on a adresId, can return multiple gebouweenheden!
- * @param {number} adresObjectId 
+ * @param {number} adresObjectId
  */
 exports.gebouwEenheidFetcher = async (params) => {
     try {
@@ -30,12 +27,11 @@ exports.gebouwEenheidFetcher = async (params) => {
 }
 /**
  * Fetches a gebouwId based on gebouwEenheidId
- * @param {number} gebouwEenheidID 
+ * @param {number} gebouwEenheidID
  */
 exports.gebouwFetcher = async (params) => {
     let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
     let gebouwDetails = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId)
-<<<<<<< HEAD
     fs.readdir(__dirname + '/../files', (err, files) => {
         if (err) console.error(err.message)
 
@@ -52,7 +48,7 @@ exports.gebouwFetcher = async (params) => {
                 fs.writeFile(__dirname + `/../files/${params.postcode}/catalog.json`, createCatalogFileForCity(params.postcode, JSON.parse(gebouwId).gebouw.objectId), err => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
                     fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        JSON.stringify(jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                        JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
                         err => {
                             if (err) throw new Error("Error whiel writing building JSON")
@@ -73,7 +69,7 @@ exports.gebouwFetcher = async (params) => {
             })
         } else {
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        JSON.stringify(jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                        JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
                         err => {
                             if (err) throw new Error("Error whiel writing building JSON")
@@ -96,14 +92,12 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    return jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
-=======
     return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
 };
 
 /**
  * Adds a service
- * @param {number} gebouwEenheidID 
+ * @param {number} gebouwEenheidID
  */
 exports.makeService =  async (params) => {
 	// Convert to our internal representation of opening hours
@@ -117,12 +111,11 @@ exports.makeService =  async (params) => {
 				"sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
 			}
 	return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours);
->>>>>>> b9d9a55e6952ed48cddd5efb8923324e8ffc7a19
 };
 
 /**
  * Helper function to get the data based on the url
- * @param {string} url 
+ * @param {string} url
  */
 function fetch(url) {
     return new Promise((resolve, reject) => {
@@ -143,9 +136,9 @@ function fetch(url) {
 }
 /**
  *  Generates a JSON-LD building file based on the given URIs
- * @param {number} gebouwId 
- * @param {number} adresId 
- * @param {number} location 
+ * @param {number} gebouwId
+ * @param {number} adresId
+ * @param {number} location
  */
 function jsonLDBuilding(gebouwId, adresId, location) {
     return {
@@ -170,7 +163,6 @@ function jsonLDBuilding(gebouwId, adresId, location) {
                 "http://www.w3.org/2003/01/geo/wgs84_pos#long": location[1]
             }
         }
-<<<<<<< HEAD
     }
 }
 
@@ -215,13 +207,12 @@ function createCatalogFileForCity(postcode, gebouwId) {
         ]
     }`
 }
-=======
-}
+
 /**
  *  Generates a JSON-LD service file based on the given URIs
- * @param {number} gebouwId 
- * @param {number} adresId 
- * @param {number} location 
+ * @param {number} gebouwId
+ * @param {number} adresId
+ * @param {number} location
  */
 function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
 	let jsonLD = [
@@ -252,4 +243,3 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
 
 	return jsonLD;
 }
->>>>>>> b9d9a55e6952ed48cddd5efb8923324e8ffc7a19

@@ -47,45 +47,38 @@ describe("Transformer", function() {
         });
 	it("Transforming Service data", async function() {
                 //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
-                var params = { 
+                var params = {
 			id: "URI:/123",
-			
+
 			openingHours: {
-				/*"monday": ["09:00", "12:00" , "13:00", "17:00"],
-				"tuesday": ["09:00", "12:00" , "13:00", "17:00"],
-				"wednesday":  ["09:00", "12:00" , "13:00", "17:00"],
-				"thursday": ["09:00", "12:00" , "13:00", "17:00"],
-				"friday":  ["09:00", "12:00" , "13:00", "17:00"],
-				"saturday":  ["09:00", "12:00" , "13:00", "17:00"],
-				"sunday":  ["09:00", "12:00" , "13:00", "17:00"]*/
 				"mo-start-pm": "9:00",
 				"mo-end-pm": "12:00",
 				"mo-start-am": "13:00",
 				"mo-end-am": "17:00",
 				"tu-start-pm": "9:00",
-                                "tu-end-pm": "12:00",
-                                "tu-start-am": "13:00",
-                                "tu-end-am": "17:00",
+        "tu-end-pm": "12:00",
+        "tu-start-am": "13:00",
+        "tu-end-am": "17:00",
 				"we-start-pm": "9:00",
-                                "we-end-pm": "12:00",
-                                "we-start-am": "13:00",
-                                "we-end-am": "17:00",
+        "we-end-pm": "12:00",
+        "we-start-am": "13:00",
+        "we-end-am": "17:00",
 				"th-start-pm": "9:00",
-                                "th-end-pm": "12:00",
-                                "th-start-am": "13:00",
-                                "th-end-am": "17:00",
+        "th-end-pm": "12:00",
+        "th-start-am": "13:00",
+        "th-end-am": "17:00",
 				"fr-start-pm": "9:00",
-                                "fr-end-pm": "12:00",
-                                "fr-start-am": "13:00",
-                                "fr-end-am": "17:00",
+			  "fr-end-pm": "12:00",
+			  "fr-start-am": "13:00",
+			  "fr-end-am": "17:00",
 				"sa-start-pm": "9:00",
-                                "sa-end-pm": "12:00",
-                                "sa-start-am": "13:00",
-                                "sa-end-am": "17:00",
+        "sa-end-pm": "12:00",
+        "sa-start-am": "13:00",
+        "sa-end-am": "17:00",
 				"su-start-pm": "9:00",
-                                "su-end-pm": "12:00",
-                                "su-start-am": "13:00",
-                                "su-end-am": "17:00"
+		    "su-end-pm": "12:00",
+		    "su-start-am": "13:00",
+		    "su-end-am": "17:00"
 			},
 			name: "Joske The Service",
 			description: "Joske works hard at any time",
@@ -143,7 +136,7 @@ describe("Validation", function() {
 					gemeente: "aalst"
 				};
 				await transformerController.getAdres(params)
-			}, 
+			},
 			/Error/);
 		});
 		it("getAdres should throw Number incorrect", async function () {
@@ -155,7 +148,7 @@ describe("Validation", function() {
 					gemeente: "aalst"
 				};
 				await transformerController.getAdres(params)
-			}, 
+			},
 			/Error/);
 		});
 		it("getAdres should throw Street incorrect", async function () {
@@ -167,7 +160,7 @@ describe("Validation", function() {
 					gemeente: "aalst"
 				};
 				await transformerController.getAdres(params)
-			}, 
+			},
 			/Error/);
 		});
 	});
@@ -188,7 +181,7 @@ describe("Validation", function() {
 					adresObjectId: "abc"
 				};
 				await transformerController.getGebouwEenheden(params)
-			}, 
+			},
 			/Error/);
 		});
 	});
@@ -198,7 +191,8 @@ describe("Validation", function() {
 		it("getGebouwId valid number", async function() {
 			let params = {
 				// Public library Mechelen
-				gebouwEenheidId: "6923391"
+				gebouwEenheidId: "6923391",
+				postcode: "2800"
 			};
 			await transformerController.getGebouwId(params)
 		});
@@ -206,10 +200,11 @@ describe("Validation", function() {
 		it("getGebouwId should throw GebouwEenheidId is geen nummer", async function () {
 		    await assertThrowsAsync(async () => {
 				let params = {
-					gebouwEenheidId: "abc"
+					gebouwEenheidId: "abc",
+					postcode: "2800"
 				};
 				await transformerController.getGebouwId(params)
-			}, 
+			},
 			/Error/);
 		});
 	});
