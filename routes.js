@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const transformerController = require('./controllers/transformerController')
 
+// ---index
 router.get('/', async (req, res, next) => {
     try {
         res.status(200);
@@ -12,29 +13,13 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-// get search with address
+// ---building
+// form address
 router.get('/adres', async (req, res, next) => {
     res.render('address');
 });
 
-// get search with postcode
-router.get('/postcode', async (req, res, next) => {
-    res.render('services');
-});
-
-router.post('/services', async (req, res, next) => {
-    try {
-        res.status(200);
-        console.log(req);
-        // let response = await transformerController.getAdres(req.body);
-        res.render('index');
-    } catch (error) {
-        console.error("TransformerController returned an error");
-        next(error);
-    }
-});
-
-// post search building with address
+// search buildings
 router.post('/gebouwen', async (req, res, next) => {
     try {
         res.status(200);
@@ -46,19 +31,24 @@ router.post('/gebouwen', async (req, res, next) => {
     }
 });
 
-// post search buildingunit
+// search buildingunits
 router.post('/gebouwunits', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getGebouwEenheden(req.body)
         res.render('building-units', response)
-
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
     }
 });
 
+// add info to building
+router.get('/toevoegen', async (req, res, next) => {
+    res.render('info');
+});
+
+// generate snippet about building
 router.post('/snippet', async (req, res, next) => {
     try {
         res.status(200)
@@ -69,24 +59,28 @@ router.post('/snippet', async (req, res, next) => {
     } catch (error) {
 
     }
-})
-
-// Openinghours page is still to be made 
-router.post('/openingHours', (req, res, next) => {
-    try {
-        let response = openingHoursController.getOpeningHours(params)
-        //res.render('')
-    } catch (error) {
-        console.error("OpeningHoursController")
-    }
-})
-
-// get add info
-router.get('/toevoegen', async (req, res, next) => {
-    res.render('info');
 });
 
+// ---services
+// searchform postcode
+// router.get('/postcode', async (req, res, next) => {
+//     res.render('postcode');
+// });
 
 
+router.get('/postcode', async (req, res, next) => {
+    res.render('services');
+});
+
+router.post('/services', async (req, res, next) => {
+    try {
+        res.status(200);
+        // let response = await transformerController.getAdres(req.body);
+        res.render('index');
+    } catch (error) {
+        console.error("TransformerController returned an error");
+        next(error);
+    }
+});
 
 module.exports = router
