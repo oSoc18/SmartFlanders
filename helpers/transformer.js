@@ -164,7 +164,7 @@ function jsonLDBuilding(gebouwId, adresId, location) {
             "xsd": "http://www.w3.org/2001/XMLSchema#"
         },
         "@id": "gebouw:" + gebouwId,
-        "type": "gebouw:Gebouw",
+        "@type": "gebouw:Gebouw",
         "gebouw:Gebouw.adres": {
             "@id": "http://data.vlaanderen.be/id/adres/" + adresId,
             "@type": "http://www.w3.org/ns/locn#Address",
