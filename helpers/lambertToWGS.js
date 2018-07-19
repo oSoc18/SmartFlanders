@@ -1,26 +1,8 @@
+let proj4 = require('proj4');
+
 module.exports = function lambert93toWGPS(lambertE, lambertN) {
-    let newLongitude;
-    let newLatitude;
-    let n = 0.77164219;
-    let F = 1.81329763;
-    let thetaFudge = 0.00014204;
-    let e = 0.08199189;
-    let a = 6378388;
-    let xDiff = 149910;
-    let yDiff = 5400150;
-    let theta0 = 0.07604294;
-    let xReal = xDiff - lambertE;
-    let yReal = yDiff - lambertN;
-    let rho = Math.sqrt (xReal * xReal + yReal * yReal);
-    let theta = Math.atan (xReal / -yReal);
 
-    newLongitude = (theta0 + (theta + thetaFudge) / n) * 180 / Math.PI;
-    newLatitude = 0;
-
-    newLatitude = (2 * Math.atan (Math.pow (F * a / rho, 1 / n) * Math.pow ((1 + e * Math.sin (newLatitude)) / (1 - e * Math.sin (newLatitude)), e / 2))) - Math.PI / 2;
-    for (let i = 0; i < 5; ++i) {
-    }
-    newLatitude *= 180 / Math.PI;
-    return [newLatitude,newLongitude]
+    var firstProjection = 'PROJCS["Belge 1972 / Belgian Lambert 72",GEOGCS["Belge 1972",DATUM["D_Belge_1972",SPHEROID["International_1924",6378388,297]],PRIMEM["Greenwich",0],UNIT["Degree",0.017453292519943295]],PROJECTION["Lambert_Conformal_Conic"],PARAMETER["standard_parallel_1",51.16666723333333],PARAMETER["standard_parallel_2",49.8333339],PARAMETER["latitude_of_origin",90],PARAMETER["central_meridian",4.367486666666666],PARAMETER["false_easting",150000.013],PARAMETER["false_northing",5400088.438],UNIT["Meter",1]]';
+    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
+    return proj4(firstProjection,secondProjection,[lambertE, lambertN])
 }
-

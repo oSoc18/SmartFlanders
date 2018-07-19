@@ -159,8 +159,8 @@ function jsonLDBuilding(gebouwId, adresId, location) {
             "@type": "http://www.w3.org/ns/locn#Address",
             "http://www.w3.org/2003/01/geo/wgs84_pos#location": {
                 "@type": "http://www.w3.org/2003/01/geo/wgs84_pos#Point",
-                "http://www.w3.org/2003/01/geo/wgs84_pos#lat": location[0],
-                "http://www.w3.org/2003/01/geo/wgs84_pos#long": location[1]
+                "http://www.w3.org/2003/01/geo/wgs84_pos#lat": location[1],
+                "http://www.w3.org/2003/01/geo/wgs84_pos#long": location[0]
             }
         }
     }
