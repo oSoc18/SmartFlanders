@@ -236,7 +236,7 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
         ];
 
 	// Only add ID if available
-	if(id.length > 0) {
+	if(typeof id !== "undefined") {
 		jsonLD[0]["@id"] = id;
 		jsonLD[1]["@id"] = id;
 	}
