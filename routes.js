@@ -1,12 +1,12 @@
-const express = require('express')
+const express = require("express")
 const router = express.Router()
-const transformerController = require('./controllers/transformerController')
+const transformerController = require("./controllers/transformerController")
 
 // ---index
 router.get('/', async (req, res, next) => {
     try {
         res.status(200);
-        res.render('index');
+        res.render("index");
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
@@ -24,7 +24,7 @@ router.post('/gebouwen', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getAdres(req.body);
-        res.render('buildings', response);
+        res.render("buildings", response);
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);

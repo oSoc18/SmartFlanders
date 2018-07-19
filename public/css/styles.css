@@ -70,8 +70,7 @@ h4 {
   margin: 10px 0px 20px;
   padding: 7px;
   transition: 150ms border-color linear;
-  width: 100%;
-}
+  width: 100%; }
 
 select {
   border: 1px solid #29264c;
