@@ -38,6 +38,7 @@ exports.gebouwFetcher =  async (params) => {
  * @param {number} gebouwEenheidID 
  */
 exports.makeService =  async (params) => {
+	// Convert to our internal representation of opening hours
 	let openingHours = {
 				"monday": [params["mo-start-am"], params["mo-end-am"], params["mo-start-pm"], params["mo-end-pm"]],
 				"tuesday": [params["tu-start-am"], params["tu-end-am"], params["tu-start-pm"], params["tu-end-pm"]],
@@ -81,7 +82,7 @@ function jsonLDBuilding(gebouwId, adresId, location) {
     return {
         "@context": {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
-            "adressenRegister": "https://data.vlaanderen.be/doc/adres/",
+            "adressenRegister": "https://data.vlaanderen.be/id/adres/",
             "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
             "schema": "http://schema.org/",
             "dcterms": "http://purl.org/dc/terms/",
