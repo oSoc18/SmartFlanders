@@ -3,9 +3,11 @@ const matcher = require("./matcher");
 const lambertToWGS = require("./lambertToWGS");
 const fs = require('fs');
 const path = require('path')
+const openingHoursController = require("../controllers/openingHoursController");
+
 /**
  * Get all possible addresses based on adress
- * @param {number} params 
+ * @param {number} params
  */
 exports.adresFetcher = async (params) => {
     return JSON.parse(await fetch(`https://basisregisters.vlaanderen.be/api/v1/adressen?Postcode=${params.postcode}&Straatnaam=${encodeURI(params.street)}&Huisnummer=${params.number}`));
@@ -13,7 +15,7 @@ exports.adresFetcher = async (params) => {
 
 /**
  * Fetches a gebouwEenheid based on a adresId, can return multiple gebouweenheden!
- * @param {number} adresObjectId 
+ * @param {number} adresObjectId
  */
 exports.gebouwEenheidFetcher = async (params) => {
     try {
@@ -25,7 +27,7 @@ exports.gebouwEenheidFetcher = async (params) => {
 }
 /**
  * Fetches a gebouwId based on gebouwEenheidId
- * @param {number} gebouwEenheidID 
+ * @param {number} gebouwEenheidID
  */
 exports.gebouwFetcher = async (params) => {
     let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
@@ -46,7 +48,7 @@ exports.gebouwFetcher = async (params) => {
                 fs.writeFile(__dirname + `/../files/${params.postcode}/catalog.json`, createCatalogFileForCity(params.postcode, JSON.parse(gebouwId).gebouw.objectId), err => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
                     fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        JSON.stringify(jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                        JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
                         err => {
                             if (err) throw new Error("Error whiel writing building JSON")
@@ -67,7 +69,7 @@ exports.gebouwFetcher = async (params) => {
             })
         } else {
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        JSON.stringify(jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                        JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
                         err => {
                             if (err) throw new Error("Error whiel writing building JSON")
@@ -90,12 +92,30 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    return jsonLD(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
+};
+
+/**
+ * Adds a service
+ * @param {number} gebouwEenheidID
+ */
+exports.makeService =  async (params) => {
+	// Convert to our internal representation of opening hours
+	let openingHours = {
+				"monday": [params["mo-start-am"], params["mo-end-am"], params["mo-start-pm"], params["mo-end-pm"]],
+				"tuesday": [params["tu-start-am"], params["tu-end-am"], params["tu-start-pm"], params["tu-end-pm"]],
+				"wednesday": [params["we-start-am"], params["we-end-am"], params["we-start-pm"], params["we-end-pm"]],
+				"thursday": [params["th-start-am"], params["th-end-am"], params["th-start-pm"], params["th-end-pm"]],
+				"friday": [params["fr-start-am"], params["fr-end-am"], params["fr-start-pm"], params["fr-end-pm"]],
+				"saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
+				"sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
+			}
+	return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours)
 };
 
 /**
  * Helper function to get the data based on the url
- * @param {string} url 
+ * @param {string} url
  */
 function fetch(url) {
     return new Promise((resolve, reject) => {
@@ -115,16 +135,16 @@ function fetch(url) {
     })
 }
 /**
- *  Generates a JSON-LD file based on the given URIs
- * @param {number} gebouwId 
- * @param {number} adresId 
- * @param {number} location 
+ *  Generates a JSON-LD building file based on the given URIs
+ * @param {number} gebouwId
+ * @param {number} adresId
+ * @param {number} location
  */
-function jsonLD(gebouwId, adresId, location) {
+function jsonLDBuilding(gebouwId, adresId, location) {
     return {
         "@context": {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
-            "adressenRegister": "https://data.vlaanderen.be/doc/adres/",
+            "adressenRegister": "https://data.vlaanderen.be/id/adres/",
             "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
             "schema": "http://schema.org/",
             "dcterms": "http://purl.org/dc/terms/",
@@ -186,4 +206,40 @@ function createCatalogFileForCity(postcode, gebouwId) {
             }
         ]
     }`
+}
+
+/**
+ *  Generates a JSON-LD service file based on the given URIs
+ * @param {number} gebouwId
+ * @param {number} adresId
+ * @param {number} location
+ */
+function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
+	let jsonLD = [
+	    {
+		"@context": "http://schema.org/",
+		"@type": "Service",
+		"name": name,
+		"description": description,
+		"http://purl.org/oslo/ns/localgov#productType": productType,
+		"telephone": telephone,
+		"email": email,
+		"https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+	    },
+	    {
+		"@type": "http://purl.org/vocab/cpsv#PublicService",
+		"http://data.europa.eu/m8g/hasChannel": {
+		    "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+		},
+		"http://purl.org/dc/terms/description": description
+	    }
+        ];
+
+	// Only add ID if available
+	if(typeof id !== "undefined") {
+		jsonLD[0]["@id"] = id;
+		jsonLD[1]["@id"] = id;
+	}
+
+	return jsonLD;
 }

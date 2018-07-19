@@ -1,8 +1,8 @@
 var assert = require("assert");
 var transformer = require("../helpers/transformer");
 var transformerController = require("../controllers/transformerController");
-var openinghoursController = require("../controllers/openingHoursController");
-
+var openingHoursController = require("../controllers/openingHoursController");
+var serviceController = require("../controllers/serviceController");
 
 async function assertThrowsAsync(fn, regExp) {
 	let f = () => {};
@@ -30,20 +30,61 @@ describe("Array", function() {
  * Building fetcher and ToeVla matcher - Checks if our transformer and matcher are working correctly
  */
 describe("Transformer", function() {
-	it("Transforming data without ToeVla data available", function() {
+	it("Transforming Building data without ToeVla data available", function() {
 		//?gemeente=aalst&postcode=9300&straat=grote%20markt&huisnummer=1
 		var params = { gemeente: "aalst", postcode: 9300, straat: "grote markt", huisnummer: 1 };
 		transformer.adresFetcher(params);
 	});
-	it("Transforming data with ToeVla data available", function() {
+	it("Transforming Building data with ToeVla data available", function() {
 		//?gemeente=roeselare&postcode=9300&straat=grote%20markt&huisnummer=1
 		var params = { postcode: 8800, street: "botermarkt", number: 2 };
 		transformer.adresFetcher(params);
 	});
-	it("Transforming wrong data", function() {
+	it("Transforming wrong Building data", function() {
                 //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
                 var params = { gemeente: "blabla", postcode: 0157, straat: "earth", huisnummer: -1 };
                 transformer.adresFetcher(params);
+        });
+	it("Transforming Service data", async function() {
+                //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
+                var params = {
+			id: "URI:/123",
+			"mo-start-pm": "9:00",
+			"mo-end-pm": "12:00",
+			"mo-start-am": "13:00",
+			"mo-end-am": "17:00",
+			"tu-start-pm": "9:00",
+      "tu-end-pm": "12:00",
+      "tu-start-am": "13:00",
+      "tu-end-am": "17:00",
+			"we-start-pm": "9:00",
+      "we-end-pm": "12:00",
+      "we-start-am": "13:00",
+      "we-end-am": "17:00",
+			"th-start-pm": "9:00",
+      "th-end-pm": "12:00",
+      "th-start-am": "13:00",
+      "th-end-am": "17:00",
+			"fr-start-pm": "9:00",
+		  "fr-end-pm": "12:00",
+		  "fr-start-am": "13:00",
+		  "fr-end-am": "17:00",
+			"sa-start-pm": "9:00",
+      "sa-end-pm": "12:00",
+      "sa-start-am": "13:00",
+      "sa-end-am": "17:00",
+			"su-start-pm": "9:00",
+	    "su-end-pm": "12:00",
+	    "su-start-am": "13:00",
+	    "su-end-am": "17:00",
+			name: "Joske The Service",
+			description: "Joske works hard at any time",
+			productType: "URI:/456",
+			telephone: "+324567891",
+			email: "joske@ikwerkhier.com"
+		};
+                let jos = await serviceController.addService(params);
+		console.log(jos)
         });
 });
 
@@ -53,17 +94,17 @@ describe("Transformer", function() {
 describe("Openinghours", function(){
 	it("Should return opening hours in JSON-LD format", function() {
 		let params = {
-			openinghours: {
-				"monday": ["09:00", "12:00" , "13:00", "17:00"],
-				"tuesday": ["09:00", "12:00" , "13:00", "17:00"],
-				"wednesday":  ["09:00", "12:00" , "13:00", "17:00"],
-				"thursday": ["09:00", "12:00" , "13:00", "17:00"],
-				"friday":  ["09:00", "12:00" , "13:00", "17:00"],
-				"saturday":  ["09:00", "12:00" , "13:00", "17:00"],
-				"sunday":  ["09:00", "12:00" , "13:00", "17:00"]
+			openingHours: {
+                                "monday": ["09:00", "12:00" , "13:00", "17:00"],
+                                "tuesday": ["09:00", "12:00" , "13:00", "17:00"],
+                                "wednesday":  ["09:00", "12:00" , "13:00", "17:00"],
+                                "thursday": ["09:00", "12:00" , "13:00", "17:00"],
+                                "friday":  ["09:00", "12:00" , "13:00", "17:00"],
+                                "saturday":  ["09:00", "12:00" , "13:00", "17:00"],
+                                "sunday":  ["09:00", "12:00" , "13:00", "17:00"]
 			}
 		};
-		console.log(openinghoursController.getOpeningHours(params));
+		console.log(openingHoursController.getOpeningHours(params.openingHours));
 	})
 })
 
@@ -92,7 +133,7 @@ describe("Validation", function() {
 					gemeente: "aalst"
 				};
 				await transformerController.getAdres(params)
-			}, 
+			},
 			/Error/);
 		});
 		it("getAdres should throw Number incorrect", async function () {
@@ -104,7 +145,7 @@ describe("Validation", function() {
 					gemeente: "aalst"
 				};
 				await transformerController.getAdres(params)
-			}, 
+			},
 			/Error/);
 		});
 		it("getAdres should throw Street incorrect", async function () {
@@ -116,7 +157,7 @@ describe("Validation", function() {
 					gemeente: "aalst"
 				};
 				await transformerController.getAdres(params)
-			}, 
+			},
 			/Error/);
 		});
 	});
@@ -137,7 +178,7 @@ describe("Validation", function() {
 					adresObjectId: "abc"
 				};
 				await transformerController.getGebouwEenheden(params)
-			}, 
+			},
 			/Error/);
 		});
 	});
@@ -147,7 +188,8 @@ describe("Validation", function() {
 		it("getGebouwId valid number", async function() {
 			let params = {
 				// Public library Mechelen
-				gebouwEenheidId: "6923391"
+				gebouwEenheidId: "6923391",
+				postcode: "2800"
 			};
 			await transformerController.getGebouwId(params)
 		});
@@ -155,10 +197,11 @@ describe("Validation", function() {
 		it("getGebouwId should throw GebouwEenheidId is geen nummer", async function () {
 		    await assertThrowsAsync(async () => {
 				let params = {
-					gebouwEenheidId: "abc"
+					gebouwEenheidId: "abc",
+					postcode: "2800"
 				};
 				await transformerController.getGebouwId(params)
-			}, 
+			},
 			/Error/);
 		});
 	});

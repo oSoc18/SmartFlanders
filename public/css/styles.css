@@ -115,13 +115,7 @@ header {
 .content {
   background-color: #f3f1f3;
   float: left;
-  width: 100%;
-  /*===========================
-   Info
- ============================ */
-  /*===========================
-   Openinghours
- ============================ */ }
+  width: 100%; }
   .content .intro {
     background-color: white;
     border-radius: 15px;
@@ -140,38 +134,32 @@ header {
     float: left;
     margin: 0px 25% 5%;
     width: 50%; }
-  .content .info {
-    margin: 5% 25%;
-    width: 50%; }
-    .content .info p {
+
+/*===========================
+   Openinghours
+ ============================ */
+.openinghours {
+  margin-top: 5px;
+  margin-bottom: 20px; }
+  .openinghours .weekdays {
+    float: left; }
+    .openinghours .weekdays p {
+      margin: 0px 5px; }
+  .openinghours .hours {
+    float: left; }
+    .openinghours .hours .day input[type="time"] {
+      border: 1px solid #29264c;
+      border-radius: 5px;
       display: inline;
-      margin-left: 15%; }
-    .content .info form {
-      padding-top: 0px; }
-      .content .info form p {
-        margin: 0px; }
-      .content .info form label {
-        padding: 10px 0px; }
-  .content .openinghours {
-    margin-top: 5px; }
-    .content .openinghours .weekdays {
-      float: left; }
-      .content .openinghours .weekdays p {
-        margin: 0px 5px; }
-    .content .openinghours .hours {
-      float: left; }
-      .content .openinghours .hours .day input[type="time"] {
-        border: 1px solid #29264c;
-        border-radius: 5px;
-        display: inline;
-        font-family: "Open Sans", sans-serif;
-        font-size: 14px;
-        margin: 0px 15px;
-        padding: 4px 10px; }
-      .content .openinghours .hours .day p {
-        display: inline; }
-  .content pre.snippet {
-    background-color: white;
-    margin: 0px auto 30px;
-    padding: 20px;
-    width: 100%; }
+      font-family: "Open Sans", sans-serif;
+      font-size: 14px;
+      margin: 0px 15px;
+      padding: 4px 10px; }
+    .openinghours .hours .day p {
+      display: inline; }
+
+pre.snippet {
+  background-color: white;
+  margin: 0px auto 30px;
+  padding: 20px;
+  width: 100%; }

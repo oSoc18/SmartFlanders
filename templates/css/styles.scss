@@ -150,22 +150,22 @@ header {
  float: left;
  width: 100%;
 
- .intro {
-   background-color: white;
-   border-radius: 15px;
-   box-shadow: 9px 9px 9px 0 rgba(38,36,79,.07);
-   height: 250px;
-   margin: -100px 20%;
-   text-align: center;
-   width: 60%;
+  .intro {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 9px 9px 9px 0 rgba(38,36,79,.07);
+    height: 250px;
+    margin: -100px 20%;
+    text-align: center;
+    width: 60%;
 
-   p {
-     font-size: 20px;
-     margin: 0px auto;
-     padding: 50px 0px;
-     text-align: center;
-     width: 75%;
-   }
+    p {
+      font-size: 20px;
+      margin: 0px auto;
+      padding: 50px 0px;
+      text-align: center;
+      width: 75%;
+    }
  }  
 
  .container {
@@ -174,31 +174,29 @@ header {
    width: 50%;
  }
 
- /*===========================
-   Info
- ============================ */
- .info {
-   margin: 5% 25%;
-   width: 50%;
+//  /*===========================
+//    Info
+//  ============================ */
+//  .info {
+//    margin: 5% 25%;
+//    width: 50%;
 
-   p {
-     display: inline;
-     margin-left: 15%;
-   }
+//    p {
+//      display: inline;
+//      margin-left: 15%;
+//    }
 
-   form {
-     padding-top: 0px;
+//    form {
+//      padding-top: 0px;
 
-     p {
-       margin: 0px;
-     }
+//      p {
+//        margin: 0px;
+//      }
 
-     label {
-       padding: 10px 0px;
-     }
+//      label {
+//        padding: 10px 0px;
+//      }
 
-     
-   }
  }
 
  /*===========================
@@ -206,6 +204,7 @@ header {
  ============================ */
  .openinghours {
    margin-top: 5px;
+   margin-bottom: 20px;
 
    .weekdays {
      float: left;
@@ -241,4 +240,3 @@ header {
    padding: 20px;
    width: 100%; 
  }   
-} 
