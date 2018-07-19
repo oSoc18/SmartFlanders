@@ -10,9 +10,10 @@ html
       .container
         h3 Voeg informatie toe aan gebouw
         label.label Gevonden gebouweenheden binnen:
-        form(action='/gebouw', method="POST", id="gebouweenheden")
+        form(action='/snippet', method="POST", id="gebouweenheden")
           select(name="gebouwEenheidId" form="gebouweenheden")
             each unit in gebouweenheden 
               option(value=(unit.identificator.objectId)) #{unit.detail} 
-          button.button(type='submit') Bekijk de gebouw-eenheden van dit gebouw
+          button.button(type='submit') Genereer de JSON-LD snippet
 script(src="https://code.jquery.com/jquery-3.2.1.slim.min.js", integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN", crossorigin="anonymous")
+script(src='./app.js')
