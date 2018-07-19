@@ -32,9 +32,9 @@ exports.gebouwEenheidFetcher = async (params) => {
 exports.gebouwFetcher = async (params) => {
     let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
     let gebouwDetails = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId)
+    if (Array.isArray(params.postcode)) params.postcode = params.postcode[0];
     fs.readdir(__dirname + '/../files', (err, files) => {
         if (err) console.error(err.message)
-
         if (!files.includes(params.postcode)) {
             fs.mkdir(__dirname + `/../files/${params.postcode}`, err => {
                 if (err) throw new Error("Error while creating directory")
@@ -69,22 +69,32 @@ exports.gebouwFetcher = async (params) => {
             })
         } else {
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
-                        err => {
-                            if (err) throw new Error("Error whiel writing building JSON")
-                        })
+                JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
+                err => {
+                    if (err) throw new Error("Error whiel writing building JSON")
+                })
             fs.readFile(__dirname + `/../files/${params.postcode}/catalog.json`, (err, data) => {
-                let file_data = JSON.parse(data)
-                file_data["dcat:dataset"].push({
-                    "@type": "dcat:Dataset",
-                    "dcat:keyword": "http://data.vlaanderen.be/ns/gebouw#Gebouw",
-                    "dcat:distribution": [{
-                        "@type": "dcat:Distribution",
-                        "dcat:accessUrl": `http://smartflanders.ilabt.imec.be/graph/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        "dcat:mediaType": "text/html"
-                    }]
-                });
+                let file_data = JSON.parse(data);
+                let should_push = true;
+                for(let i = 0; i < file_data["dcat:dataset"].length; i++){
+                    if (file_data["dcat:dataset"][i]["dcat:distribution"][0]["dcat:accessUrl"] === `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen${JSON.parse(gebouwId).gebouw.objectId}.json`){
+                        should_push = false;
+                        break;
+                    }
+                }
+                if (should_push) {
+                    file_data["dcat:dataset"].push({
+                        "@type": "dcat:Dataset",
+                        "dcat:keyword": "http://data.vlaanderen.be/ns/gebouw#Gebouw",
+                        "dcat:distribution": [{
+                            "@type": "dcat:Distribution",
+                            "dcat:accessUrl": `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen${JSON.parse(gebouwId).gebouw.objectId}.json`,
+                            "dcat:mediaType": "text/html"
+                        }]
+                    });
+                }
+
                 fs.writeFile(__dirname + `/../files/${params.postcode}/catalog.json`, JSON.stringify(file_data), err => {
                     if (err) throw new Error("Error while adding building to catalog")
                 })
@@ -99,18 +109,18 @@ exports.gebouwFetcher = async (params) => {
  * Adds a service
  * @param {number} gebouwEenheidID
  */
-exports.makeService =  async (params) => {
-	// Convert to our internal representation of opening hours
-	let openingHours = {
-				"monday": [params["mo-start-am"], params["mo-end-am"], params["mo-start-pm"], params["mo-end-pm"]],
-				"tuesday": [params["tu-start-am"], params["tu-end-am"], params["tu-start-pm"], params["tu-end-pm"]],
-				"wednesday": [params["we-start-am"], params["we-end-am"], params["we-start-pm"], params["we-end-pm"]],
-				"thursday": [params["th-start-am"], params["th-end-am"], params["th-start-pm"], params["th-end-pm"]],
-				"friday": [params["fr-start-am"], params["fr-end-am"], params["fr-start-pm"], params["fr-end-pm"]],
-				"saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
-				"sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
-			}
-	return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours)
+exports.makeService = async (params) => {
+    // Convert to our internal representation of opening hours
+    let openingHours = {
+        "monday": [params["mo-start-am"], params["mo-end-am"], params["mo-start-pm"], params["mo-end-pm"]],
+        "tuesday": [params["tu-start-am"], params["tu-end-am"], params["tu-start-pm"], params["tu-end-pm"]],
+        "wednesday": [params["we-start-am"], params["we-end-am"], params["we-start-pm"], params["we-end-pm"]],
+        "thursday": [params["th-start-am"], params["th-end-am"], params["th-start-pm"], params["th-end-pm"]],
+        "friday": [params["fr-start-am"], params["fr-end-am"], params["fr-start-pm"], params["fr-end-pm"]],
+        "saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
+        "sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
+    }
+    return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours)
 };
 
 /**
@@ -200,7 +210,7 @@ function createCatalogFileForCity(postcode, gebouwId) {
                 "dcat:keyword": "http://data.vlaanderen.be/ns/gebouw#Gebouw",
                 "dcat:distribution": [{
                   "@type": "dcat:Distribution",
-                  "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/${postcode}/${gebouwId}.json",
+                  "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/${postcode}/gebouwen/${gebouwId}.json",
                   "dcat:mediaType": "text/html"
                 }]
             }
@@ -215,31 +225,30 @@ function createCatalogFileForCity(postcode, gebouwId) {
  * @param {number} location
  */
 function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
-	let jsonLD = [
-	    {
-		"@context": "http://schema.org/",
-		"@type": "Service",
-		"name": name,
-		"description": description,
-		"http://purl.org/oslo/ns/localgov#productType": productType,
-		"telephone": telephone,
-		"email": email,
-		"https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
-	    },
-	    {
-		"@type": "http://purl.org/vocab/cpsv#PublicService",
-		"http://data.europa.eu/m8g/hasChannel": {
-		    "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
-		},
-		"http://purl.org/dc/terms/description": description
-	    }
-        ];
+    let jsonLD = [{
+            "@context": "http://schema.org/",
+            "@type": "Service",
+            "name": name,
+            "description": description,
+            "http://purl.org/oslo/ns/localgov#productType": productType,
+            "telephone": telephone,
+            "email": email,
+            "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+        },
+        {
+            "@type": "http://purl.org/vocab/cpsv#PublicService",
+            "http://data.europa.eu/m8g/hasChannel": {
+                "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+            },
+            "http://purl.org/dc/terms/description": description
+        }
+    ];
 
-	// Only add ID if available
-	if(typeof id !== "undefined") {
-		jsonLD[0]["@id"] = id;
-		jsonLD[1]["@id"] = id;
-	}
+    // Only add ID if available
+    if (typeof id !== "undefined") {
+        jsonLD[0]["@id"] = id;
+        jsonLD[1]["@id"] = id;
+    }
 
-	return jsonLD;
+    return jsonLD;
 }
