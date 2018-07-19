@@ -1,9 +1,9 @@
 const transformer = require("../helpers/transformer")
 const fs = require("fs");
+
 exports.addService = async (params) => {
 	return await transformer.makeService(params);
 }
-
 exports.postCodeSearch =  (params) => {
 	return new Promise((resolve, reject) => {
 		fs.readdir(__dirname + "/../files/", (err, files) => {
