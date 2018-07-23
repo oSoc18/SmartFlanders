@@ -4,6 +4,7 @@ const lambertToWGS = require("./lambertToWGS");
 const fs = require('fs');
 const path = require('path')
 const openingHoursController = require("../controllers/openingHoursController");
+const toeVla = require("./toeVlaParser");
 
 /**
  * Get all possible addresses based on adress
@@ -33,6 +34,14 @@ exports.gebouwFetcher = async (params) => {
     let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
     let gebouwDetails = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId)
     if (Array.isArray(params.postcode)) params.postcode = params.postcode[0];
+
+    // Search for ToeVla data
+    let toeVlaResult = false;
+    if(params.street && params.number && params.postcode) {
+        toeVlaResult = searchToeVla(params.street, params.number, params.postcode);
+        console.log(toeVlaResult);
+    }
+
     fs.readdir(__dirname + '/../files', (err, files) => {
         if (err) console.error(err.message)
         if (!files.includes(params.postcode)) {
@@ -47,10 +56,19 @@ exports.gebouwFetcher = async (params) => {
                 })
                 fs.writeFile(__dirname + `/../files/${params.postcode}/catalog.json`, createCatalogFileForCity(params.postcode, JSON.parse(gebouwId).gebouw.objectId), err => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
-                    fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                        JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+	            let data;
+		    if(toeVlaResult) {
+			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
-			    "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")),
+			    toeVlaResult["name"], toeVlaResult["image"]));
+                    }
+	            else {
+			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
+			    undefined, undefined))
+		    }
+                    fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
+                        data,
                         err => {
                             if (err) throw new Error("Error while writing building JSON")
                         })
@@ -69,10 +87,19 @@ exports.gebouwFetcher = async (params) => {
                 })
             })
         } else {
+            let data;
+            if(toeVlaResult) {
+			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
+			    toeVlaResult["name"], toeVlaResult["image"]));
+                    }
+	            else {
+			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
+			    undefined, undefined))
+		    }
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
-                JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
-		    "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")),
+                data,
                 err => {
                     if (err) throw new Error("Error while writing building JSON")
                 })
@@ -123,7 +150,12 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")
+    if(toeVlaResult) {
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), toeVlaResult["name"], toeVlaResult["image"])
+}
+else {
+return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), undefined, undefined)
+}
 };
 
 /**
@@ -140,7 +172,7 @@ exports.makeService = async (params) => {
         "friday": [params["fr-start-am"], params["fr-end-am"], params["fr-start-pm"], params["fr-end-pm"]],
         "saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
         "sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
-    }
+    } 
     return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours)
 };
 
@@ -276,4 +308,19 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
     }
 
     return jsonLD;
+}
+
+function searchToeVla(street, number, postcode) {
+	console.log("Search ToeVla for: " + street + " " + number + " " + postcode);
+
+	let rawdata = fs.readFileSync(__dirname + '/../toevla.json');  
+	let toeVlaData = JSON.parse(rawdata);
+	
+	for(let item of toeVlaData) {
+		if(item.address.street == street && item.address.number == number && item.address.zip == postcode)
+		{
+			return item;
+		}
+	}
+	return false;
 }
