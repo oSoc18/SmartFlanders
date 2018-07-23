@@ -49,7 +49,7 @@ exports.gebouwFetcher = async (params) => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
                     fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                         JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
+                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), "Gebouwnaam", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")),
                         err => {
                             if (err) throw new Error("Error while writing building JSON")
                         })
@@ -70,7 +70,7 @@ exports.gebouwFetcher = async (params) => {
         } else {
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                 JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
+                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),"Gebouwnaam", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")),
                 err => {
                     if (err) throw new Error("Error while writing building JSON")
                 })
@@ -78,7 +78,7 @@ exports.gebouwFetcher = async (params) => {
                 let file_data = JSON.parse(data);
                 let should_push = true;
                 for(let i = 0; i < file_data["dcat:dataset"].length; i++){
-                    if (file_data["dcat:dataset"][i]["dcat:distribution"][0]["dcat:accessUrl"] === `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen${JSON.parse(gebouwId).gebouw.objectId}.json`){
+                    if (file_data["dcat:dataset"][i]["dcat:distribution"][0]["dcat:accessUrl"] === `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`){
                         should_push = false;
                         break;
                     }
@@ -89,7 +89,7 @@ exports.gebouwFetcher = async (params) => {
                         "dcat:keyword": "http://data.vlaanderen.be/ns/gebouw#Gebouw",
                         "dcat:distribution": [{
                             "@type": "dcat:Distribution",
-                            "dcat:accessUrl": `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen${JSON.parse(gebouwId).gebouw.objectId}.json`,
+                            "dcat:accessUrl": `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                             "dcat:mediaType": "text/html"
                         }]
                     });
@@ -121,7 +121,7 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1], "Gebouwnaam", "https://installect.files.wordpress.com/2013/03/catsincup.jpg"))
 };
 
 /**
@@ -169,7 +169,7 @@ function fetch(url) {
  * @param {number} adresId
  * @param {number} location
  */
-function jsonLDBuilding(gebouwId, adresId, location) {
+function jsonLDBuilding(gebouwId, adresId, location, name, image) {
     return {
         "@context": {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
@@ -184,6 +184,8 @@ function jsonLDBuilding(gebouwId, adresId, location) {
         },
         "@id": "gebouw:" + gebouwId,
         "@type": "gebouw:Gebouw",
+	"gebouw:gebouwnaam": name,
+	"image": image,
         "gebouw:Gebouw.adres": {
             "@id": "http://data.vlaanderen.be/id/adres/" + adresId,
             "@type": "http://www.w3.org/ns/locn#Address",
