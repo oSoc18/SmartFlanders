@@ -41,6 +41,7 @@ exports.gebouwFetcher = async (params) => {
         toeVlaResult = searchToeVla(params.street, params.number, params.postcode);
         console.log(toeVlaResult);
     }
+    //toeVlaResult = searchToeVla("Botermarkt", "1", "9000"); // Use this for debugging until front end is ready
 
     fs.readdir(__dirname + '/../files', (err, files) => {
         if (err) console.error(err.message)
@@ -58,12 +59,12 @@ exports.gebouwFetcher = async (params) => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
 	            let data;
 		    if(toeVlaResult) {
-			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
 			    toeVlaResult["name"], toeVlaResult["image"]));
                     }
 	            else {
-			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
 			    undefined, undefined))
 		    }
@@ -89,12 +90,12 @@ exports.gebouwFetcher = async (params) => {
         } else {
             let data;
             if(toeVlaResult) {
-			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
 			    toeVlaResult["name"], toeVlaResult["image"]));
                     }
 	            else {
-			JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
 			    undefined, undefined))
 		    }
