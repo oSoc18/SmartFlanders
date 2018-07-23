@@ -55,11 +55,12 @@ router.post('/snippet', async (req, res, next) => {
         res.status(200)
         let response = await transformerController.getGebouwId(req.body)
         res.render('snippet', {
-            building : JSON.stringify(response, null, 4)
+            building: JSON.stringify(response, null, 4)
         })
     } catch (error) {
 
     }
+<<<<<<< HEAD
 });
 
 // ---services
@@ -86,3 +87,42 @@ router.post('/services', async (req, res, next) => {
 });
 
 module.exports = router
+=======
+});
+
+// ---services
+// searchform postcode
+// router.get('/postcode', async (req, res, next) => {
+//     res.render('postcode');
+// });
+
+
+router.get('/postcode', async (req, res, next) => {
+    res.render('services');
+});
+
+router.post('/service/postcode', async (req, res, next) => {
+    try {
+        res.status(200)
+        var response = await serviceController.postCodeSearch(req.body);
+    } catch (error) {
+        res.status(304)
+        var response = error.message; 
+    }
+    res.send(response);
+})
+router.post('/services', async (req, res, next) => {
+    try {
+        res.status(200);
+        let response = await serviceController.addService(req.body);
+        res.render('snippet', {
+            building: JSON.stringify(response, null, 4)
+        })
+    } catch (error) {
+        console.error("TransformerController returned an error");
+        next(error);
+    }
+});
+
+module.exports = router
+>>>>>>> e982311df7ebdd95055c7fad3a80719ccd6383ec

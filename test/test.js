@@ -49,6 +49,7 @@ describe("Transformer", function() {
                 //?gemeente=blablba&postcode=0157&straat=earth&huisnummer=-1
                 var params = {
 			id: "URI:/123",
+<<<<<<< HEAD
 
 			openingHours: {
 				"mo-start-pm": "9:00",
@@ -80,6 +81,36 @@ describe("Transformer", function() {
 		    "su-start-am": "13:00",
 		    "su-end-am": "17:00"
 			},
+=======
+			"mo-start-pm": "9:00",
+			"mo-end-pm": "12:00",
+			"mo-start-am": "13:00",
+			"mo-end-am": "17:00",
+			"tu-start-pm": "9:00",
+      "tu-end-pm": "12:00",
+      "tu-start-am": "13:00",
+      "tu-end-am": "17:00",
+			"we-start-pm": "9:00",
+      "we-end-pm": "12:00",
+      "we-start-am": "13:00",
+      "we-end-am": "17:00",
+			"th-start-pm": "9:00",
+      "th-end-pm": "12:00",
+      "th-start-am": "13:00",
+      "th-end-am": "17:00",
+			"fr-start-pm": "9:00",
+		  "fr-end-pm": "12:00",
+		  "fr-start-am": "13:00",
+		  "fr-end-am": "17:00",
+			"sa-start-pm": "9:00",
+      "sa-end-pm": "12:00",
+      "sa-start-am": "13:00",
+      "sa-end-am": "17:00",
+			"su-start-pm": "9:00",
+	    "su-end-pm": "12:00",
+	    "su-start-am": "13:00",
+	    "su-end-am": "17:00",
+>>>>>>> e982311df7ebdd95055c7fad3a80719ccd6383ec
 			name: "Joske The Service",
 			description: "Joske works hard at any time",
 			productType: "URI:/456",
