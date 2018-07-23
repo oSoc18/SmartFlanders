@@ -18,7 +18,7 @@ app.get("/graph", (req, res) => {
 })
 app.use("/graph", express.static('files'));
 app.get("/", (req, res) => {
-  res.render("index");
+  res.send("index");
 })
 // --- Routes
 app.use("/", routes)
