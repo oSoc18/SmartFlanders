@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import SPARQL from 'sparql-client-2';
+import {SparqlClient, SPARQL} from 'sparql-client-2';
 
 
 export class SearchBuildings extends Component {
@@ -11,13 +11,14 @@ export class SearchBuildings extends Component {
             number: null
 
         };
-        this.sparql = new SPARQL.SparqlClient('https://data.vlaanderen.be/sparql')
-        this.handleChangeStreet = this.handleChangeStreet.bind(this)
-        this.handleChangeNumber = this.handleChangeNumber.bind(this)
+        
+        //this.handleChangeStreet = this.handleChangeStreet.bind(this)
+        //this.handleChangeNumber = this.handleChangeNumber.bind(this)
     }
-    handleChangeStreet(e){
+     handleChangeStreet(e){
+        let sparql = SparqlClient('https://data.vlaanderen.be/sparql');
         this.setState({street: e.target.straatnaam})
-        let response = await sparql.query(`
+        let response = sparql.query(`
         PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         SELECT distinct ?naamlabel  WHERE {
@@ -25,8 +26,10 @@ export class SearchBuildings extends Component {
         ?adres <http://data.vlaanderen.be/ns/adres#heeftStraatnaam> ?naam.
         ?naam rdfs:label ?naamlabel.
         filter(STRSTARTS(str(?naamlabel),"${this.state.street}")).
-}
-LIMIT 1000`).execute();
+        }
+            LIMIT 1000`).execute().then(data => {
+                console.log(data)
+            });
     }
 
     render() {

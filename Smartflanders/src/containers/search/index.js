@@ -2,13 +2,13 @@ import React, {Component} from 'react'
 import { SearchBuildings } from '../../components/search-buildings-form'
 import { connect } from 'react-redux'
 
-class Search extends Component {
+export class Search extends Component {
     constructor(props){
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
     componentDidMount(){
-
+        
     }
     handleSubmit() {
         
@@ -22,4 +22,3 @@ class Search extends Component {
         )
     }
 }
-export default connect(mapStateToProps)(AsyncApp)

@@ -14,16 +14,19 @@ import './App.css';
 class App extends Component {
 
   render(){
-    const store = createStore(rootReducer);
+   // const store = createStore(rootReducer);
     return (
-      <Provider store={store}>
-      <Header />
+      <div>
       <Router>
+        <div>
+      <Header />
         <Route exact path="/" component={Homepage}/>
         <Route path="/about" component={Aboutpage}/>
         <Route path="/search-building" component={Search} />
-        </Router>
-        </Provider>
+      </div>
+      </Router>
+
+      </div>
     );
   }
 }
