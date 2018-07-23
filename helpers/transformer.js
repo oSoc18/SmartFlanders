@@ -49,8 +49,8 @@ exports.gebouwFetcher = async (params) => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
                     fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                         JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1],
-			    "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg"))),
+                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
+			    "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")),
                         err => {
                             if (err) throw new Error("Error while writing building JSON")
                         })
@@ -71,8 +71,8 @@ exports.gebouwFetcher = async (params) => {
         } else {
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                 JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1],
-		    "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg"))),
+                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
+		    "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")),
                 err => {
                     if (err) throw new Error("Error while writing building JSON")
                 })
@@ -123,7 +123,7 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1], "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg"))
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), "Gebouw title", "https://installect.files.wordpress.com/2013/03/catsincup.jpg")
 };
 
 /**
