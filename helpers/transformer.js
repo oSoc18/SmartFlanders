@@ -51,7 +51,7 @@ exports.gebouwFetcher = async (params) => {
                         JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
                         err => {
-                            if (err) throw new Error("Error whiel writing building JSON")
+                            if (err) throw new Error("Error while writing building JSON")
                         })
                 })
             })
@@ -72,7 +72,7 @@ exports.gebouwFetcher = async (params) => {
                 JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                     lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
                 err => {
-                    if (err) throw new Error("Error whiel writing building JSON")
+                    if (err) throw new Error("Error while writing building JSON")
                 })
             fs.readFile(__dirname + `/../files/${params.postcode}/catalog.json`, (err, data) => {
                 let file_data = JSON.parse(data);
@@ -97,6 +97,25 @@ exports.gebouwFetcher = async (params) => {
 
                 fs.writeFile(__dirname + `/../files/${params.postcode}/catalog.json`, JSON.stringify(file_data), err => {
                     if (err) throw new Error("Error while adding building to catalog")
+                })
+                fs.readFile(__dirname + '/../files/master-catalog.json', (err, data) => {
+                    if (err) throw new Error("error while reading master-catalog file")
+                    let file_data = JSON.parse(data);
+                    let contains = false
+                    file_data["dcterms:hasPart"].forEach(element => {
+                         if(element["foaf:page"] ===  `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/catalog.json`){
+                            contains = true;
+                         }
+                    });
+                    if(!contains){
+                        file_data["dcterms:hasPart"].push({
+                            "foaf:page": `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/catalog.json`,
+                            "@type": "dcat:Catalog"
+                        });
+                        fs.writeFile(__dirname + '/../files/master-catalog.json', JSON.stringify(file_data), err => {
+                            if (err) throw new Error("Error while writing files");
+                        })
+                    }
                 })
             })
         }
