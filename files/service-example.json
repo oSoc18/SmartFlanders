@@ -55,7 +55,7 @@
       ]
   },
     "http://purl.org/dc/terms/description": "The public toilet of the public library of Mechelen",
-    "http://www.w3.org/ns/locn#location": "http://data.vlaanderen.be/id/gebouw/123",
+    "http://www.w3.org/ns/locn#location": "http://data.vlaanderen.be/id/adres/1531526",
     "toevla:accessibilityMeasurement": {
       "toevla:accessibilityMeasurement_for": {
         "dcterms:description": "The elevator",
