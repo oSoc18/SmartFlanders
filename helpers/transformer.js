@@ -194,7 +194,7 @@ function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
             "adressenRegister": "https://data.vlaanderen.be/id/adres/",
             "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
-            "schema": "http://schema.org/",
+            "schema": "http://smartflanders.ilabt.imec.be/schema.json",
             "dcterms": "http://purl.org/dc/terms/",
             "toevla": "http://semweb.mmlab.be/ns/wa#",
             "locn": "http://www.w3.org/ns/locn#",
@@ -337,7 +337,7 @@ function createCatalogFileForCity(postcode, gebouwId) {
  */
 function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
     let jsonLD = [{
-            "@context": "http://schema.org/",
+            "@context": "http://smartflanders.ilabt.imec.be/schema.json",
             "@type": "Service",
             "name": name,
             "description": description,
