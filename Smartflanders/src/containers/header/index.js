@@ -12,7 +12,7 @@ export class Header extends Component {
                     <img href="" src = 'https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png' />
                 <div className="nav">
                     <Link className="link" to="/">Start</Link>
-                    <Link className="link" to="/about" >About</Link>
+                    <Link className="link" to="/service">Service </Link>
                  </div>
                     <h1>Smart Flanders </h1> 
                     <h2>Gebouwenregister SmartFlanders</h2>

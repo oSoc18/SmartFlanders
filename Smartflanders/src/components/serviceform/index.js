@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-export class Services extends Component {
+export class ServiceForm extends Component {
     constructor(props) {
         super(props)
         this.state = {

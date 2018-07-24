@@ -225,11 +225,12 @@ function createCatalogFileForCity(postcode, gebouwId) {
  * @param {number} adresId
  * @param {number} location
  */
-function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
+function jsonLDService(id, name, description, productType, telephone, email, openingHours, gebouwId) {
     let jsonLD = [{
             "@context": "http://schema.org/",
             "@type": "Service",
             "name": name,
+            "http://data.vlaanderen.be/ns/gebouw#Gebouw": gebouwId,
             "description": description,
             "http://purl.org/oslo/ns/localgov#productType": productType,
             "telephone": telephone,
