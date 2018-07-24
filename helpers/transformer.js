@@ -158,7 +158,7 @@ exports.makeService = async (params) => {
         "saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
         "sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
     } 
-    return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours)
+    return jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours, params.buildingId)
 };
 
 /**
@@ -325,7 +325,7 @@ function createCatalogFileForCity(postcode, gebouwId) {
  * @param {number} adresId
  * @param {number} location
  */
-function jsonLDService(id, name, description, productType, telephone, email, openingHours) {
+function jsonLDService(id, name, description, productType, telephone, email, openingHours, buildingId) {
     let jsonLD = [{
             "@context": "http://schema.org/",
             "@type": "Service",
@@ -334,10 +334,12 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
             "http://purl.org/oslo/ns/localgov#productType": productType,
             "telephone": telephone,
             "email": email,
-            "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
+            "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours),
+	    "gebouw": "http://data.vlaanderen.be/ns/gebouw#"
         },
         {
             "@type": "http://purl.org/vocab/cpsv#PublicService",
+	    "building": "gebouw:" + buildingId,
             "http://data.europa.eu/m8g/hasChannel": {
                 "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
             },
