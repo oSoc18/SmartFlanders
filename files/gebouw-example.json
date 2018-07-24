@@ -1,35 +1,52 @@
 {
     "@context": {
         "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
-        "adressenRegister": "https://data.vlaanderen.be/doc/adres",
+        "adressenRegister": "https://data.vlaanderen.be/id/adres/",
         "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
-        "schema": "http://schema.org/",
+        "schema": "http://schema.org/image",
         "dcterms": "http://purl.org/dc/terms/",
         "toevla": "http://semweb.mmlab.be/ns/wa#",
         "locn": "http://www.w3.org/ns/locn#",
         "geo": "http://www.opengis.net/ont/geosparql#",
-        "xsd": "http://www.w3.org/2001/XMLSchema#"
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "image": "http://schema.org/image"
     },
-    "@id": "http://data.vlaanderen.be/id/gebouw/123",
+    "@id": "gebouw:14914874",
     "@type": "gebouw:Gebouw",
-    "http://purl.org/dc/terms/description": "The entrance of the public library of Mechelen",
-    "toevla:accessibilityMeasurement": {
-        "toevla:accessibilityMeasurement_for": {
-            "dcterms:description": "The entrance",
-            "toevla:entranceDoorWidth": {
-                "@value": "70",
-                "@type": "xsd:Integer"
-            },
-            "toevla:entranceDoorWidthScore": "+"
-        }
-    },
     "gebouw:Gebouw.adres": {
-        "@id": "http://data.vlaanderen.be/id/adres/123",
+        "@id": "http://data.vlaanderen.be/id/adres/1475186",
         "@type": "http://www.w3.org/ns/locn#Address",
         "http://www.w3.org/2003/01/geo/wgs84_pos#location": {
             "@type": "http://www.w3.org/2003/01/geo/wgs84_pos#Point",
-            "http://www.w3.org/2003/01/geo/wgs84_pos#lat": 50.8650315,
-            "http://www.w3.org/2003/01/geo/wgs84_pos#long": 4.3472645
+            "http://www.w3.org/2003/01/geo/wgs84_pos#lat": 51.05394383327376,
+            "http://www.w3.org/2003/01/geo/wgs84_pos#long": 3.7227841715683176
         }
+    },
+    "name": "Stadhuis Gent",
+    "image": "https://toevla.vlaanderen.be/beheer//Pages/Attachment/AttachmentViewPage.aspx?Id=38496&Width=170",
+    "schema": [
+        {
+            "schema": "https://toevla.vlaanderen.be/beheer//Pages/Attachment/AttachmentViewPage.aspx?Id=53082",
+            "title": "Schema"
+        }
+    ],
+    "toevla:accessibilityMeasurement": {
+        "toevla:accessibilityMeasurement_for": [
+            {
+                "dcterms:description": "The entrance",
+                "toevla:entranceDoorWidth": {
+                    "@value": 120,
+                    "@type": "xsd:Integer"
+                }
+            },
+	    {
+                "dcterms:description": "The elevators",
+                "toevla:elevatorDoorWidth": {
+                    "@value": 110,
+                    "@type": "xsd:Integer"
+                }
+            }
+        ]
     }
 }
+
