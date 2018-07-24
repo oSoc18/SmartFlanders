@@ -9,7 +9,7 @@ export class Header extends Component {
         return ( 
             <header>
                 <div className="header">
-                    <img src = 'https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png' />
+                    <img href="" src = 'https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png' />
                 <div className="nav">
                     <Link className="link" to="/">Start</Link>
                     <Link className="link" to="/about" >About</Link>

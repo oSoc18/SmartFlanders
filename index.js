@@ -8,7 +8,7 @@ const path = require("path");
 const pug = require("pug");
 
 // --- Middlewere
-app.use(body.urlencoded({ extended: false }));
+app.use(body.json());
 app.use(morgan("dev"));
 app.use(cors())
 
@@ -37,4 +37,4 @@ app.use(function(err, req, res, next) {
  * Server listener
  * @param {number} - Port number
  */
-app.listen(3000, () => console.log("SmartFlanders is running on port 3000"))
+app.listen(3001, () => console.log("SmartFlanders is running on port 3001"))

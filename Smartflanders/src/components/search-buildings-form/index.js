@@ -10,12 +10,10 @@ export class SearchBuildings extends Component {
             streets: []
 
         };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChangePostcode = this.handleChangePostcode.bind(this)
     }
     handleChangePostcode(e){
-        if(e.target.value.length == 4){
-        this.setState({streets: []})
         this.setState({ postcode: e.target.value})    
         let query = `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -23,7 +21,7 @@ export class SearchBuildings extends Component {
         SELECT distinct ?naamlabel WHERE {
         ?adres a <http://data.vlaanderen.be/ns/adres#Adres> .
         ?adres <http://data.vlaanderen.be/ns/adres#heeftPostinfo> ?postinfo .
-        ?postinfo <http://data.vlaanderen.be/ns/adres#postcode> "${this.state.postcode}"^^xsd:string .
+        ?postinfo <http://data.vlaanderen.be/ns/adres#postcode> "${e.target.value}"^^xsd:string .
         ?adres <http://data.vlaanderen.be/ns/adres#heeftStraatnaam> ?naam.
         ?naam rdfs:label ?naamlabel.
     }`
@@ -35,22 +33,20 @@ export class SearchBuildings extends Component {
                 return data.json();                
             }).then(blob => {
                 let _data = [];
-                console.log(blob.results.bindings.length)
-            for (let i = 0; i < blob.results.bindings.length; i++) {
+                console.log(blob.results)
+                for (let i = 0; i < blob.results.bindings.length; i++) {
                 _data.push(blob.results.bindings[i].naamlabel.value);
-            }
+                    }
                 this.setState({streets: _data})
             });
-            
-        }
     }
 
     handleSubmit(e){
         e.preventDefault();
         console.log('before sparql');
-        
+        this.props.handleSubmit(e);
 
-            }    
+    }    
     render() {
         return (
             <div className="content">
@@ -61,7 +57,7 @@ export class SearchBuildings extends Component {
                             <input className="input-text" type="number" name="postcode" required min="1000" max="9992" onChange={this.handleChangePostcode}/>
                             <label className="label" for="street">Straat: </label>
                             <Autocomplete
-                                    inputProps={{ className: "input-text" }}
+                                    inputProps={{ className: "input-text", name:"street" }}
                                     wrapperStyle={{ position: 'relative' }}
                                     getItemValue={(item) => item.trim()}
                                     items={this.state.streets}
@@ -83,7 +79,7 @@ export class SearchBuildings extends Component {
                                     value={this.state.street}
                                     onChange={(event, value) => this.setState({street: value}) }
                                     onSelect={(val) => this.setState({street: val})}
-                                    name="street"
+                                    
                                     />
                             <label className="label" for="number">Huisnummer: </label>
                             <input className="input-text" type="number" name="number" required />

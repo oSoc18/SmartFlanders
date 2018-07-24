@@ -137,6 +137,16 @@ header {
     float: left;
     margin: 0px 25% 5%;
     width: 50%; }
+.building-container {
+    display: flex;
+    width: 90%;
+    height: auto;
+}
+.building-box {
+  width: 20%;
+  height: 10%;
+  border: #29264c 1px solid;
+}
 
 /*===========================
    Openinghours
