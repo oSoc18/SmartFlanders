@@ -3,13 +3,15 @@
         "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
         "adressenRegister": "https://data.vlaanderen.be/id/adres/",
         "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
-        "schema": "http://schema.org/image",
+        "schema": "http://schema.org/",
         "dcterms": "http://purl.org/dc/terms/",
         "toevla": "http://semweb.mmlab.be/ns/wa#",
         "locn": "http://www.w3.org/ns/locn#",
         "geo": "http://www.opengis.net/ont/geosparql#",
         "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "image": "http://schema.org/image"
+      "image": { "@id": "http://schema.org/image",
+                 "@type": "@id"
+               }
     },
     "@id": "gebouw:14914874",
     "@type": "gebouw:Gebouw",
@@ -24,13 +26,8 @@
     },
     "name": "Stadhuis Gent",
     "image": "https://toevla.vlaanderen.be/beheer//Pages/Attachment/AttachmentViewPage.aspx?Id=38496&Width=170",
-    "schema": [
-        {
-            "schema": "https://toevla.vlaanderen.be/beheer//Pages/Attachment/AttachmentViewPage.aspx?Id=53082",
-            "title": "Schema"
-        }
-    ],
     "toevla:accessibilityMeasurement": {
+        "image":  [ "https://toevla.vlaanderen.be/beheer//Pages/Attachment/AttachmentViewPage.aspx?Id=53082" ],
         "toevla:accessibilityMeasurement_for": [
             {
                 "dcterms:description": "The entrance",
@@ -39,7 +36,7 @@
                     "@type": "xsd:Integer"
                 }
             },
-	    {
+        {
                 "dcterms:description": "The elevators",
                 "toevla:elevatorDoorWidth": {
                     "@value": 110,
@@ -49,4 +46,3 @@
         ]
     }
 }
-

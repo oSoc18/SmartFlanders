@@ -42,7 +42,7 @@ exports.gebouwFetcher = async (params) => {
         console.log(toeVlaResult);
     }
     //toeVlaResult = searchToeVla("Van Rysselberghedreef", "2", "9000"); // Use this for debugging until front end is ready
-    //toeVlaResult = searchToeVla("Botermarkt", "1", "9000"); // Use this for debugging until front end is ready
+    toeVlaResult = searchToeVla("Botermarkt", "1", "9000"); // Use this for debugging until front end is ready
 
     fs.readdir(__dirname + '/../files', (err, files) => {
         if (err) console.error(err.message)
@@ -200,8 +200,9 @@ function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
             "locn": "http://www.w3.org/ns/locn#",
             "geo": "http://www.opengis.net/ont/geosparql#",
             "xsd": "http://www.w3.org/2001/XMLSchema#",
-	    "image": "http://schema.org/image",
-	    "schema": "http://schema.org/image"
+	    "image": { "@id": "http://schema.org/image",
+                 "@type": "@id"
+               }
         },
         "@id": "gebouw:" + gebouwId,
         "@type": "gebouw:Gebouw",
@@ -219,7 +220,6 @@ function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
 		console.log("Adding ToeVla accessibility data to building...");
 		data["name"] = toeVlaResult["name"];
 		data["image"] = toeVlaResult["image"];
-		data["schema"] = toeVlaResult["schemas"];
 
 		let measurements = [];
 
@@ -268,10 +268,20 @@ function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
 			console.debug("No entrance available:" + e);
 		}
 
+		if(measurements.length > 0 || toeVlaResult["schemas"]) {
+
+		data["toevla:accessibilityMeasurement"]= {};
 		if(measurements.length > 0) {
-			data["toevla:accessibilityMeasurement"] = {
-				"toevla:accessibilityMeasurement_for": measurements
+			data["toevla:accessibilityMeasurement"]["toevla:accessibilityMeasurement_for"]= measurements
+		}
+
+		if(toeVlaResult["schemas"]) {
+			let schemaImages = [];
+			for(let i=0; i < toeVlaResult["schemas"].length; i++) {
+				schemaImages.push(toeVlaResult["schemas"][i]["schema"]);
 			}
+			data["toevla:accessibilityMeasurement"]["image"] = schemaImages;
+		}
 		}
 	}
     return data;
