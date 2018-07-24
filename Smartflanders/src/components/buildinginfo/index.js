@@ -5,11 +5,11 @@ export class BuildingInfo extends Component {
         return (
             <div className="buildinginfo">
                 <div className="info">
-                    <p>street + number</p><p>{this.props.volledigAdres}</p>
+                    <p>{this.props.volledigAdres}</p>
                     <p>GebouwID: {this.props.objectID} </p>
                     <p>AdresID: {this.props.adresID}</p>
                     <button className="btn">
-                        Bekijk op kaart -> JJJooooooEEEEPPIEEEE
+                        Bekijk op kaart
                     </button>
                 </div>  
                 <div className="map">
