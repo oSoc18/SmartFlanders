@@ -41,6 +41,7 @@ exports.gebouwFetcher = async (params) => {
         toeVlaResult = searchToeVla(params.street, params.number, params.postcode);
         console.log(toeVlaResult);
     }
+    //toeVlaResult = searchToeVla("Van Rysselberghedreef", "2", "9000"); // Use this for debugging until front end is ready
     //toeVlaResult = searchToeVla("Botermarkt", "1", "9000"); // Use this for debugging until front end is ready
 
     fs.readdir(__dirname + '/../files', (err, files) => {
@@ -58,16 +59,10 @@ exports.gebouwFetcher = async (params) => {
                 fs.writeFile(__dirname + `/../files/${params.postcode}/catalog.json`, createCatalogFileForCity(params.postcode, JSON.parse(gebouwId).gebouw.objectId), err => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
 	            let data;
-		    if(toeVlaResult) {
 			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
                             lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
-			    toeVlaResult["name"], toeVlaResult["image"]));
-                    }
-	            else {
-			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
-			    undefined, undefined))
-		    }
+			    toeVlaResult));
+		    console.log(data);
                     fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                         data,
                         err => {
@@ -89,16 +84,9 @@ exports.gebouwFetcher = async (params) => {
             })
         } else {
             let data;
-            if(toeVlaResult) {
-			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
-			    toeVlaResult["name"], toeVlaResult["image"]));
-                    }
-	            else {
-			data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
-			    undefined, undefined))
-		    }
+		data = JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
+		    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]),
+		    toeVlaResult));
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                 data,
                 err => {
@@ -151,12 +139,8 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    if(toeVlaResult) {
-    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), toeVlaResult["name"], toeVlaResult["image"])
-}
-else {
-return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), undefined, undefined)
-}
+
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), toeVlaResult)
 };
 
 /**
@@ -204,8 +188,8 @@ function fetch(url) {
  * @param {number} adresId
  * @param {number} location
  */
-function jsonLDBuilding(gebouwId, adresId, location, name, image) {
-    return {
+function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
+    let data = {
         "@context": {
             "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
             "adressenRegister": "https://data.vlaanderen.be/id/adres/",
@@ -216,12 +200,11 @@ function jsonLDBuilding(gebouwId, adresId, location, name, image) {
             "locn": "http://www.w3.org/ns/locn#",
             "geo": "http://www.opengis.net/ont/geosparql#",
             "xsd": "http://www.w3.org/2001/XMLSchema#",
-	    "image": "http://schema.org/image"
+	    "image": "http://schema.org/image",
+	    "schema": "http://schema.org/image"
         },
         "@id": "gebouw:" + gebouwId,
         "@type": "gebouw:Gebouw",
-	"gebouw:gebouwnaam": name,
-	"image": image,
         "gebouw:Gebouw.adres": {
             "@id": "http://data.vlaanderen.be/id/adres/" + adresId,
             "@type": "http://www.w3.org/ns/locn#Address",
@@ -232,6 +215,66 @@ function jsonLDBuilding(gebouwId, adresId, location, name, image) {
             }
         }
     }
+	if(toeVlaResult) {
+		console.log("Adding ToeVla accessibility data to building...");
+		data["name"] = toeVlaResult["name"];
+		data["image"] = toeVlaResult["image"];
+		data["schema"] = toeVlaResult["schemas"];
+
+		let measurements = [];
+
+		// elevators
+		try {
+			let size = 0;
+			for(let i = 0; i < toeVlaResult["accessibility"]["liften"].length; i++) {
+				if(size < parseInt(toeVlaResult["accessibility"]["liften"][i]["breedte"]))
+				{
+					size = parseInt(toeVlaResult["accessibility"]["liften"][i]["breedte"]);
+				}
+			}
+			console.log("Elevator width: " + size);
+			measurements.push({
+					     "dcterms:description": "The elevator",
+					     "toevla:elevatorDoorWidth": {
+						"@value": size,
+						"@type": "xsd:Integer"
+					     }
+					});
+		}
+		catch(e) {
+			console.debug("No elevators available:" + e);
+		}
+
+		// entrance
+		try {
+			let size = 0;
+			console.log(toeVlaResult["accessibility"]["horizontalebreedte"].length)
+			for(let i = 0; i < toeVlaResult["accessibility"]["horizontalebreedte"].length; i++) {
+				if(size < parseInt(toeVlaResult["accessibility"]["horizontalebreedte"][i]))
+				{
+					size = parseInt(toeVlaResult["accessibility"]["horizontalebreedte"][i]);
+				}
+			}
+			console.log("Entrance width: " + size);
+			measurements.push({
+					     "dcterms:description": "The entrance",
+					     "toevla:entranceDoorWidth": {
+						"@value": size,
+						"@type": "xsd:Integer"
+					     }
+					});
+		}
+		catch(e) {
+			console.debug("No entrance available:" + e);
+		}
+
+		if(measurements.length > 0) {
+			data["toevla:accessibilityMeasurement"] = {
+				"toevla:accessibilityMeasurement_for": measurements
+			}
+		}
+	}
+    return data;
 }
 
 function createCatalogFileForCity(postcode, gebouwId) {
