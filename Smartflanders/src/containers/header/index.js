@@ -8,15 +8,14 @@ export class Header extends Component {
     render () {
         return ( 
             <header>
-                <div className="header">
-                    <img href="" src = 'https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png' />
+                <Link className="logo" to="/">
+                    <img src="https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png" />
+                    <p>Smart Flanders</p>
+                </Link>
                 <div className="nav">
-                    <Link className="link" to="/">Start</Link>
-                    <Link className="link" to="/about" >About</Link>
-                 </div>
-                    <h1>Smart Flanders </h1> 
-                    <h2>Gebouwenregister SmartFlanders</h2>
-                    </div>
+                    <Link to="/">Home</Link>
+                    <Link to="/about">Blog</Link>
+                </div>
             </header>
         )
     }

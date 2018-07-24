@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/oSoc18/SmartFlanders#readme",
   "dependencies": {
+    "@material-ui/core": "^1.4.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "enum": "^2.5.0",
@@ -38,6 +39,7 @@
     "package.json": "^2.0.1",
     "proj4": "^2.4.4",
     "pug": "^2.0.3",
+    "typeface-roboto": "0.0.54",
     "validator": "^10.4.0"
   },
   "devDependencies": {

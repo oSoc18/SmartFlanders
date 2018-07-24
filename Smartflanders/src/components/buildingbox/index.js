@@ -5,7 +5,7 @@ render() {
     return (
             <div className="building-box">
             {this.props.adres.volledigAdres.geografischeNaam.spelling}
-            <button id="adres-submit" onClick={(e) => {this.props.onAdresSubmit(e, this.props.adres.identificator.objectId)}}>Selecteer</button>
+            <button className="btn" id="adres-submit" onClick={(e) => {this.props.onAdresSubmit(e, this.props.adres.identificator.objectId)}}>Selecteer</button>
             </div>
         )
     }

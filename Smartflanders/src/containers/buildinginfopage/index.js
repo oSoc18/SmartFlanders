@@ -11,7 +11,7 @@ export class BuildingInfoPage extends Component {
 
     render() {
         return (
-            <div className="content">
+            <div className="building">
                 <BuildingInfo />  
                 <Services title="hallo"/>    
                 <Snippet />      
