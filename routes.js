@@ -59,32 +59,35 @@ router.post('/service/postcode', async (req, res, next) => {
     try {
         res.status(200)
         var response = await serviceController.postCodeSearch(req.body);
+        res.send(response);
     } catch (error) {
         res.status(304)
         var response = error.message; 
     }
-    res.send(response);
+    
 })
 router.post('/services/getservices', async(req, res, next) => {
     try {
         res.status(200)
         let response = await serviceController.getServices(req.body)
+        res.send(response)
     } catch (error) {
         res.status(304)
         let response = err.message
     }
-    res.send(response)
+    
 })
 
 router.post('/services', async (req, res, next) => {
     try {
         res.status(200);
         let response = await serviceController.addService(req.body);
+        res.send(response)
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
     }
-    res.send(response)
+    
 });
 
 module.exports = router

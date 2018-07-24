@@ -12,16 +12,22 @@ export class ServicePage extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        axios.post('http://localhost:3001/service/', e.target).then( data => {
-            console.log(data)
+        let data = new FormData(e.target);
+        axios.post('http://localhost:3001/services/', data).then( res => {
+            console.log(res.data)
             this.setState({
-                formSend: true
+                formSend: true,
+                jsonld: res.data
             })
         })
     }
     render() {
         return (
-            { this.state.formSend ? null: <ServiceForm handleSubmit={this.handleSubmit}/>}
+            <div className="content">
+            <div className="container">
+            { this.state.formSend ? "We hebben de service correct toegevoegd": <ServiceForm handleSubmit={this.handleSubmit}/>}
+            </div>
+            </div>
         )
     }
 }
