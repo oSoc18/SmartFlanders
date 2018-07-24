@@ -9,23 +9,24 @@ import { Provider } from 'react-redux'
 import PropTypes from 'prop-types';
 import rootReducer from './reducers'
 import './App.css';
+import { BuildingInfoPage } from './containers/buildinginfopage';
 
 
 class App extends Component {
 
-  render(){
+  render() {
    // const store = createStore(rootReducer);
     return (
       <div>
-      <Router>
-        <div>
-      <Header />
-        <Route exact path="/" component={Homepage}/>
-        <Route path="/about" component={Aboutpage}/>
-        <Route path="/search-building" component={Search} />
-      </div>
-      </Router>
-
+        <Router>
+          <div>
+            <Header />
+            <Route exact path="/" component={Homepage}/>
+            <Route path="/about" component={Aboutpage}/>
+            <Route path="/search" component={Search} />
+            <Route path="/gebouw" component={BuildingInfoPage} />
+          </div>
+        </Router>
       </div>
     );
   }

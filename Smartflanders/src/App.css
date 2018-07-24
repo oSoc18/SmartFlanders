@@ -1,7 +1,4 @@
 /*===========================
- Variables
-============================ */
-/*===========================
  General
 ============================ */
 body {
@@ -28,11 +25,11 @@ h4 {
   text-align: center;
   margin: 0px 0px 45px; }
 
-.button {
+.btn {
   background-color: #ffd400;
   border: 0;
   border-radius: 25px;
-  color: white;
+  color: #29264C;
   font-size: 20px;
   letter-spacing: 1px;
   line-height: 1.5;
@@ -41,7 +38,7 @@ h4 {
   padding: 6px 30px; 
 }
 
-.button:hover {
+.btn:hover {
   background-color: #fee513; }
 
 .form {
@@ -149,7 +146,31 @@ header {
 }
 
 /*===========================
-   Openinghours
+  buildinginfo
+ ============================ */
+.buildinginfo {
+  margin: 0px auto;
+  width: 100%;
+}
+
+.info {
+  float: left;
+  margin: 0px auto;
+  width: 50%;
+}
+
+.info > p {
+  margin: 0px 5% 0px 0px;
+  text-align: right;
+}
+
+.map {
+  float: left;
+  width: 50%;
+}
+
+/*===========================
+  Openinghours
  ============================ */
 .openinghours {
   margin-top: 5px;
