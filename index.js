@@ -13,6 +13,9 @@ app.use(morgan("dev"));
 app.use(cors())
 
 app.use(express.static("public"));
+app.get("/schema.json") {
+  res.sendFile(__dirname + "/files/schema.json");
+}
 app.get("/graph", (req, res) => {
   res.sendFile(__dirname + "/files/master-catalog.json");
 })
