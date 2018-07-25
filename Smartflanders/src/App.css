@@ -220,7 +220,7 @@ header .nav a:hover {
 
 /*===========================
   BUILDING - snippet
-============================ */
+  ============================ */
 .snippet {
   text-align: center;
 }
@@ -233,6 +233,9 @@ header .nav a:hover {
   width: 70%;
 }
 
+/* =======
+  Openinghours
+ ============================ */
 .openinghours {
   margin-top: 5px;
   margin-bottom: 20px;

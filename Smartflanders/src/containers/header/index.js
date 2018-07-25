@@ -14,7 +14,7 @@ export class Header extends Component {
                 </Link>
                 <div className="nav">
                     <Link to="/">Home</Link>
-                    <Link to="/about">Blog</Link>
+		    <a target="_blank" href="https://osoc18.github.io/SmartFlanders-blog">Blog</a>
                 </div>
             </header>
         )
