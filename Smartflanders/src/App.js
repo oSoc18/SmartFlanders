@@ -6,6 +6,7 @@ import { Aboutpage } from "./containers/aboutpage"
 import { BuildingInfoPage } from './containers/buildinginfopage'
 import { createStore } from 'redux'
 import { Search } from "./containers/search"
+import { Services } from "./components/serviceform"
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types';
 import rootReducer from './reducers'
@@ -25,6 +26,7 @@ class App extends Component {
             <Route path="/about" component={Aboutpage}/>
             <Route path="/search" component={Search} />
             <Route path="/gebouw" component={BuildingInfoPage} />
+            <Route path="/service" component={Services} />
           </div>
         </Router>
       </div>

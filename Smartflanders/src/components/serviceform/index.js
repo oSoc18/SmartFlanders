@@ -10,7 +10,7 @@ export class Services extends Component {
 
     render() {
         return (
-            <div className="services">
+            <div className="serviceform">
                 <h3>Voeg informatie toe aan deze service</h3>
                 <form action="services" method="POST">
                     <label className="label" for="name">Naam:</label>
@@ -100,7 +100,7 @@ export class Services extends Component {
                             </div>
                         </div>
                     </div>
-                    <button className="button" type="submit">Voeg informatie toe</button>
+                    <button className="btn" type="submit">Voeg informatie toe</button>
                 </form>
             </div>
         )

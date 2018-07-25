@@ -59,7 +59,7 @@ export class Search extends Component {
 
     render() {
         return (
-            <div className="search">  
+            <div className="search">
                 { this.state.adressen ? this.state.adressen.map((adres, key) => {
                     return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
                 }) : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
