@@ -38,7 +38,7 @@ export class Search extends Component {
                 foundAdres: false, 
                 volledigAdres: volledigAdres,
                 adresID: adresId, 
-                gebouwID: 
+                gebouwID: ""
             });
             
             
