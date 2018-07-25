@@ -150,11 +150,6 @@ header .nav a:hover {
   top: 20px;
 }
 
-.autocomplete {
-  background-color: green;
-  padding: 0px;
-}
-
 /*===========================
  HOME - Search - Buildingbox
 ============================ */
@@ -227,7 +222,7 @@ pre {
   background-color: white;
   border: none;
   height: 1000px;
-  padding: 5px;
+  padding: 10px;
   overflow: scroll;
   text-align: left;
   width: 100%;
@@ -240,13 +235,12 @@ pre {
 }
   
 ::-webkit-scrollbar-track {
-  border: 1px solid #29264c;
-  border-radius: 5px;
+  background-color: #f3f1f3;
 }
   
 ::-webkit-scrollbar-thumb {
-  background: #29264c;  
-  border-radius: 10px;
+  background: #4844A3;  
+  border-radius: 5px;
 }
   
 ::-webkit-scrollbar-thumb:hover {
