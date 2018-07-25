@@ -225,10 +225,32 @@ header .nav a:hover {
 
 pre {
   background-color: white;
-  margin: 0px auto 30px;
-  padding: 20px;
+  border: none;
+  height: 1000px;
+  padding: 5px;
+  overflow: scroll;
   text-align: left;
   width: 100%;
+}
+  
+  /* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+  
+::-webkit-scrollbar-track {
+  border: 1px solid #29264c;
+  border-radius: 5px;
+}
+  
+::-webkit-scrollbar-thumb {
+  background: #29264c;  
+  border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+  background: #29264c;  
 }
 
 /*===========================
