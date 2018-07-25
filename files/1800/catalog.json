@@ -1,0 +1,39 @@
+{
+        "@context": {
+            "dcat": "https://www.w3.org/ns/dcat#",
+            "dcterms": "http://purl.org/dc/terms/",
+            "foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        "@type": "dcat:Catalog",
+        "dcterms:license": [{
+            "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+        }],
+        "dcat:dataset": [{
+                "@type": "dcat:Dataset",
+                "dcat:keyword": "http://schema.org/Service",
+                "dcat:distribution": [{
+                  "@type": "dcat:Distribution",
+                  "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/service-example.json",
+                  "dcat:mediaType": "text/html"
+                }]
+            },
+            {
+                "@type": "dcat:Dataset",
+                "dcat:keyword": "http://purl.org/vocab/cpsv#PublicService",
+                "dcat:distribution": [{
+                  "@type": "dcat:Distribution",
+                  "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/service-example.json",
+                  "dcat:mediaType": "text/html"
+                }]
+            },
+            {
+                "@type": "dcat:Dataset",
+                "dcat:keyword": "http://data.vlaanderen.be/ns/gebouw#Gebouw",
+                "dcat:distribution": [{
+                  "@type": "dcat:Distribution",
+                  "dcat:accessUrl": "http://smartflanders.ilabt.imec.be/graph/1800/gebouwen/16898713.json",
+                  "dcat:mediaType": "text/html"
+                }]
+            }
+        ]
+    }

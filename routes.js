@@ -73,12 +73,12 @@ router.post('/services/getservices', async(req, res, next) => {
         res.send(response)
     } catch (error) {
         res.status(304)
-        let response = err.message
+        next(error)
     }
     
 })
 
-router.post('/services', async (req, res, next) => {
+router.post('/services' ,async (req, res, next) => {
     try {
         res.status(200);
         let response = await serviceController.addService(req.body);

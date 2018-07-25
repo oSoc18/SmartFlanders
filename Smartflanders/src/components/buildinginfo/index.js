@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 
 export class BuildingInfo extends Component {
+    
     render() {
+        console.log(this.props.gebouwID)
         const lat = this.props.gebouw["gebouw:Gebouw.adres"]["http://www.w3.org/2003/01/geo/wgs84_pos#location"]["http://www.w3.org/2003/01/geo/wgs84_pos#lat"]
         const long = this.props.gebouw["gebouw:Gebouw.adres"]["http://www.w3.org/2003/01/geo/wgs84_pos#location"]["http://www.w3.org/2003/01/geo/wgs84_pos#long"]
 	    const boxSize = 0.01;
@@ -17,9 +19,9 @@ export class BuildingInfo extends Component {
             <div className="buildinginfo">
                 <h3>Gebouwinformatie</h3>
                 <div className="info">
-                    <p><b>{this.props.volledigAdres}</b></p>
-                    <p>ID van het gebouw: {this.props.gebouwID} </p>
-                    <p>ID van het adres: {this.props.adresID}</p>
+                    <h4>{this.props.volledigAdres}</h4>
+                    <p><b>ID van het gebouw:</b> {this.props.gebouwID} </p>
+                    <p><b>ID van het adres:</b> {this.props.adresID}</p>
                     <iframe className="iframe" src={url} sandbox="allow-scripts" id="map"></iframe>
                 </div>  
             </div>
