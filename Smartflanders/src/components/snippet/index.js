@@ -4,7 +4,9 @@ export class Snippet extends Component {
     render() {
         return (
             <div className="snippet">
-               {JSON.stringify(this.props.jsonld, null, 4)}
+	       <pre>
+                 {JSON.stringify(this.props.jsonld, null, 4)}
+               </pre>
             </div>
         )
     }
