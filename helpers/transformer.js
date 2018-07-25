@@ -120,6 +120,11 @@ exports.makeService = async (params) => {
         "saturday": [params["sa-start-am"], params["sa-end-am"], params["sa-start-pm"], params["sa-end-pm"]],
         "sunday": [params["su-start-am"], params["su-end-am"], params["su-start-pm"], params["su-end-pm"]]
     }
+    try {
+    fs.mkdirSync(__dirname + `/../files/${params.postcode}/services`)
+    } catch (err) {
+      if (err.code !== 'EEXIST') throw err
+    }
     fs.writeFile(__dirname + `/../files/${params.postcode}/services/${(Math.floor(Math.random()*10000))}.json`,JSON.stringify(jsonLDService(params.id, params.name, params.description, params.productType, params.telephone, params.email, openingHours, params.gebouwId)), (err) => {
         console.error(err)
     } )
@@ -232,12 +237,7 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
     let jsonLD = [{
             "@context": "http://schema.org/",
             "@type": "Service",
-            "name": name,
             "http://data.vlaanderen.be/ns/gebouw#Gebouw": gebouwId,
-            "description": description,
-            "http://purl.org/oslo/ns/localgov#productType": productType,
-            "telephone": telephone,
-            "email": email,
             "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
         },
         {
@@ -245,7 +245,6 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
             "http://data.europa.eu/m8g/hasChannel": {
                 "https://schema.org/hoursAvailable": openingHoursController.getOpeningHours(openingHours)
             },
-            "http://purl.org/dc/terms/description": description
         }
     ];
 
@@ -253,6 +252,27 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
     if (typeof id !== "undefined") {
         jsonLD[0]["@id"] = id;
         jsonLD[1]["@id"] = id;
+    }
+
+    if(name != "") {
+      jsonLD[0]["name"] = name;
+    }
+
+    if(description != "") {
+      jsonLD[0]["description"] = description;
+      jsonLD[1]["http://purl.org/dc/terms/description"] = description;
+    }
+
+    if(productType != "") {
+      jsonLD[0]["http://purl.org/oslo/ns/localgov#productType"] = "productType";
+    }
+
+    if(telephone != "") {
+      jsonLD[0]["telephone"] = telephone;
+    }
+
+    if(email != "") {
+      jsonLD[0]["email"] = email;
     }
 
     return jsonLD;
