@@ -8,13 +8,13 @@ export class Header extends Component {
     render () {
         return ( 
             <header>
-                <Link className="logo" to="/">
+                <a href="https://smartflanders.ilabt.imec.be/" class="logo">
                     <img src="https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png" />
                     <p>Smart Flanders</p>
-                </Link>
+                </a>
                 <div className="nav">
-                    <Link to="/">Home</Link>
-		    <a target="_blank" href="https://osoc18.github.io/SmartFlanders-blog">Blog</a>
+		    <a href="https://smartflanders.ilabt.imec.be/">Home</a>
+		    <a target="_blank" rel="noopener noreferrer" href="https://osoc18.github.io/SmartFlanders-blog">Blog</a>
                 </div>
             </header>
         )
