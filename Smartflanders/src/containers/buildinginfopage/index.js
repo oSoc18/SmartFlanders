@@ -5,17 +5,12 @@ import { Snippet } from '../../components/snippet'
 import { connect } from 'react-redux'
 
 export class BuildingInfoPage extends Component {
-    constructor(props){
-        super(props)
-        console.log(this.props.gebouw)
-    }
-
     render() {
         return (
             <div className="building">
-                <BuildingInfo gebouwId={this.props.gebouwId} volledigAdres={this.props.volledigAdres}/>  
+                <BuildingInfo gebouwId={this.props.gebouwId} adresID={this.props.adresID} volledigAdres={this.props.volledigAdres}/>  
                 <Services  />    
-                <Snippet jsonld={this.props.gebouw} />      
+                <Snippet jsonld={this.props.snippet} />      
             </div>
         )
     }

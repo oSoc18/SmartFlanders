@@ -18,6 +18,8 @@ export class Search extends Component {
             foundBuilding: false,
             foundAdres: false,
             gebouw: {},
+            adresID: "",
+            gebouwID: "",
             volledigAdres: ""
         };
         this.handleSubmitFromSearch = this.handleSubmitFromSearch.bind(this)
@@ -34,8 +36,11 @@ export class Search extends Component {
                 gebouw: data,
                 foundBuilding: true,
                 foundAdres: false, 
-                volledigAdres: volledigAdres
+                volledigAdres: volledigAdres,
+                adresID: adresId, 
+                gebouwID: data.data.detail
             });
+            console.log(data)
             
         }.bind(this))
         .catch(err => {
@@ -69,7 +74,7 @@ export class Search extends Component {
                 {this.state.foundAdres ? this.state.adressen.map((adres, key) => {
                 return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
                 }): null}
-                {this.state.foundBuilding?<BuildingInfoPage snippet={this.state.gebouw.data} volledigAdres={this.state.volledigAdres}/>: null }
+                {this.state.foundBuilding?<BuildingInfoPage snippet={this.state.gebouw.data} volledigAdres={this.state.volledigAdres} gebouwID={this.state.gebouwID} adresID={this.state.adresID}/>: null }
             </div>
         )
     }
