@@ -7,6 +7,7 @@ import { BuildingInfoPage } from './containers/buildinginfopage'
 import { createStore } from 'redux'
 import { ServicePage } from './containers/servicepage'
 import { Search } from "./containers/search"
+import { Services } from "./components/serviceform"
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types';
 import rootReducer from './reducers'

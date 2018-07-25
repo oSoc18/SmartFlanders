@@ -10,7 +10,7 @@ export class ServiceForm extends Component {
 
     render() {
         return (
-            <div className="services">
+            <div className="serviceform">
                 <h3>Voeg informatie toe aan deze service</h3>
                 <form onSubmit={this.props.handleSubmit}>
                     <label className="label" for="name">Naam:</label>
@@ -100,7 +100,7 @@ export class ServiceForm extends Component {
                             </div>
                         </div>
                     </div>
-                    <button className="button">Voeg informatie toe</button>
+                    <button className="btn">Voeg informatie toe</button>
                 </form>
             </div>
         )

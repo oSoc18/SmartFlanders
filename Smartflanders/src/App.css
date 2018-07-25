@@ -156,6 +156,11 @@ header .nav a:hover {
 /*===========================
  HOME - Search - Buildingbox
 ============================ */
+.flexcontainer {
+  display: flex;
+  flex-wrap: wrap;  
+}
+
 .building-box {
   background-color: #f3f1f3;
   height: 175px;
@@ -176,6 +181,10 @@ header .nav a:hover {
   float: left;
   margin: 50px auto;
   width: 50%;
+}
+
+.flexcontainer {
+  display: flex;
 }
 
 .snippet {
@@ -210,30 +219,56 @@ header .nav a:hover {
 ============================ */
 
 /*===========================
+  BUILDING - snippet
+  ============================ */
+.snippet {
+  text-align: center;
+}
+
+/*===========================
+  SERVICE - form
+============================ */
+.serviceform {
+  margin: 0px 15%;
+  width: 70%;
+}
+
+/* =======
   Openinghours
  ============================ */
 .openinghours {
   margin-top: 5px;
-  margin-bottom: 20px; }
-  .openinghours .weekdays {
-    float: left; }
-    .openinghours .weekdays p {
-      margin: 0px 5px; }
-  .openinghours .hours {
-    float: left; }
-    .openinghours .hours .day input[type="time"] {
-      border: 1px solid #29264c;
-      border-radius: 5px;
-      display: inline;
-      font-family: "Open Sans", sans-serif;
-      font-size: 14px;
-      margin: 0px 15px;
-      padding: 4px 10px; }
-    .openinghours .hours .day p {
-      display: inline; }
+  margin-bottom: 20px;
+}
+
+.openinghours .weekdays {
+  float: left;
+}
+
+.openinghours .weekdays p {
+  margin: 0px 5px;
+}
+
+.openinghours .hours {
+  float: left;
+}
+
+.openinghours .hours .day input[type="time"] {
+  border: 1px solid #29264c;
+  border-radius: 5px;
+  display: inline;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  margin: 0px 15px;
+  padding: 4px 10px;
+}
+.openinghours .hours .day p {
+  display: inline;
+}
 
 pre.snippet {
   background-color: white;
   margin: 0px auto 30px;
   padding: 20px;
-  width: 100%; }
+  width: 100%;
+}
