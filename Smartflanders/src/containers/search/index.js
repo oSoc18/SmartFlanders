@@ -3,6 +3,8 @@ import { SearchBuildings } from '../../components/search-buildings-form'
 import {BuildingBox} from '../../components/buildingbox'
 import { connect } from 'react-redux'
 import axios from 'axios'
+import {BuildingBox} from '../../components/buildingbox'
+import {BuildingInfoPage} from '../buildinginfopage'
 
 export class Search extends Component {
     constructor(props){
@@ -13,23 +15,28 @@ export class Search extends Component {
             number: 0,
             gebouwen: null,
             adressen: null,
-            gekozenAdres: ""
+            gekozenAdres: "",
+            foundBuilding: false,
+            foundAdres: false,
+            gebouw: {},
+            volledigAdres: ""
         };
         this.handleSubmitFromSearch = this.handleSubmitFromSearch.bind(this)
         this.handleAdresSubmit = this.handleAdresSubmit.bind(this);
     }
-
     handleAdresSubmit(e, adresId){
-        console.log(e)
         e.preventDefault();
         axios.post('http://localhost:3001/gebouwunits', {
             adresObjectId: adresId,
             postcode: this.state.postcode
         }).then(function (data) {
             this.setState({
-                gekozenAdres: adresId
+                gekozenAdres: adresId,
+                gebouw: data,
+                foundBuilding: true,
+                foundAdres: false, 
             });
-            console.log(data)
+            
         }.bind(this))
         .catch(err => {
             console.log(err)
@@ -40,29 +47,28 @@ export class Search extends Component {
         e.preventDefault();
         this.setState({
             street: e.target.street.value,
-            number: e.target.number.value,
-            postcode: e.target.postcode.value
-        })
-        axios.post('http://localhost:3001/gebouwen', {
-        street: e.target.street.value,
-            number: e.target.number.value,
-            postcode: e.target.postcode.value
-        })
-        .then(function (response) {
-            this.setState({adressen: response.data.adressen})
-            console.log(this.state);
-                    }.bind(this))
-        .catch(function (error) {
-            console.log(error)
-        })
+
+             number: e.target.number.value,
+             postcode: e.target.postcode.value
+          })
+          .then(function (response) {
+              this.setState({adressen: response.data.adressen, foundAdres: true})
+            }.bind(this))
+          .catch(function (error) {
+              console.log(error)
+          });
     }
 
     render() {
         return (
-            <div className="search">  
-                { this.state.adressen ? this.state.adressen.map((adres, key) => {
-                    return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
-                }) : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
+  }) : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
+
+            <div>  
+                { this.state.adressen ? null : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
+                {this.state.foundAdres ? this.state.adressen.map((adres, key) => {
+                return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
+                }): null}
+                {this.state.foundBuilding?<BuildingInfoPage snippet={this.state.gebouw.data} street={this.state.street} postcode= {this.state.postcode} number={this.state.number}/>: null }
             </div>
         )
     }
