@@ -21,7 +21,6 @@ export class BuildingInfo extends Component {
                     <p>ID van het gebouw: {this.props.gebouwID} </p>
                     <p>ID van het adres: {this.props.adresID}</p>
                     <iframe className="iframe" src={url} sandbox="allow-scripts" id="map"></iframe>
-                    <button className="btn">Bekijk op OASIS</button>
                 </div>  
             </div>
         )
