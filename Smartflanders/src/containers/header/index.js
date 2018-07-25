@@ -8,7 +8,7 @@ export class Header extends Component {
     render () {
         return ( 
             <header>
-                <a href="https://smartflanders.ilabt.imec.be/" class="logo">
+                <a href="https://smartflanders.ilabt.imec.be/" className="logo">
                     <img src="https://raw.githubusercontent.com/oSoc18/SmartFlanders-blog/master/images/logo-smartflanders.png" />
                     <p>Smart Flanders</p>
                 </a>

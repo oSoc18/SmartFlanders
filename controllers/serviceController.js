@@ -37,7 +37,8 @@ exports.getServices = (params) => {
 			})*/
 			for(let i=0; i < files.length; i++) {
 				fs.readFile(__dirname + `/../files/${params.postcode}/services/${files[i]}`, (err, data) => {
-					if(JSON.parse(data)[0]["http://data.vlaanderen.be/ns/gebouw#Gebouw"] === ("http://data.vlaanderen.be/id/gebouw/" + params.gebouwId)){
+					console.log(JSON.parse(data))
+					if(JSON.parse(data)[0]["http://data.vlaanderen.be/ns/gebouw#Gebouw"] === (params.gebouwId)){
 						console.log("Service match!");
 						services.push(JSON.parse(data)[0])
 					}
