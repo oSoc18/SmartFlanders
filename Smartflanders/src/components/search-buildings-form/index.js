@@ -46,9 +46,9 @@ export class SearchBuildings extends Component {
             <div>
                 <h3>Zoek een gebouw via het adres</h3>
                 <form onSubmit={this.props.handleSubmit}>
-                    <label className="label" for="postcode">Postcode: </label>
+                    <label className="label" htmlFor="postcode">Postcode: </label>
                     <input className="input-text" type="number" name="postcode" required min="1000" max="9992" onChange={this.handleChangePostcode}/>
-                    <label className="label" for="street">Straat: </label>
+                    <label className="label" htmlFor="street">Straat: </label>
                     <Autocomplete
                         inputProps={{ className: "input-text", name:"street" }}
                         wrapperStyle={{ position: 'relative' }}
@@ -73,7 +73,7 @@ export class SearchBuildings extends Component {
                         onChange={(event, value) => this.setState({street: value}) }
                         onSelect={(val) => this.setState({street: val})}
                      />
-                    <label className="label" for="number">Huisnummer: </label>
+                    <label className="label" htmlFor="number">Huisnummer: </label>
                     <input className="input-text" type="number" name="number" required />
                     <button className="btn" type="submit">Zoeken</button>
                 </form>

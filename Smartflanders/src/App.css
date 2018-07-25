@@ -4,7 +4,6 @@
 body {
   background-color: #f3f1f3;
   color: #29264c;
-  font-family: 'Open Sans', sans-serif;
   font-size: 18px;
   line-height: 1.75;
   margin: 0;
@@ -93,7 +92,7 @@ a {
 }
   
 ::-webkit-scrollbar-thumb {
-  background: #4844A3;  
+  background: "black";  
   border-radius: 5px;
 }
   
@@ -151,6 +150,7 @@ header .nav a:hover {
   background-color: #4844A3;
   padding: 65px 15%;
   width: 70%;
+  height: 100vh;
 }
 
 .home h2 {
@@ -303,5 +303,16 @@ pre.snippet {
 
 pre.snippet ::-webkit-scrollbar-track {
   background-color: #f3f1f3;
+}
+.service-container {
+  display: flex;
+  margin: 5%;
+  justify-content: center;
+}
+.service-box {
+  border: #ffd400 solid 4px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 2%;
 }
   

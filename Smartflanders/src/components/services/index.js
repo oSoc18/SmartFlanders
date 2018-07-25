@@ -18,18 +18,19 @@ export class Services extends Component {
             data: {gebouwId: this.props.gebouwId, postcode: _postcode},
             url: "http://localhost:3001/services/getservices"
         }).then(data => {
-            console.log(data);
+            this.setState({services: data.data})
         })
     }
 
     render() {
         return (
-            <div className="services">
+            <div>
                 <h3>Services</h3>
+                <div className="service-container">
                 {this.state.services.map(service => {
-                    return (<div> {service["@id"]}</div>)
+                    return <ServiceBox service={service}/>
                 })}
-                <p>service kaartjes</p>
+                </div>
                 <Link to={`/service/${encodeURIComponent(this.props.gebouwId)}`} className="btn">Voeg nieuwe service toe</Link>
             </div>
         )
