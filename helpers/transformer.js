@@ -201,8 +201,14 @@ function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
     }
     if(toeVlaResult) {
     		console.log("Adding ToeVla accessibility data to building...");
-    		data["schema:name"] = toeVlaResult["name"];
-    		data["image"] = toeVlaResult["image"];
+
+        if(toeVlaResult["name"] != "") {
+          data["schema:name"] = toeVlaResult["name"];
+        }
+
+        if(toeVlaResult["image"] != "") {
+      		data["image"] = toeVlaResult["image"];
+        }
 
     		let measurements = [];
 
