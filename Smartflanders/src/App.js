@@ -3,13 +3,12 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Header } from "./containers/header"
 import { Homepage } from "./containers/homepage"
 import { Aboutpage } from "./containers/aboutpage"
-import { BuildingInfoPage } from './containers/buildinginfopage'
+import  BuildingInfoPage  from './containers/buildinginfopage'
 import { createStore } from 'redux'
-import { ServicePage } from './containers/servicepage'
-import { Search } from "./containers/search"
+import  ServicePage  from './containers/servicepage'
+import  Search  from "./containers/search"
 import { Services } from "./components/serviceform"
 import { Provider } from 'react-redux'
-import PropTypes from 'prop-types';
 import rootReducer from './reducers'
 import './App.css';
 
@@ -17,9 +16,9 @@ import './App.css';
 class App extends Component {
 
   render() {
-   // const store = createStore(rootReducer);
+    const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
     return (
-      <div>
+      <Provider store={store}>
         <Router>
           <div className="content">
             <Header />
@@ -30,7 +29,7 @@ class App extends Component {
             <Route path="/service/:gebouwId" component={ServicePage} />
           </div>
         </Router>
-      </div>
+      </Provider>
     );
   }
 }

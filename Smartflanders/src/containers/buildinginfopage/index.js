@@ -2,31 +2,26 @@ import React, {Component} from 'react'
 import { BuildingInfo } from '../../components/buildinginfo'
 import { Services } from '../../components/services'
 import { Snippet } from '../../components/snippet'
+import {connect } from 'react-redux'
 import axios from 'axios'
 
-export class BuildingInfoPage extends Component {
-    constructor(props){
-        super(props);
-        if(this.props.location){
-            axios({
-                method: 'POST',
-                url: '/gebouwunits',
-                data: this.props.location.pathname
-            }).then(response => {
-                this.setState({
-
-                })
-            })
-        }
-
-    }
+class BuildingInfoPage extends Component {
     render() {
         return (
             <div className="building">
-                <BuildingInfo gebouwID={this.props.gebouwID || this.state.gebouwID} gebouw={this.props.snippet || this.state.snippet} adresID={this.props.adresID || this.state.adresID} volledigAdres={this.props.volledigAdres || this.state.volledigAdres}/>  
-                <Services   gebouwId={this.props.gebouwID || this.state.gebouwID} />    
-                <Snippet    jsonld={this.props.snippet || this.state.snippet}/>      
+                <BuildingInfo gebouwID={this.props.gebouwID || this.props.reduxGebouwId} gebouw={this.props.snippet || this.props.reduxSnippet} adresID={this.props.adresID || this.props.reduxAdresId} volledigAdres={this.props.volledigAdres || this.props.reduxVolledigAdres}/>  
+                <Services   gebouwId={this.props.gebouwID || this.props.reduxGebouwId} />    
+                <Snippet    jsonld={this.props.snippet || this.props.reduxSnippet}/>      
             </div>
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+      reduxSnippet : state.gebouw.gebouw,
+      reduxGebouwId : state.gebouw.gebouwId,
+      reduxVolledigAdres : state.gebouw.volledigAdres,
+      reduxAdresId : state.gebouw.adresId
+    }
+  }
+export default connect(mapStateToProps)(BuildingInfoPage)

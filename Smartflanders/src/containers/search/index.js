@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import { SearchBuildings } from '../../components/search-buildings-form'
 import { connect } from 'react-redux'
+import { addGebouw, addGebouwId, addVolledigAdres, addAdresId } from './actions'
 import axios from 'axios'
 import {BuildingBox} from '../../components/buildingbox'
-import {BuildingInfoPage} from '../buildinginfopage'
+import BuildingInfoPage from '../buildinginfopage'
 
-export class Search extends Component {
+ class Search extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -25,6 +26,7 @@ export class Search extends Component {
         this.handleAdresSubmit = this.handleAdresSubmit.bind(this);
     }
     handleAdresSubmit(e, adresId, volledigAdres){
+        
         e.preventDefault();
         axios.post('http://localhost:3001/gebouwunits', {
             adresObjectId: adresId,
@@ -32,6 +34,8 @@ export class Search extends Component {
             street: this.state.street,
             number: this.state.number
         }).then(function (data) {
+            this.props.dispatch(addGebouw(data.data))
+            this.props.dispatch(addVolledigAdres(volledigAdres))
             this.setState({
                 gebouw: data,
                 foundBuilding: true,
@@ -40,6 +44,9 @@ export class Search extends Component {
                 adresID: data.data["gebouw:Gebouw.adres"]["@id"],
                 gebouwID: "http://data.vlaanderen.be/id/gebouw/" + data.data["@id"].match(new RegExp("^.*:([0-9]+)"))[1]
             })
+            this.props.dispatch(addAdresId(data.data["gebouw:Gebouw.adres"]["@id"]))
+            this.props.dispatch(addGebouwId("http://data.vlaanderen.be/id/gebouw/" + data.data["@id"].match(new RegExp("^.*:([0-9]+)"))[1]))
+            
         }.bind(this))
         .catch(err => {
             console.log(err)
@@ -94,3 +101,9 @@ export class Search extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    return {
+      gebouw : state.gebouwen
+    }
+  }
+export default connect(mapStateToProps)(Search)

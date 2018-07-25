@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
-import { ServiceBox } from '../../components/servicebox'
+import { ServiceBox } from '../servicebox'
 import axios from 'axios'
 
 export class Services extends Component {
