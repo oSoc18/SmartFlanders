@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Homepage } from "./containers/homepage";
-import { Aboutpage } from "./containers/aboutpage";
 import { Header } from "./containers/header"
+import { Homepage } from "./containers/homepage"
+import { Aboutpage } from "./containers/aboutpage"
+import { BuildingInfoPage } from './containers/buildinginfopage'
 import { createStore } from 'redux'
 import { ServicePage } from './containers/servicepage'
 import { Search } from "./containers/search"
@@ -10,7 +11,6 @@ import { Provider } from 'react-redux'
 import PropTypes from 'prop-types';
 import rootReducer from './reducers'
 import './App.css';
-import { BuildingInfoPage } from './containers/buildinginfopage';
 
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <div>
+          <div className="content">
             <Header />
             <Route exact path="/" component={Homepage}/>
             <Route path="/about" component={Aboutpage}/>

@@ -13,7 +13,7 @@ export class Services extends Component {
             <div className="services">
                 <h3>Services</h3>
                 <p>service kaartjes</p>
-                <button>
+                <button className="btn">
                     Voeg nieuwe service toe
                 </button>
             </div>

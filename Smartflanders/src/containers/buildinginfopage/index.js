@@ -12,7 +12,7 @@ export class BuildingInfoPage extends Component {
 
     render() {
         return (
-            <div className="content">
+            <div className="building">
                 <BuildingInfo street={this.props.street} number={this.props.number} postcode={this.props.postcode}/>  
                 <Services  />    
                 <Snippet jsonld={this.props.gebouw} />      

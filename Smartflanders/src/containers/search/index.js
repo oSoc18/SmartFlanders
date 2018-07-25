@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { SearchBuildings } from '../../components/search-buildings-form'
+import {BuildingBox} from '../../components/buildingbox'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import {BuildingBox} from '../../components/buildingbox'
@@ -41,15 +42,12 @@ export class Search extends Component {
             console.log(err)
         })
     }
+
     handleSubmitFromSearch(e) {
         e.preventDefault();
         this.setState({
-             street: e.target.street.value,
-             number: e.target.number.value,
-             postcode: e.target.postcode.value
-         });
-         axios.post('http://localhost:3001/gebouwen', {
             street: e.target.street.value,
+
              number: e.target.number.value,
              postcode: e.target.postcode.value
           })
@@ -63,6 +61,8 @@ export class Search extends Component {
 
     render() {
         return (
+  }) : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
+
             <div>  
                 { this.state.adressen ? null : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
                 {this.state.foundAdres ? this.state.adressen.map((adres, key) => {
