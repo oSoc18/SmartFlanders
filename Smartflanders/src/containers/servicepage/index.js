@@ -7,14 +7,21 @@ export class ServicePage extends Component {
         super(props)
         this.state = {
             gebouwen: {},
-            formSend: false
+            formSend: false,
+            gebouwId : decodeURIComponent(this.props.location.pathname.match(new RegExp("^\/.*\/(.+)"))[1])
         }
         this.handleSubmit = this.handleSubmit.bind(this)
+       
     }
     handleSubmit(e){
         e.preventDefault();
-        let data = new FormData(e.target);
-        axios.post('http://localhost:3001/services/', data).then( res => {
+        let _data = new FormData(e.target);
+        var object = {};
+        _data.forEach(function(value, key){
+            object[key] = value;
+        });
+        object.postcode = localStorage.getItem('postcode');
+        axios({url:'http://localhost:3001/services/', data: object, method:'POST'}).then( res => {
             console.log(res.data)
             this.setState({
                 formSend: true,
@@ -23,11 +30,15 @@ export class ServicePage extends Component {
         })
     }
     render() {
+        
         return (
             <div className="content">
-            <div className="container">
-            { this.state.formSend ? "We hebben de service correct toegevoegd": <ServiceForm handleSubmit={this.handleSubmit}/>}
-            </div>
+                <div className="container">
+            { this.state.formSend ? (<pre>
+                {JSON.stringify(this.state.jsonld, null, 4)}
+            </pre>
+            ): <ServiceForm handleSubmit={this.handleSubmit} gebouwId={this.state.gebouwId}/>}
+                </div>
             </div>
         )
     }

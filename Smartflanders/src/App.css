@@ -202,6 +202,12 @@ header .nav a:hover {
 
 .flexcontainer {
   display: flex;
+  margin: 10% auto 0px;
+  width: 70%;
+}
+
+.flexcontainer h3 {
+  width: 100%;
 }
 
 /*===========================
@@ -242,10 +248,8 @@ pre {
   background-color: white;
   border: none;
   padding: 10px;
-  margin-left: -25%;
   overflow: scroll;
   text-align: left;
-  width: 150%;
 }
   
 /*===========================

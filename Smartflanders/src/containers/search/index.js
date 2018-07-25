@@ -14,11 +14,10 @@ export class Search extends Component {
             number: 0,
             gebouwen: null,
             adressen: null,
-            gekozenAdres: "",
             foundBuilding: false,
             foundAdres: false,
             gebouw: {},
-            adresID: "",
+            adresIDadresID: "",
             gebouwID: "",
             volledigAdres: ""
         };
@@ -32,16 +31,13 @@ export class Search extends Component {
             postcode: this.state.postcode
         }).then(function (data) {
             this.setState({
-                gekozenAdres: adresId,
                 gebouw: data,
                 foundBuilding: true,
                 foundAdres: false, 
                 volledigAdres: volledigAdres,
-                adresID: "https://data.vlaanderen.be/id/adres/" + data.data["@id"], 
-                gebouwID: "http://data.vlaanderen.be/id/gebouw/" 
-            });
-            
-            
+                adresID: data.data["gebouw:Gebouw.adres"]["@id"], 
+                gebouwID: "http://data.vlaanderen.be/id/gebouw/" + data.data["@id"].match(new RegExp("^.*:([0-9]+)"))[1]
+            })
         }.bind(this))
         .catch(err => {
             console.log(err)
@@ -65,9 +61,15 @@ export class Search extends Component {
           .catch(function (error) {
               console.log(error)
           });
+          localStorage.setItem('postcode', e.target.postcode.value)
     }
 
     render() {
+        let adressen;
+        if(this.state.adressen){
+             adressen = this.state.adressen.map((adres, key) => {
+            return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
+    });}
         return (
             <div>
                 { this.state.adressen ? null :(        
@@ -79,12 +81,12 @@ export class Search extends Component {
                     </div>
                 </div>
                 )}
-                {   this.state.foundAdres ? 
-                    this.state.adressen.map((adres, key) => {
-                        return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
-                }): null}
+                {   this.state.foundAdres ? (<div className="flexcontainer">
+                    <h3>We hebben verschillende gebouwen gevonden, gelieve er één te selecteren</h3>
+                 {adressen}
+                 </div>)
+                    : null}
                 {this.state.foundBuilding?
-
                     <BuildingInfoPage snippet={this.state.gebouw.data} volledigAdres={this.state.volledigAdres} gebouwID={this.state.gebouwID} adresID={this.state.adresID}/>: null }
            </div>
         )

@@ -1,18 +1,13 @@
 import React, {Component} from 'react'
 
 export class ServiceForm extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            naam: null
-        }
-    }
-
     render() {
+        console.log(this.props.gebouwId)
         return (
             <div className="serviceform">
                 <h3>Voeg informatie toe aan deze service</h3>
                 <form onSubmit={this.props.handleSubmit}>
+                    <input className="input-text" id="gebouwId" name="gebouwId" type="hidden"  value={decodeURIComponent( this.props.gebouwId )}/>
                     <label className="label" for="name">Naam:</label>
                     <input className="input-text" id="name" name="name" required="" type="text" />
                     <label className="label" for="description">Beschrijving:</label>

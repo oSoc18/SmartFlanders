@@ -27,7 +27,7 @@ class App extends Component {
             <Route path="/about" component={Aboutpage}/>
             <Route path="/search" component={Search} />
             <Route path="/gebouw" component={BuildingInfoPage} />
-            <Route path="/service" component={ServicePage} />
+            <Route path="/service/:gebouwId" component={ServicePage} />
           </div>
         </Router>
       </div>

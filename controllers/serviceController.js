@@ -27,8 +27,9 @@ exports.getServices = (params) => {
 		if(err) reject(err)
 			let services = [];
 			files.forEach((err, file) => {
+				if(err) reject(err)
 				fs.readFile(__dirname + `/../files/${params.postcode}/services/${file}`, (err, data) => {
-					if(JSON.parse(data)[0]["http://data.vlaanderen.be/ns/gebouw#Gebouw"] === adresURI){
+					if(JSON.parse(data)[0]["http://data.vlaanderen.be/ns/gebouw#Gebouw"] === params.gebouwId){
 						services.push(JSON.parse(data))
 					}
 				})
