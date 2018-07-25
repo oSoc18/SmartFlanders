@@ -5,7 +5,7 @@ const transformer = require('../helpers/transformer')
 
 /**
  *  Validates user input
- * @param {Object} params 
+ * @param {Object} params
  */
 exports.getAdres = async (params) => {
       try {
@@ -39,9 +39,10 @@ exports.getGebouwEenheden = async (params) => {
 }
 
 exports.getGebouwId = async (params) => {
+      console.log("TRansController: " + JSON.stringify(params));
       try {
             if(!validator.isInt(String(params.gebouwEenheidId))) throw new Error ("GebouwEenheidId is geen nummer");
-            return await transformer.gebouwFetcher(params) 
+            return await transformer.gebouwFetcher(params)
       } catch (error) {
             console.log(error.name + ': ' + error.message);
             throw new Error(error.message)

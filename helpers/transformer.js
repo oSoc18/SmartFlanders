@@ -33,6 +33,19 @@ exports.gebouwFetcher = async (params) => {
     let gebouwId = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouweenheden/" + params.gebouwEenheidId)
     let gebouwDetails = await fetch("https://basisregisters.vlaanderen.be/api/v1/gebouwen/" + JSON.parse(gebouwId).gebouw.objectId)
     if (Array.isArray(params.postcode)) params.postcode = params.postcode[0];
+
+    // Search for ToeVla data
+    let toeVlaResult = false;
+    console.log("STREET=" + params.street);
+    console.log("NUMBER=" + params.number);
+    console.log("POSTCODE=" + params.postcode);
+    if(params.street && params.number && params.postcode) {
+        toeVlaResult = searchToeVla(params.street, params.number, params.postcode);
+        console.log(toeVlaResult);
+    }
+    //toeVlaResult = searchToeVla("Van Rysselberghedreef", "2", "9000"); // Use this for debugging until front end is ready
+    //toeVlaResult = searchToeVla("Botermarkt", "1", "9000"); // Use this for debugging until front end is ready
+
     fs.readdir(__dirname + '/../files', (err, files) => {
         if (err) console.error(err.message)
         if (!files.includes(params.postcode)) {
@@ -49,7 +62,7 @@ exports.gebouwFetcher = async (params) => {
                     if (err) throw new Error("Error while writing catalog file of specific building")
                     fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                         JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
+                            lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), toeVlaResult)),
                         err => {
                             if (err) throw new Error("Error whiel writing building JSON")
                         })
@@ -70,7 +83,7 @@ exports.gebouwFetcher = async (params) => {
         } else {
             fs.writeFile(__dirname + `/../files/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                 JSON.stringify(jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId,
-                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))),
+                    lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), toeVlaResult)),
                 err => {
                     if (err) throw new Error("Error whiel writing building JSON")
                 })
@@ -102,7 +115,7 @@ exports.gebouwFetcher = async (params) => {
         }
 
     })
-    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]))
+    return jsonLDBuilding(JSON.parse(gebouwDetails).identificator.objectId, JSON.parse(gebouwId).adressen[0].objectId, lambertToWGS(JSON.parse(gebouwId).geometriePunt.point.coordinates[0], JSON.parse(gebouwId).geometriePunt.point.coordinates[1]), toeVlaResult)
 };
 
 /**
@@ -158,18 +171,21 @@ function fetch(url) {
  * @param {number} adresId
  * @param {number} location
  */
-function jsonLDBuilding(gebouwId, adresId, location) {
-    return {
+function jsonLDBuilding(gebouwId, adresId, location, toeVlaResult) {
+    let data = {
         "@context": {
-            "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
-            "adressenRegister": "https://data.vlaanderen.be/id/adres/",
-            "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
-            "schema": "http://schema.org/",
-            "dcterms": "http://purl.org/dc/terms/",
-            "toevla": "http://semweb.mmlab.be/ns/wa#",
-            "locn": "http://www.w3.org/ns/locn#",
-            "geo": "http://www.opengis.net/ont/geosparql#",
-            "xsd": "http://www.w3.org/2001/XMLSchema#"
+          "gebouwenRegister": "http://data.vlaanderen.be/id/gebouw/",
+          "adressenRegister": "https://data.vlaanderen.be/id/adres/",
+          "gebouw": "http://data.vlaanderen.be/ns/gebouw#",
+          "schema": "http://smartflanders.ilabt.imec.be/schema.json",
+          "dcterms": "http://purl.org/dc/terms/",
+          "toevla": "http://semweb.mmlab.be/ns/wa#",
+          "locn": "http://www.w3.org/ns/locn#",
+          "geo": "http://www.opengis.net/ont/geosparql#",
+          "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "image": { "@id": "http://schema.org/image",
+               "@type": "@id"
+             }
         },
         "@id": "gebouw:" + gebouwId,
         "@type": "gebouw:Gebouw",
@@ -183,6 +199,81 @@ function jsonLDBuilding(gebouwId, adresId, location) {
             }
         }
     }
+    if(toeVlaResult) {
+    		console.log("Adding ToeVla accessibility data to building...");
+
+        if(toeVlaResult["name"] != "") {
+          data["schema:name"] = toeVlaResult["name"];
+        }
+
+        if(toeVlaResult["image"] != "") {
+      		data["image"] = toeVlaResult["image"];
+        }
+
+    		let measurements = [];
+
+    		// elevators
+    		try {
+    			let size = 0;
+    			for(let i = 0; i < toeVlaResult["accessibility"]["liften"].length; i++) {
+    				if(size < parseInt(toeVlaResult["accessibility"]["liften"][i]["breedte"]))
+    				{
+    					size = parseInt(toeVlaResult["accessibility"]["liften"][i]["breedte"]);
+    				}
+    			}
+    			console.log("Elevator width: " + size);
+    			measurements.push({
+    					     "dcterms:description": "The elevator",
+    					     "toevla:elevatorDoorWidth": {
+    						"@value": size,
+    						"@type": "xsd:Integer"
+    					     }
+    					});
+    		}
+    		catch(e) {
+    			console.debug("No elevators available:" + e);
+    		}
+
+    		// entrance
+    		try {
+    			let size = 0;
+    			console.log(toeVlaResult["accessibility"]["horizontalebreedte"].length)
+    			for(let i = 0; i < toeVlaResult["accessibility"]["horizontalebreedte"].length; i++) {
+    				if(size < parseInt(toeVlaResult["accessibility"]["horizontalebreedte"][i]))
+    				{
+    					size = parseInt(toeVlaResult["accessibility"]["horizontalebreedte"][i]);
+    				}
+    			}
+    			console.log("Entrance width: " + size);
+    			measurements.push({
+    					     "dcterms:description": "The entrance",
+    					     "toevla:entranceDoorWidth": {
+    						"@value": size,
+    						"@type": "xsd:Integer"
+    					     }
+    					});
+    		}
+    		catch(e) {
+    			console.debug("No entrance available:" + e);
+    		}
+
+    		if(measurements.length > 0 || toeVlaResult["schemas"]) {
+
+    		data["toevla:accessibilityMeasurement"]= {};
+    		if(measurements.length > 0) {
+    			data["toevla:accessibilityMeasurement"]["toevla:accessibilityMeasurement_for"]= measurements
+    		}
+
+    		if(toeVlaResult["schemas"]) {
+    			let schemaImages = [];
+    			for(let i=0; i < toeVlaResult["schemas"].length; i++) {
+    				schemaImages.push(toeVlaResult["schemas"][i]["schema"]);
+    			}
+    			data["toevla:accessibilityMeasurement"]["image"] = schemaImages;
+    		}
+    		}
+    	}
+    return data;
 }
 
 function createCatalogFileForCity(postcode, gebouwId) {
@@ -276,4 +367,20 @@ function jsonLDService(id, name, description, productType, telephone, email, ope
     }
 
     return jsonLD;
+}
+
+
+function searchToeVla(street, number, postcode) {
+	console.log("Search ToeVla for: " + street + " " + number + " " + postcode);
+
+	let rawdata = fs.readFileSync(__dirname + '/../toevla.json');
+	let toeVlaData = JSON.parse(rawdata);
+
+	for(let item of toeVlaData) {
+		if(item.address.street == street && item.address.number == number && item.address.zip == postcode)
+		{
+			return item;
+		}
+	}
+	return false;
 }

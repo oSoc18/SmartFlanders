@@ -28,14 +28,16 @@ export class Search extends Component {
         e.preventDefault();
         axios.post('http://localhost:3001/gebouwunits', {
             adresObjectId: adresId,
-            postcode: this.state.postcode
+            postcode: this.state.postcode,
+            street: this.state.street,
+            number: this.state.number
         }).then(function (data) {
             this.setState({
                 gebouw: data,
                 foundBuilding: true,
-                foundAdres: false, 
+                foundAdres: false,
                 volledigAdres: volledigAdres,
-                adresID: data.data["gebouw:Gebouw.adres"]["@id"], 
+                adresID: data.data["gebouw:Gebouw.adres"]["@id"],
                 gebouwID: "http://data.vlaanderen.be/id/gebouw/" + data.data["@id"].match(new RegExp("^.*:([0-9]+)"))[1]
             })
         }.bind(this))
@@ -72,12 +74,12 @@ export class Search extends Component {
     });}
         return (
             <div>
-                { this.state.adressen ? null :(        
+                { this.state.adressen ? null :(
                 <div className="home">
                         <h1>Gebouwenregister</h1>
                         <h2>Structureer en deel informatie over publieke gebouwen en diensten voor uw lokaal bestuur</h2>
-                    <div className="search">  
-                        <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/> 
+                    <div className="search">
+                        <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>
                     </div>
                 </div>
                 )}

@@ -37,7 +37,8 @@ router.post('/gebouwunits', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getGebouwEenheden(req.body)
-        let params = {gebouwEenheidId : response.gebouweenheden[0].identificator.objectId, postcode: req.body.postcode};
+        console.log(JSON.stringify(req.body));
+        let params = {gebouwEenheidId : response.gebouweenheden[0].identificator.objectId, postcode: req.body.postcode, street: req.body.street, number: req.body.number};
         let buildingResponse = await transformerController.getGebouwId(params)
         res.send(buildingResponse)
     } catch (error) {
@@ -62,9 +63,9 @@ router.post('/service/postcode', async (req, res, next) => {
         res.send(response);
     } catch (error) {
         res.status(304)
-        var response = error.message; 
+        var response = error.message;
     }
-    
+
 })
 router.post('/services/getservices', async(req, res, next) => {
     try {
@@ -75,7 +76,7 @@ router.post('/services/getservices', async(req, res, next) => {
         res.status(304)
         next(error)
     }
-    
+
 })
 
 router.post('/services' ,async (req, res, next) => {
@@ -87,7 +88,7 @@ router.post('/services' ,async (req, res, next) => {
         console.error("TransformerController returned an error");
         next(error);
     }
-    
+
 });
 
 module.exports = router
