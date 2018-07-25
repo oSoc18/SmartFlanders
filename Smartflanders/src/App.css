@@ -179,20 +179,14 @@ header .nav a:hover {
   width: 70%;
 }
 
-.buildinginfo, .services {
+.buildinginfo, .services, .snippet {
   float: left;
   margin: 50px auto;
-  width: 50%;
+  width: 100%;
 }
 
 .flexcontainer {
   display: flex;
-}
-
-.snippet {
-  float: left;
-  margin: 50px auto;
-  width: 100%;
 }
 
 /*===========================
@@ -212,32 +206,42 @@ header .nav a:hover {
 
 .iframe {
   border: none;
+  height: 300px; 
   margin: 30px 0px;
-  width: 60%;
+  width: 100%;
 }
 
 /*===========================
   BUILDING - services
 ============================ */
 
+
 /*===========================
   BUILDING - snippet
-  ============================ */
+============================ */
 .snippet {
   text-align: center;
 }
 
+pre {
+  background-color: white;
+  margin: 0px auto 30px;
+  padding: 20px;
+  text-align: left;
+  width: 100%;
+}
+
 /*===========================
-  SERVICE - form
+  ADD SERVICE - form
 ============================ */
 .serviceform {
   margin: 0px 15%;
   width: 70%;
 }
 
-/* =======
-  Openinghours
- ============================ */
+/*===========================
+  ADD SERVICE - Openinghours
+============================ */
 .openinghours {
   margin-top: 5px;
   margin-bottom: 20px;
@@ -264,6 +268,7 @@ header .nav a:hover {
   margin: 0px 15px;
   padding: 4px 10px;
 }
+
 .openinghours .hours .day p {
   display: inline;
 }
