@@ -50,7 +50,6 @@ export class SearchBuildings extends Component {
                     <input className="input-text" type="number" name="postcode" required min="1000" max="9992" onChange={this.handleChangePostcode}/>
                     <label className="label" for="street">Straat: </label>
                     <Autocomplete
-                        className="autocomplete"
                         inputProps={{ className: "input-text", name:"street" }}
                         wrapperStyle={{ position: 'relative' }}
                         getItemValue={(item) => item.trim()}
