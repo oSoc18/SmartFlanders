@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 
 export class BuildingInfo extends Component {
     render() {
+        const lat = this.props.gebouw["gebouw:Gebouw.adres"]["http://www.w3.org/2003/01/geo/wgs84_pos#location"]["http://www.w3.org/2003/01/geo/wgs84_pos#lat"]
+        const long = this.props.gebouw["gebouw:Gebouw.adres"]["http://www.w3.org/2003/01/geo/wgs84_pos#location"]["http://www.w3.org/2003/01/geo/wgs84_pos#long"]
         return (
             <div className="buildinginfo">
                 <h3>Gebouwinformatie</h3>

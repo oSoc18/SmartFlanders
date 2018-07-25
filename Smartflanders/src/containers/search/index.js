@@ -38,9 +38,9 @@ export class Search extends Component {
                 foundAdres: false, 
                 volledigAdres: volledigAdres,
                 adresID: adresId, 
-                gebouwID: data.data.detail
+                gebouwID: ""
             });
-            console.log(data)
+            
             
         }.bind(this))
         .catch(err => {
