@@ -37,8 +37,8 @@ export class Search extends Component {
                 foundBuilding: true,
                 foundAdres: false, 
                 volledigAdres: volledigAdres,
-                adresID: adresId, 
-                gebouwID: ""
+                adresID: "https://data.vlaanderen.be/id/adres/" + data.data["@id"], 
+                gebouwID: "http://data.vlaanderen.be/id/gebouw/" 
             });
             
             
@@ -69,13 +69,24 @@ export class Search extends Component {
 
     render() {
         return (
-            <div className="search">  
-                { this.state.adressen ? null : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
-                {this.state.foundAdres ? this.state.adressen.map((adres, key) => {
-                return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
+            <div>
+                { this.state.adressen ? null :(        
+                <div className="home">
+                        <h1>Gebouwenregister</h1>
+                        <h2>Structureer en deel informatie over publieke gebouwen en diensten voor uw lokaal bestuur</h2>
+                    <div className="search">  
+                        <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/> 
+                    </div>
+                </div>
+                )}
+                {   this.state.foundAdres ? 
+                    this.state.adressen.map((adres, key) => {
+                        return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
                 }): null}
-                {this.state.foundBuilding?<BuildingInfoPage snippet={this.state.gebouw.data} volledigAdres={this.state.volledigAdres} gebouwID={this.state.gebouwID} adresID={this.state.adresID}/>: null }
-            </div>
+                {this.state.foundBuilding?
+
+                    <BuildingInfoPage snippet={this.state.gebouw.data} volledigAdres={this.state.volledigAdres} gebouwID={this.state.gebouwID} adresID={this.state.adresID}/>: null }
+           </div>
         )
     }
 }
