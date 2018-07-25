@@ -5,11 +5,8 @@ import { Search } from '../search'
 export class Homepage extends Component {
     render() {
       return (
-        <div className="home">
-          <h1>Gebouwenregister</h1>
-          <h2>Structureer en deel informatie over publieke gebouwen en diensten voor uw lokaal bestuur</h2>
           <Search />
-        </div>
+        
       );
     }
   }

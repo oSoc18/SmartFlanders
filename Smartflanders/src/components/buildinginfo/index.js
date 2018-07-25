@@ -17,7 +17,7 @@ export class BuildingInfo extends Component {
             <div className="buildinginfo">
                 <h3>Gebouwinformatie</h3>
                 <div className="info">
-                    <p>Adres: {this.props.volledigAdres}</p>
+                    <p><b>{this.props.volledigAdres}</b></p>
                     <p>ID van het gebouw: {this.props.gebouwID} </p>
                     <p>ID van het adres: {this.props.adresID}</p>
                     <iframe className="iframe" src={url} sandbox="allow-scripts" id="map"></iframe>
