@@ -15,7 +15,7 @@ exports.postCodeSearch =  (params) => {
 					fs.readFile(__dirname + `/../files/${params.postcode}/gebouwen/${file}`, (err, data) => {
 						if(err) reject("Problemen bij het openen van gebouwfile");
 						response.push(JSON.parse(data));
-					})	
+					})
 				})
 				resolve(response);
 			})
@@ -26,15 +26,27 @@ exports.getServices = (params) => {
 	return new Promise((resolve, reject) => { fs.readdir(__dirname + `/../files/${params.postcode}/services/`, (err, files) => {
 		if(err) reject(err)
 			let services = [];
-			files.forEach((err, file) => {
+			console.log(files);
+			/*files.forEach((err, file) => {
 				if(err) reject(err)
 				fs.readFile(__dirname + `/../files/${params.postcode}/services/${file}`, (err, data) => {
 					if(JSON.parse(data)[0]["http://data.vlaanderen.be/ns/gebouw#Gebouw"] === params.gebouwId){
 						services.push(JSON.parse(data))
 					}
 				})
-			})
-			resolve(services)
+			})*/
+			for(let i=0; i < files.length; i++) {
+				fs.readFile(__dirname + `/../files/${params.postcode}/services/${files[i]}`, (err, data) => {
+					if(JSON.parse(data)[0]["http://data.vlaanderen.be/ns/gebouw#Gebouw"] === ("http://data.vlaanderen.be/id/gebouw/" + params.gebouwId)){
+						console.log("Service match!");
+						services.push(JSON.parse(data)[0])
+					}
+					if(i == files.length-1) {
+						console.log("Resolving...")
+						resolve(services)
+					}
+				})
+			}
 		})
 	})
 }
