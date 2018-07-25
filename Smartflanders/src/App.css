@@ -68,6 +68,7 @@ a {
 .label {
   display: block;
   line-height: 1.125;
+  margin-top: 20px;
 }
 
 .input-text {
@@ -75,7 +76,7 @@ a {
   border-radius: 5px;
   font-family: 'Open Sans', sans-serif;
   font-size: 18px;
-  margin: 10px 0px 20px;
+  margin: 10px 0px 0px;
   padding: 7px;
   transition: 150ms border-color linear;
   width: 98%;
@@ -150,6 +151,7 @@ header .nav a:hover {
 }
 
 .autocomplete {
+  background-color: green;
   padding: 0px;
 }
 
