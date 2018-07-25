@@ -11,7 +11,6 @@ export class SearchBuildings extends Component {
             streets: []
 
         };
-        this.handleSubmit = this.handleSubmit.bind(this)
         this.handleChangePostcode = this.handleChangePostcode.bind(this)
     }
 
@@ -35,7 +34,6 @@ export class SearchBuildings extends Component {
             return data.json()             
         }).then(blob => {
             let _data = []
-            console.log(blob.results)
             for (let i = 0; i < blob.results.bindings.length; i++) {
                 _data.push(blob.results.bindings[i].naamlabel.value)
             }
@@ -43,18 +41,11 @@ export class SearchBuildings extends Component {
         });
     }
 
-    handleSubmit(e){
-        e.preventDefault();
-        console.log('before sparql');
-        this.props.handleSubmit(e);
-
-    } 
-
     render() {
         return (
             <div>
                 <h3>Zoek een gebouw via het adres</h3>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.props.handleSubmit}>
                     <label className="label" for="postcode">Postcode: </label>
                     <input className="input-text" type="number" name="postcode" required min="1000" max="9992" onChange={this.handleChangePostcode}/>
                     <label className="label" for="street">Straat: </label>

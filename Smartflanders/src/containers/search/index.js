@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { SearchBuildings } from '../../components/search-buildings-form'
-import {BuildingBox} from '../../components/buildingbox'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import {BuildingBox} from '../../components/buildingbox'
@@ -24,7 +23,7 @@ export class Search extends Component {
         this.handleSubmitFromSearch = this.handleSubmitFromSearch.bind(this)
         this.handleAdresSubmit = this.handleAdresSubmit.bind(this);
     }
-    handleAdresSubmit(e, adresId){
+    handleAdresSubmit(e, adresId, volledigAdres){
         e.preventDefault();
         axios.post('http://localhost:3001/gebouwunits', {
             adresObjectId: adresId,
@@ -35,6 +34,7 @@ export class Search extends Component {
                 gebouw: data,
                 foundBuilding: true,
                 foundAdres: false, 
+                volledigAdres: volledigAdres
             });
             
         }.bind(this))
@@ -42,12 +42,15 @@ export class Search extends Component {
             console.log(err)
         })
     }
-
     handleSubmitFromSearch(e) {
         e.preventDefault();
         this.setState({
+             street: e.target.street.value,
+             number: e.target.number.value,
+             postcode: e.target.postcode.value
+         });
+         axios.post('http://localhost:3001/gebouwen', {
             street: e.target.street.value,
-
              number: e.target.number.value,
              postcode: e.target.postcode.value
           })
@@ -61,14 +64,12 @@ export class Search extends Component {
 
     render() {
         return (
-  }) : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
-
-            <div>  
+            <div className="search">  
                 { this.state.adressen ? null : <SearchBuildings handleSubmit={this.handleSubmitFromSearch}/>   }
                 {this.state.foundAdres ? this.state.adressen.map((adres, key) => {
                 return <BuildingBox adres={adres} key={key} onAdresSubmit={this.handleAdresSubmit}/>
                 }): null}
-                {this.state.foundBuilding?<BuildingInfoPage snippet={this.state.gebouw.data} street={this.state.street} postcode= {this.state.postcode} number={this.state.number}/>: null }
+                {this.state.foundBuilding?<BuildingInfoPage snippet={this.state.gebouw.data} volledigAdres={this.state.volledigAdres}/>: null }
             </div>
         )
     }
