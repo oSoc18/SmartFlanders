@@ -25,7 +25,7 @@ router.post('/gebouwen', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getAdres(req.body);
-        res.render("buildings", response);
+        res.send(response);
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
@@ -37,7 +37,10 @@ router.post('/gebouwunits', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getGebouwEenheden(req.body)
-        res.render('building-units', response)
+        console.log(JSON.stringify(req.body));
+        let params = {gebouwEenheidId : response.gebouweenheden[0].identificator.objectId, postcode: req.body.postcode, street: req.body.street, number: req.body.number};
+        let buildingResponse = await transformerController.getGebouwId(params)
+        res.send(buildingResponse)
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
@@ -49,26 +52,6 @@ router.get('/toevoegen', async (req, res, next) => {
     res.render('info');
 });
 
-// generate snippet about building
-router.post('/snippet', async (req, res, next) => {
-    try {
-        res.status(200)
-        let response = await transformerController.getGebouwId(req.body)
-        res.render('snippet', {
-            building: JSON.stringify(response, null, 4)
-        })
-    } catch (error) {
-
-    }
-});
-
-// ---services
-// searchform postcode
-// router.get('/postcode', async (req, res, next) => {
-//     res.render('postcode');
-// });
-
-
 router.get('/postcode', async (req, res, next) => {
     res.render('services');
 });
@@ -77,23 +60,35 @@ router.post('/service/postcode', async (req, res, next) => {
     try {
         res.status(200)
         var response = await serviceController.postCodeSearch(req.body);
+        res.send(response);
     } catch (error) {
         res.status(304)
-        var response = error.message; 
+        var response = error.message;
     }
-    res.send(response);
+
 })
-router.post('/services', async (req, res, next) => {
+router.post('/services/getservices', async(req, res, next) => {
+    try {
+        res.status(200)
+        let response = await serviceController.getServices(req.body)
+        res.send(response)
+    } catch (error) {
+        res.status(304)
+        next(error)
+    }
+
+})
+
+router.post('/services' ,async (req, res, next) => {
     try {
         res.status(200);
         let response = await serviceController.addService(req.body);
-        res.render('snippet', {
-            building: JSON.stringify(response, null, 4)
-        })
+        res.send(response)
     } catch (error) {
         console.error("TransformerController returned an error");
         next(error);
     }
+
 });
 
 module.exports = router

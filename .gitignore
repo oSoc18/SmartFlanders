@@ -62,3 +62,6 @@ typings/
 
 # SASS compile file
 frontend/styles.css.map
+
+# ignore generated LD files
+files/

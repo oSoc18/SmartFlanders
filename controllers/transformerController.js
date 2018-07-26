@@ -5,16 +5,17 @@ const transformer = require('../helpers/transformer')
 
 /**
  *  Validates user input
- * @param {Object} params 
+ * @param {Object} params
  */
 exports.getAdres = async (params) => {
       try {
-            if (!validator.isPostalCode(params.postcode, 'BE')) throw new Error("Postcode is niet correct");
+            console.log(JSON.stringify(String(params)))
+            if (!validator.isPostalCode(String(params.postcode), 'BE')) throw new Error("Postcode is niet correct");
             if (!validator.isLength(params.street, {
                         min: 1,
                         max: 40
                   })) throw new Error("Straat is niet correct");
-            if (!validator.isInt(params.number, {
+            if (!validator.isInt(String(params.number), {
                         min: 1,
                         max: 10000
                   })) throw new Error("Huisnummer is niet correct");
@@ -22,6 +23,7 @@ exports.getAdres = async (params) => {
             return response
       } catch (error) {
             console.log(error.name + ': ' + error.message);
+            error.stack();
             throw new Error(error.message)
       }
 }
@@ -37,9 +39,10 @@ exports.getGebouwEenheden = async (params) => {
 }
 
 exports.getGebouwId = async (params) => {
+      console.log("TRansController: " + JSON.stringify(params));
       try {
-            if(!validator.isInt(params.gebouwEenheidId)) throw new Error ("GebouwEenheidId is geen nummer");
-            return await transformer.gebouwFetcher(params) 
+            if(!validator.isInt(String(params.gebouwEenheidId))) throw new Error ("GebouwEenheidId is geen nummer");
+            return await transformer.gebouwFetcher(params)
       } catch (error) {
             console.log(error.name + ': ' + error.message);
             throw new Error(error.message)
