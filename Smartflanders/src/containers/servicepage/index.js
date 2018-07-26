@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
             object[key] = value;
         });
         object.postcode = localStorage.getItem('postcode');
-        axios({url:'http://localhost:3001/services/', data: object, method:'POST'}).then( res => {
+        axios({url:'https://smartflanders.ilabt.imec.be/api/services/', data: object, method:'POST'}).then( res => {
             console.log(res.data)
             this.setState({
                 formSend: true,

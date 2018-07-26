@@ -16,7 +16,7 @@ export class Services extends Component {
         axios({
             method: 'POST',
             data: {gebouwId: this.props.gebouwId, postcode: _postcode},
-            url: "http://localhost:3001/services/getservices"
+            url: "https://smartflanders.ilabt.imec.be/api/services/getservices"
         }).then(data => {
             this.setState({services: data.data})
         })
