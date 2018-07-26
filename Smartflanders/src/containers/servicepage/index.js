@@ -12,10 +12,10 @@ import { connect } from 'react-redux'
             formSend: false,
             gebouwId : decodeURIComponent(this.props.location.pathname.match(new RegExp("^\/.*\/(.+)"))[1])
         }
-        
+
         console.log(this.props)
         this.handleSubmit = this.handleSubmit.bind(this)
-       
+
     }
     handleSubmit(e){
         e.preventDefault();
@@ -25,7 +25,7 @@ import { connect } from 'react-redux'
             object[key] = value;
         });
         object.postcode = localStorage.getItem('postcode');
-        axios({url:'http://localhost:3001/services/', data: object, method:'POST'}).then( res => {
+        axios({url:'https://smartflanders.ilabt.imec.be/api/services/', data: object, method:'POST'}).then( res => {
             console.log(res.data)
             this.setState({
                 formSend: true,
@@ -35,7 +35,7 @@ import { connect } from 'react-redux'
     }
 
     render() {
-        
+
         return (
             <div className="content">
                 <div className="container">

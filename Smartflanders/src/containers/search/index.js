@@ -26,9 +26,9 @@ import BuildingInfoPage from '../buildinginfopage'
         this.handleAdresSubmit = this.handleAdresSubmit.bind(this);
     }
     handleAdresSubmit(e, adresId, volledigAdres){
-        
+
         e.preventDefault();
-        axios.post('http://localhost:3001/gebouwunits', {
+        axios.post('https://smartflanders.ilabt.imec.be/api/gebouwunits', {
             adresObjectId: adresId,
             postcode: this.state.postcode,
             street: this.state.street,
@@ -46,7 +46,7 @@ import BuildingInfoPage from '../buildinginfopage'
             })
             this.props.dispatch(addAdresId(data.data["gebouw:Gebouw.adres"]["@id"]))
             this.props.dispatch(addGebouwId("http://data.vlaanderen.be/id/gebouw/" + data.data["@id"].match(new RegExp("^.*:([0-9]+)"))[1]))
-            
+
         }.bind(this))
         .catch(err => {
             console.log(err)
@@ -59,7 +59,7 @@ import BuildingInfoPage from '../buildinginfopage'
              number: e.target.number.value,
              postcode: e.target.postcode.value
          });
-         axios.post('http://localhost:3001/gebouwen', {
+         axios.post('https://smartflanders.ilabt.imec.be/api/gebouwen', {
             street: e.target.street.value,
              number: e.target.number.value,
              postcode: e.target.postcode.value
