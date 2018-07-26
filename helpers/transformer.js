@@ -91,7 +91,7 @@ exports.gebouwFetcher = async (params) => {
                 let file_data = JSON.parse(data);
                 let should_push = true;
                 for(let i = 0; i < file_data["dcat:dataset"].length; i++){
-                    if (file_data["dcat:dataset"][i]["dcat:distribution"][0]["dcat:accessUrl"] === `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen${JSON.parse(gebouwId).gebouw.objectId}.json`){
+                    if (file_data["dcat:dataset"][i]["dcat:distribution"][0]["dcat:accessUrl"] === `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`){
                         should_push = false;
                         break;
                     }
@@ -102,7 +102,7 @@ exports.gebouwFetcher = async (params) => {
                         "dcat:keyword": "http://data.vlaanderen.be/ns/gebouw#Gebouw",
                         "dcat:distribution": [{
                             "@type": "dcat:Distribution",
-                            "dcat:accessUrl": `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen${JSON.parse(gebouwId).gebouw.objectId}.json`,
+                            "dcat:accessUrl": `http://smartflanders.ilabt.imec.be/graph/${params.postcode}/gebouwen/${JSON.parse(gebouwId).gebouw.objectId}.json`,
                             "dcat:mediaType": "text/html"
                         }]
                     });
