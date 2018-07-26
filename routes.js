@@ -37,7 +37,6 @@ router.post('/gebouwunits', async (req, res, next) => {
     try {
         res.status(200);
         let response = await transformerController.getGebouwEenheden(req.body)
-        console.log(JSON.stringify(req.body));
         let params = {gebouwEenheidId : response.gebouweenheden[0].identificator.objectId, postcode: req.body.postcode, street: req.body.street, number: req.body.number};
         let buildingResponse = await transformerController.getGebouwId(params)
         res.send(buildingResponse)
