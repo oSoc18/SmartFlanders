@@ -6,7 +6,7 @@ Using a form, the city can describe several aspects of an address: opening hours
 
 ## Parts of the project
 The Smart Flanders project consists of 3 parts:
-- [Linked Open Data generator too](http://smartflanders.ilabt.imec.be)
+- [Linked Open Data generator](http://smartflanders.ilabt.imec.be)
 - [Our Github repository](https://www.github.com/oSoc18/SmartFlanders)
 - [Our blog](https://osoc18.github.io/SmartFlanders-blog) with it’s own [repository](https://www.github.com/oSoc18/SmartFlanders-blog)
 
