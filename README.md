@@ -9,6 +9,16 @@ The Smart Flanders project consists of 2 parts:
 - [Linked Open Data generator](http://smartflanders.ilabt.imec.be)
 - [Our blog](https://osoc18.github.io/SmartFlanders-blog) with it’s own [repository](https://www.github.com/oSoc18/SmartFlanders-blog)
 
+## Front end
+
+Here you can find the wireframes for the homepage, overviewpage, detailpage and the page to add a new service. Due some technical requirements, the searchbar on the homepage is replaced by multiple search fields for the actual implementation. For the detailpage were multiple possible wireframes drawn but eventually the second one is implemented.
+
+- Homepage
+- Overviewpage with found buildings
+- Detailpage with information about building
+- Add service page
+
+Front endThe development of the front end has been a rollercoaster. We went from vanilla JavaScript and Pug templates to our final result as a React application with Redux. React makes it easy to create interactive UIs and design simple views for each state in the application. React is component-based which means that the build encapsulates components that manage their own state.  Since component logic is written in JavaScript instead of templates, it is easily to pass data through the application. 
 
 ## Back end
 
@@ -47,5 +57,3 @@ Adds a service to the graph, linked to a building.
 
 - **/schema.json**:
 Serves the `schema.org` JSON-LD context from our server to speed up the AccessFlanders application.
-
-## Front end
